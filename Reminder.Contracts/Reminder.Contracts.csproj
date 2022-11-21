@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="DataAccessLayer\Interfaces\" />
+    <Folder Include="DataAccessLayer\Implementations\" />
   </ItemGroup>
 
 </Project>
