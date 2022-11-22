@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Reminder.Contracts.Models
+﻿namespace Reminder.Contracts.Models
 {
-    public class Persons
+    public class Person
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
@@ -16,6 +10,6 @@ namespace Reminder.Contracts.Models
         public DateTime Birthday { get; set; }
         public int Age { get; set; }
         public int Days { get; set; }
-        public string Base64 { get; set; }
+        public string? Base64 { get; set; }
     }
 }
