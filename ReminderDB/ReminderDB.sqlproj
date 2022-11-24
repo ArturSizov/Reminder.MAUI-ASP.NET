@@ -70,4 +70,10 @@
     <Build Include="dbo\StoredProchedyres\Person\spPerson_Insert.sql" />
     <Build Include="dbo\StoredProchedyres\Person\spPerson_Update.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReminderDB.publish.xml" />
+  </ItemGroup>
 </Project>
