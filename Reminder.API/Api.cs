@@ -12,7 +12,6 @@ namespace Reminder.API
             app.MapPost("/persons", InsertPerson);
             app.MapPut("/persons", UpdatePerson);
             app.MapDelete("/persons", DeletePerson);
-
         }
 
         private static async Task<IResult> GetPersons(IPersonData data)

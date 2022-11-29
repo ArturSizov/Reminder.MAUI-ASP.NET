@@ -55,7 +55,6 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public Task UpdatePerson(Person person) => _db.SaveData("dbo.spPerson_Update", person);
 
-
         /// <summary>
         /// Delete persona
         /// </summary>
