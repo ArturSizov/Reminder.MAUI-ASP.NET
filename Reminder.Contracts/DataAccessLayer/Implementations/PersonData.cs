@@ -25,7 +25,7 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task<Person?> GetPerson(int id)
         {
-            var results = await _db.LoadData<Person, dynamic>("dbo.spPerson_Get", new { Id = id });
+            var results = await _db.LoadData<Person, dynamic>("dbo.spPersonGet", new { Id = id });
 
             return results.FirstOrDefault();
         }

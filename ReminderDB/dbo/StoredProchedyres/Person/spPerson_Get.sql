@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spPersonGet]
+﻿CREATE PROCEDURE [dbo].[spPerson_Get]
 	@Id int
 AS
 begin
