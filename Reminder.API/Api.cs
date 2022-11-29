@@ -1,9 +1,5 @@
 ﻿using Reminder.Contracts.DataAccessLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Reminder.Contracts.Models;
 
 namespace Reminder.API
 {
@@ -13,6 +9,10 @@ namespace Reminder.API
         {
             app.MapGet("/persons", GetPersons);
             app.MapGet("/persons/{id}", GetPerson);
+            app.MapPost("/persons", InsertPerson);
+            app.MapPut("/persons", UpdatePerson);
+            app.MapDelete("/persons", DeletePerson);
+
         }
 
         private static async Task<IResult> GetPersons(IPersonData data)
@@ -35,6 +35,48 @@ namespace Reminder.API
                 var result = await data.GetPerson(id);
                 if (result == null) return Results.NotFound();
                 return Results.Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return Results.Problem(ex.Message);
+            }
+        }
+
+        private static async Task<IResult> DeletePerson(int id, IPersonData data)
+        {
+            try
+            {
+                await data.DeletePerson(id);
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return Results.Problem(ex.Message);
+            }
+        }
+
+        private static async Task<IResult> InsertPerson(Person person, IPersonData data)
+        {
+            try
+            {
+                await data.InsertPerson(person);
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return Results.Problem(ex.Message);
+            }
+        }
+
+        private static async Task<IResult> UpdatePerson(Person person, IPersonData data)
+        {
+            try
+            {
+                await data.UpdatePerson(person);
+                return Results.Ok();
             }
             catch (Exception ex)
             {
