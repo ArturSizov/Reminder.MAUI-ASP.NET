@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Reminder.MAUI.ViewModels;
+using Reminder.MAUI.Views;
 
 namespace Reminder.MAUI
 {
@@ -14,6 +16,9 @@ namespace Reminder.MAUI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddSingleton<PersonsPageViewModel>();
+            builder.Services.AddSingleton<PersonsPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

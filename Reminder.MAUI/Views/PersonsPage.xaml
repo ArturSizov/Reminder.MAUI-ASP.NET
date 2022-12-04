@@ -2,11 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reminder.MAUI.Views.PersonsPage"
-             Title="PersonsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:Reminder.MAUI.ViewModels"
+             xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
+             x:DataType="vm:PersonsPageViewModel"
+             Title="{Binding Title}">
+
+    <CollectionView ItemsSource="{Binding Persons}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="model:Person">
+                <HorizontalStackLayout Padding="10">
+                    <Image Source="https://www.1zoom.ru/prev/26/25959.jpg"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           Aspect="AspectFill"/>
+
+                    <VerticalStackLayout Padding="10" Spacing="10" VerticalOptions="Center">
+                    <Label Text="{Binding Name}"/>
+                    <Label Text="{Binding LastName}" FontSize="10"/>
+                </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>
