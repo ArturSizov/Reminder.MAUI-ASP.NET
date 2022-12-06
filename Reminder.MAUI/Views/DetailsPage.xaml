@@ -6,11 +6,51 @@
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              x:DataType="vm:DetailsPageViewModel"
              Title="{Binding Person.Name}">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Person.MiddleName}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,*,*"
+                  RowDefinitions="Auto,Auto,Auto">
+                <BoxView BackgroundColor="{StaticResource Primary}"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="3"
+                        HorizontalOptions="FillAndExpand"/>
+
+                <Frame BackgroundColor="Red"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"
+                    VerticalOptions="Center"
+                    CornerRadius="80"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    Padding="0"
+                    Margin="0,80,0,0">
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="160"
+                        WidthRequest="160"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="Center"
+                        Source="https://i.pinimg.com/736x/2f/20/2f/2f202f236baf7f49eb5fe61fcf72cfd5.jpg"/>
+                            
+                </Frame>
+
+            </Grid>
+
+            <VerticalStackLayout
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Padding="10" Spacing="10">
+
+                <Label Text="{Binding Person.Name}"/>
+                <Label Text="{Binding Person.LastName}"/>
+                <Label Text="{Binding Person.MiddleName}"/>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

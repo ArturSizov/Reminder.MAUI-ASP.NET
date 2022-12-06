@@ -38,8 +38,7 @@
                                                        VerticalOptions="Center">
                                     <Label Text="{Binding Name}"/>
                                     <Label Text="{Binding LastName}"/>
-                                    <Label Text="{Binding MiddleName}"
-                                           Style="{StaticResource LabelCustom}"/>
+                                    <Label Text="{Binding MiddleName}"/>
                                 </HorizontalStackLayout>
                                 
                             </Grid>
@@ -51,8 +50,7 @@
         </CollectionView>
 
         <Button Text="Добавить" Grid.Row="1" Grid.Column="0"
-                Margin="8"
-                Style="{StaticResource ButtonCustom}"/>
+                Margin="8"/>
         <Button Text="Отчет" Grid.Row="1" Grid.Column="1"
                 Margin="8"/>
 
