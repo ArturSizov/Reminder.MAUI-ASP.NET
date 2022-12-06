@@ -1,4 +1,6 @@
-﻿namespace Reminder.MAUI
+﻿using Reminder.MAUI.Views;
+
+namespace Reminder.MAUI
 {
     public partial class App : Application
     {

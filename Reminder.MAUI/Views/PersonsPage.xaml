@@ -4,24 +4,55 @@
              x:Class="Reminder.MAUI.Views.PersonsPage"
              xmlns:vm="clr-namespace:Reminder.MAUI.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
-             x:DataType="vm:PersonsPageViewModel"
-             Title="{Binding Title}">
+             x:DataType="vm:PersonsPageViewModel">
 
-    <CollectionView ItemsSource="{Binding Persons}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="model:Person">
-                <HorizontalStackLayout Padding="10">
-                    <Image Source="https://www.1zoom.ru/prev/26/25959.jpg"
-                           HeightRequest="100"
-                           WidthRequest="100"
-                           Aspect="AspectFill"/>
+    <Grid ColumnDefinitions="*, *"
+          ColumnSpacing="5"
+          RowDefinitions="*, Auto"
+          RowSpacing="0">
 
-                    <VerticalStackLayout Padding="10" Spacing="10" VerticalOptions="Center">
-                    <Label Text="{Binding Name}"/>
-                    <Label Text="{Binding LastName}" FontSize="10"/>
-                </VerticalStackLayout>
-                </HorizontalStackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+        <CollectionView Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Persons}"
+                        SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Person">
+                    <Grid Padding="10">
+                        <Frame HeightRequest="120">
+                            <Grid ColumnDefinitions="125, *"
+                                  Padding="0">
+                                <Border Grid.Column="0">
+                                    <Image
+                                       Aspect="AspectFill"
+                                       Source="https://i.pinimg.com/736x/2f/20/2f/2f202f236baf7f49eb5fe61fcf72cfd5.jpg"
+                                       HeightRequest="100"
+                                       WidthRequest="100"/>
+                                </Border>
+                                
+                                <HorizontalStackLayout Grid.Column="1"
+                                                       Padding="10"
+                                                       Spacing="5"
+                                                       VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text="{Binding LastName}"/>
+                                    <Label Text="{Binding MiddleName}"
+                                           Style="{StaticResource LabelCustom}"/>
+                                </HorizontalStackLayout>
+                                
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+
+        <Button Text="Добавить" Grid.Row="1" Grid.Column="0"
+                Margin="8"
+                Style="{StaticResource ButtonCustom}"/>
+        <Button Text="Отчет" Grid.Row="1" Grid.Column="1"
+                Margin="8"/>
+
+    </Grid>
 </ContentPage>

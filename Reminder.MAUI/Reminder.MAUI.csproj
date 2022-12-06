@@ -49,6 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\home.png" />
+	  <None Remove="Resources\Images\image.png" />
+	  <None Remove="Resources\Images\menu.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Prism.Core" Version="8.1.97" />
 	</ItemGroup>
@@ -58,6 +64,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\FlyoutReminder.xaml.cs">
+	    <DependentUpon>FlyoutReminder.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\CustomStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\FlyoutReminder.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PersonsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.MAUI.ViewModels;
 using Reminder.MAUI.Views;
 

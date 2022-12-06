@@ -7,13 +7,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Reminder.Contracts.DataAccessLayer.Interfaces;
 
 namespace Reminder.MAUI.ViewModels
 {
-    public class PersonsPageViewModel : BindableBase
+    public class PersonsPageViewModel : BindableBase 
     {
         #region Privet property
         private ObservableCollection<Person> persons;
+        private readonly IPersonData personData;
         #endregion
 
         #region Public property  
@@ -21,8 +23,10 @@ namespace Reminder.MAUI.ViewModels
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
         #endregion
 
-        public PersonsPageViewModel()
+        public PersonsPageViewModel(/*IPersonData personData*/)
         {
+            //this.personData.GetPersons();
+
            Persons = new ObservableCollection<Person> 
            { 
                new Person
@@ -34,8 +38,19 @@ namespace Reminder.MAUI.ViewModels
                    Days = 55,
                    LastName = "Sizov",
                    MiddleName = "Gennadevich"
+               },
+               new Person
+               {
+                   Name = "Amir",
+                   Age= 30,
+                   Base64 = "image",
+                   Birthday= DateTime.Now,
+                   Days = 55,
+                   LastName = "Sizov",
+                   MiddleName = "Gennadevich"
                }
            };
+            this.personData = personData;
         }
 
     }
