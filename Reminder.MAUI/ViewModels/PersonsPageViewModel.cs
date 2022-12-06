@@ -1,13 +1,10 @@
 ﻿using Prism.Mvvm;
 using Prism.Commands;
 using Reminder.Contracts.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
+using System.Windows.Input;
+using Reminder.MAUI.Views;
 
 namespace Reminder.MAUI.ViewModels
 {
@@ -52,6 +49,17 @@ namespace Reminder.MAUI.ViewModels
            };
             this.personData = personData;
         }
+
+        #region Command
+        public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async(person) =>
+        {
+            await Shell.Current.Navigation.PushAsync(new DetailsPage(new DetailsPageViewModel
+            {
+                Person = person
+            }));
+
+        });
+        #endregion
 
     }
 }

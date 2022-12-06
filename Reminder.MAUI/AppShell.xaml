@@ -3,20 +3,20 @@
     x:Class="Reminder.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Reminder.MAUI.Views"
-    xmlns:local1="clr-namespace:Reminder.MAUI">
+    xmlns:local="clr-namespace:Reminder.MAUI.Views">
 
-    <Shell.TitleView>
-        <HorizontalStackLayout
-            Padding="10">
+    <!--<Shell.TitleView>
+        <HorizontalStackLayout>
             <Image Source="people.png" 
                    WidthRequest="35" 
                    HeightRequest="35"/>
             <Label Text="Reminder" 
-                   TextColor="Yellow" 
+                   TextColor="White"
+                   FontAttributes="Italic"
                    FontSize="25"/>
         </HorizontalStackLayout>
-    </Shell.TitleView>
+    </Shell.TitleView>-->
+    
     <TabBar>
         <Tab
             Title="Меню"
@@ -24,11 +24,11 @@
             <ShellContent
                 Title="Список"
                 Icon="people.png"
-            ContentTemplate="{DataTemplate local:PersonsPage}" />
+                ContentTemplate="{DataTemplate local:PersonsPage}" />
             <ShellContent
                 Title="Отёт"
                 Icon="image.png" 
-            ContentTemplate="{DataTemplate local1:MainPage}" />
+                ContentTemplate="{DataTemplate local:ReportsPage}" />
         </Tab>
     </TabBar>
 </Shell>

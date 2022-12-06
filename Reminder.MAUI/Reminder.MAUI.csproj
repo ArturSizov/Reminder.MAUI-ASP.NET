@@ -64,19 +64,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\FlyoutReminder.xaml.cs">
-	    <DependentUpon>FlyoutReminder.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\CustomStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\FlyoutReminder.xaml">
+	  <MauiXaml Update="Views\DetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PersonsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ReportsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

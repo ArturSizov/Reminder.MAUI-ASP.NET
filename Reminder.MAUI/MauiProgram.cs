@@ -20,9 +20,11 @@ namespace Reminder.MAUI
 
             builder.Services.AddSingleton<PersonsPageViewModel>();
             builder.Services.AddSingleton<PersonsPage>();
+            builder.Services.AddSingleton<DetailsPage>();
+            builder.Services.AddSingleton<DetailsPageViewModel>();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

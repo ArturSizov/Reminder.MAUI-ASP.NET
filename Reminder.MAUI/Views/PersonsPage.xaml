@@ -14,7 +14,9 @@
         <CollectionView Grid.Row="0"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding Persons}"
-                        SelectionMode="None">
+                        SelectionMode="Single"
+                        SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={RelativeSource Self}}"
+                        SelectionChangedCommand="{Binding GoToDetailsPersonCommand}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Person">
