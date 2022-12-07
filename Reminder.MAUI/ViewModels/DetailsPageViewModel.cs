@@ -6,16 +6,16 @@ namespace Reminder.MAUI.ViewModels
     public class DetailsPageViewModel : BindableBase
     {
         #region Private ptoperty
-        private Person person;
+
         #endregion
 
         #region Public property
-        public Person Person { get => person; set => SetProperty(ref person, value); }
+        public Person Person { get; set; }
+        public string Title => $"{Person.LastName} {Person.Name} {Person.MiddleName}";
         #endregion
 
         public DetailsPageViewModel()
         {
-          
         }
     }
 }

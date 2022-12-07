@@ -6,9 +6,17 @@
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              x:DataType="vm:PersonsPageViewModel">
 
-    <Grid ColumnDefinitions="*, *"
+    <Shell.TitleView>
+        <HorizontalStackLayout>
+            <Label Text="{Binding Title}"
+                   Style="{StaticResource BaseLabel}"/>
+            <Button Text="Add" HorizontalOptions="End"/>
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <Grid ColumnDefinitions="*,*"
           ColumnSpacing="5"
-          RowDefinitions="*, Auto"
+          RowDefinitions="*,Auto"
           RowSpacing="0">
 
         <CollectionView Grid.Row="0"
@@ -36,9 +44,9 @@
                                 </Border>
 
                                 <VerticalStackLayout Grid.Column="1"
-                                                       Padding="10"
-                                                       Spacing="5"
-                                                       VerticalOptions="Center">
+                                                     Padding="10"
+                                                     Spacing="5"
+                                                     VerticalOptions="Center">
                                     <Label Style="{StaticResource MediumLabel}">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0} {1} {2}">
@@ -57,8 +65,11 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <VerticalStackLayout Grid.Row="1">
-            <Button Text="Text" Command="{Binding GoToDetailsPersonCommand}"/>
-        </VerticalStackLayout>
+        <HorizontalStackLayout 
+            Grid.Row="1" 
+            Grid.Column="3">
+            <Button Text="Add" 
+                    HorizontalOptions="End"/>
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>

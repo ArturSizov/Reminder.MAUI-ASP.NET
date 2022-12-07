@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:Reminder.MAUI.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              x:DataType="vm:DetailsPageViewModel"
-             Title="{Binding Person.Name}">
+             Title="{Binding Title}">
 
     <ScrollView>
         <VerticalStackLayout>

@@ -50,8 +50,6 @@
     </Shell.Resources>
 
     <ShellContent
-                Title="Список"
-                Icon="people.png"
                 ContentTemplate="{DataTemplate local:PersonsPage}"/>
    
 </Shell>
