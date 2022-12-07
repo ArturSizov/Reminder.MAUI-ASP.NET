@@ -14,45 +14,51 @@
         <CollectionView Grid.Row="0"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding Persons}"
-                        SelectionMode="Single"
-                        SelectionChangedCommandParameter="{Binding Path=SelectedItem, Source={RelativeSource Self}}"
-                        SelectionChangedCommand="{Binding GoToDetailsPersonCommand}">
+                        SelectionMode="None">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Person">
                     <Grid Padding="10">
-                        <Frame HeightRequest="120">
-                            <Grid ColumnDefinitions="125, *"
+                        <Frame HeightRequest="120" Style="{StaticResource CardView}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PersonsPageViewModel}}, Path=GoToDetailsPersonCommand}"
+                                            CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="125,*"
                                   Padding="0">
                                 <Border Grid.Column="0">
                                     <Image
                                        Aspect="AspectFill"
-                                       Source="https://i.pinimg.com/736x/2f/20/2f/2f202f236baf7f49eb5fe61fcf72cfd5.jpg"
+                                       Source="{Binding Base64}"
                                        HeightRequest="100"
                                        WidthRequest="100"/>
                                 </Border>
-                                
-                                <HorizontalStackLayout Grid.Column="1"
+
+                                <VerticalStackLayout Grid.Column="1"
                                                        Padding="10"
                                                        Spacing="5"
                                                        VerticalOptions="Center">
-                                    <Label Text="{Binding Name}"/>
-                                    <Label Text="{Binding LastName}"/>
-                                    <Label Text="{Binding MiddleName}"/>
-                                </HorizontalStackLayout>
-                                
+                                    <Label Style="{StaticResource MediumLabel}">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="LastName"/>
+                                                <Binding Path="MiddleName"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Label Style="{StaticResource MicroLabel}" 
+                                           Text="{Binding Source={RelativeSource AncestorType={Type vm:PersonsPageViewModel}}, Path=DetailInformation}"/>
+                                </VerticalStackLayout>
                             </Grid>
                         </Frame>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            
         </CollectionView>
-
-        <Button Text="Добавить" Grid.Row="1" Grid.Column="0"
-                Margin="8"/>
-        <Button Text="Отчет" Grid.Row="1" Grid.Column="1"
-                Margin="8"/>
-
+        <VerticalStackLayout Grid.Row="1">
+            <Button Text="Text" Command="{Binding GoToDetailsPersonCommand}"/>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

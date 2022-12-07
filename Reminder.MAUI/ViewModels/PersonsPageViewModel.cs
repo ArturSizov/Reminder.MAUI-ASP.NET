@@ -18,6 +18,7 @@ namespace Reminder.MAUI.ViewModels
         #region Public property  
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
+        public string DetailInformation { get; set; }
         #endregion
 
         public PersonsPageViewModel(/*IPersonData personData*/)
@@ -30,7 +31,7 @@ namespace Reminder.MAUI.ViewModels
                {
                    Name = "Artur",
                    Age= 30,
-                   Base64 = "image",
+                   Base64 = "https://klike.net/uploads/posts/2022-07/1657089857_1.jpg",
                    Birthday= DateTime.Now,
                    Days = 55,
                    LastName = "Sizov",
@@ -40,7 +41,17 @@ namespace Reminder.MAUI.ViewModels
                {
                    Name = "Amir",
                    Age= 30,
-                   Base64 = "image",
+                   Base64 = "https://kartinkof.club/uploads/posts/2022-03/1648632825_1-kartinkof-club-p-smeshnie-kartinki-multiki-1.jpg",
+                   Birthday= DateTime.Now,
+                   Days = 55,
+                   LastName = "Sizov",
+                   MiddleName = "Gennadevich"
+               },
+                new Person
+               {
+                   Name = "Adel",
+                   Age= 30,
+                   Base64 = "https://i.pinimg.com/550x/80/5c/7a/805c7ad0484dfc4e1dffba153e1e5e8e.jpg",
                    Birthday= DateTime.Now,
                    Days = 55,
                    LastName = "Sizov",
@@ -48,6 +59,8 @@ namespace Reminder.MAUI.ViewModels
                }
            };
             this.personData = personData;
+
+            DetailInformation = "Осталось 150 дней до дня рождения";
         }
 
         #region Command
@@ -57,7 +70,6 @@ namespace Reminder.MAUI.ViewModels
             {
                 Person = person
             }));
-
         });
         #endregion
 
