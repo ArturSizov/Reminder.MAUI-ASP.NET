@@ -1,24 +1,13 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
-using Reminder.Contracts.Models;
 using System.Windows.Input;
 
 namespace Reminder.MAUI.ViewModels
 {
-    public class DetailsPageViewModel : BindableBase
+    public class RerportsPageViewModel
     {
-        #region Private ptoperty
-
-        #endregion
-
         #region Public property
-        public Person Person { get; set; }
-        public string Title => $"{Person.LastName} {Person.Name} {Person.MiddleName}";
+        public string Title => "Отчёт";
         #endregion
-
-        public DetailsPageViewModel()
-        {
-        }
 
         #region Commands
         public ICommand BackCommand => new DelegateCommand(async () =>

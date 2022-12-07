@@ -4,9 +4,26 @@
              x:Class="Reminder.MAUI.Views.DetailsPage"
              xmlns:vm="clr-namespace:Reminder.MAUI.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
-             x:DataType="vm:DetailsPageViewModel"
-             Title="{Binding Title}">
+             x:DataType="vm:DetailsPageViewModel">
 
+    <Shell.TitleView>
+        <HorizontalStackLayout>
+            <ImageButton Source="back.png"
+                         BackgroundColor="Transparent"
+                         HeightRequest="40"
+                         WidthRequest="40"
+                         Margin="2"
+                         Command="{Binding BackCommand}"/>
+            <Label Text="{Binding Title}"
+               Style="{StaticResource TitleLebel}"/>
+        </HorizontalStackLayout>
+        
+    </Shell.TitleView>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+    
     <ScrollView>
         <VerticalStackLayout>
             <Grid ColumnDefinitions="*,*,*"
@@ -41,7 +58,6 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     Padding="10" Spacing="10">
-
                 <Label Text="{Binding Person.Name}"/>
                 <Label Text="{Binding Person.LastName}"/>
                 <Label Text="{Binding Person.MiddleName}"/>

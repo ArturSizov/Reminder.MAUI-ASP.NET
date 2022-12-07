@@ -64,6 +64,15 @@
                 <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="IsClippedToBounds" Value="True"/>
             </Style>
+            <Style x:Key="TitleLebel" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontFamily" Value="OpenSansSemibold" />
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="5,0,0,0"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 

@@ -7,11 +7,21 @@
              x:DataType="vm:PersonsPageViewModel">
 
     <Shell.TitleView>
-        <HorizontalStackLayout>
-            <Label Text="{Binding Title}"
-                   Style="{StaticResource BaseLabel}"/>
-            <Button Text="Add" HorizontalOptions="End"/>
-        </HorizontalStackLayout>
+        <Grid
+            ColumnDefinitions="*,*">
+            <Label Grid.Column="0"
+                       Text="{Binding Title}"
+                       Style="{StaticResource TitleLebel}"/>
+
+            <ImageButton Grid.Column="1"
+                         Source="home.png"
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         Margin="0,0,10,0"
+                         HorizontalOptions="End"
+                         Command="{Binding GoToReportsCommand}"/>
+        </Grid>
+        
     </Shell.TitleView>
 
     <Grid ColumnDefinitions="*,*"
@@ -34,7 +44,8 @@
                                             CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                             <Grid ColumnDefinitions="125,*"
-                                  Padding="0">
+                                  Padding="0" 
+                                  HeightRequest="120">
                                 <Border Grid.Column="0">
                                     <Image
                                        Aspect="AspectFill"
@@ -65,11 +76,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <HorizontalStackLayout 
-            Grid.Row="1" 
-            Grid.Column="3">
-            <Button Text="Add" 
-                    HorizontalOptions="End"/>
-        </HorizontalStackLayout>
     </Grid>
 </ContentPage>
