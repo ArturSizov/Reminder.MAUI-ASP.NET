@@ -49,10 +49,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\add_person.png" />
 	  <None Remove="Resources\Images\back.png" />
-	  <None Remove="Resources\Images\home.png" />
-	  <None Remove="Resources\Images\image.png" />
-	  <None Remove="Resources\Images\menu.png" />
 	</ItemGroup>
 
 	<ItemGroup>

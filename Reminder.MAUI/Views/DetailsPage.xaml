@@ -28,11 +28,14 @@
         <VerticalStackLayout>
             <Grid ColumnDefinitions="*,*,*"
                   RowDefinitions="Auto,Auto,Auto">
-                    <BoxView BackgroundColor="{StaticResource Primary}"
+                
+                <BoxView BackgroundColor="{StaticResource Primary}"
                              Grid.RowSpan="2"
                              Grid.ColumnSpan="3"
                              HorizontalOptions="Fill"
-                             VerticalOptions="Fill"/>
+                             VerticalOptions="Fill">
+                    
+                </BoxView>
 
                 <Frame Grid.Row="0"
                        Grid.Column="0"

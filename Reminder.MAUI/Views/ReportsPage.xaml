@@ -19,4 +19,8 @@
         </HorizontalStackLayout>
     </Shell.TitleView>
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
 </ContentPage>

@@ -14,10 +14,11 @@
                        Style="{StaticResource TitleLebel}"/>
 
             <ImageButton Grid.Column="1"
-                         Source="home.png"
+                         BackgroundColor="Transparent"
+                         Source="add_person.png"
                          WidthRequest="30"
                          HeightRequest="30"
-                         Margin="0,0,10,0"
+                         Margin="0,0,15,0"
                          HorizontalOptions="End"
                          Command="{Binding GoToReportsCommand}"/>
         </Grid>
@@ -28,7 +29,7 @@
           ColumnSpacing="5"
           RowDefinitions="*,Auto"
           RowSpacing="0">
-
+        
         <CollectionView Grid.Row="0"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding Persons}"
@@ -48,10 +49,10 @@
                                   HeightRequest="120">
                                 <Border Grid.Column="0">
                                     <Image
-                                       Aspect="AspectFill"
-                                       Source="{Binding Base64}"
-                                       HeightRequest="100"
-                                       WidthRequest="100"/>
+                                           Aspect="AspectFill"
+                                           Source="{Binding Base64}"
+                                           HeightRequest="100"
+                                           WidthRequest="100"/>
                                 </Border>
 
                                 <VerticalStackLayout Grid.Column="1"
