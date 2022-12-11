@@ -5,6 +5,9 @@
              x:Class="Reminder.MAUI.App">
     <Application.Resources>
         <ResourceDictionary>
+
+            <ResourceDictionary Source="Resources/Styles/CustomStyle.xaml"/>
+
             <Color x:Key="Primary">#FFC107</Color>
             <Color x:Key="PrimaryDark">#FFA000</Color>
             <Color x:Key="Accent">#00BCD4</Color>
@@ -25,22 +28,28 @@
 
             <Style TargetType="Label" x:Key="BaseLabel">
                 <Setter Property="FontFamily" Value="OpenSansRegular" />
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
                 <Setter Property="TextColor" Value="#1F1F1F" />
             </Style>
 
             <Style x:Key="MicroLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
                 <Setter Property="FontSize" Value="10"/>
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
             </Style>
 
             <Style x:Key="SmallLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
 
             <Style x:Key="MediumLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
 
             <Style x:Key="LargeLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="LineBreakMode" Value="WordWrap"/>
                 <Setter Property="FontSize" Value="20"/>
             </Style>
 

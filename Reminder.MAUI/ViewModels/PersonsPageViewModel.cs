@@ -80,7 +80,7 @@ namespace Reminder.MAUI.ViewModels
         public ICommand GoToReportsCommand => new DelegateCommand(async () =>
         {
             await Shell.Current.Navigation.PushAsync(new ReportsPage(new RerportsPageViewModel()));
-          
+
         });
         #endregion
 

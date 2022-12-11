@@ -49,8 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\add_image.png" />
 	  <None Remove="Resources\Images\add_person.png" />
 	  <None Remove="Resources\Images\back.png" />
+	  <None Remove="Resources\Images\compose.png" />
+	  <None Remove="Resources\Images\remove_person.png" />
+	  <None Remove="Resources\Images\save.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,6 +68,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\CustomStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AddPersonPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DetailsPage.xaml">
