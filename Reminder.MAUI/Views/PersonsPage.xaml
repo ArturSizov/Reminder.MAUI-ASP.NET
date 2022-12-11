@@ -20,7 +20,7 @@
                          HeightRequest="30"
                          Margin="0,0,15,0"
                          HorizontalOptions="End"
-                         Command="{Binding GoToReportsCommand}"/>
+                         Command="{Binding GoToAddPersonCommand}"/>
         </Grid>
         
     </Shell.TitleView>

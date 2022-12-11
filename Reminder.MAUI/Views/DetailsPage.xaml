@@ -55,7 +55,7 @@
                                TextColor="White"/>
                         </Grid>
                     </Border>
-                        <Frame Grid.Row="0"
+                    <Frame Grid.Row="0"
                                Grid.Column="0"
                                Grid.ColumnSpan="3"
                                Grid.RowSpan="3"
@@ -65,23 +65,23 @@
                                IsClippedToBounds="True"
                                Padding="0"
                                Margin="0,80,0,0">
-                            <AbsoluteLayout>
-                                <Image Grid.Column="0"
+                        <AbsoluteLayout>
+                            <Image Grid.Column="0"
                                    Aspect="AspectFit"
                                    HeightRequest="160"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
                                    Source="{Binding Person.Base64}"
                                    WidthRequest="160"/>
-                                <ImageButton Source="add_image.png"
+                            <ImageButton Source="add_image.png"
                                      IsVisible="{Binding IsEnabled}"
                                      Command="{Binding AddImageCommand}"
                                      BackgroundColor="Transparent"
                                      WidthRequest="40"
                                      HeightRequest="40"
                                      Margin="100,100,0,0"/>
-                            </AbsoluteLayout>
-                        </Frame>
+                        </AbsoluteLayout>
+                    </Frame>
                 </Grid>
 
                 <VerticalStackLayout
@@ -138,6 +138,4 @@
                      Source="remove_person.png"
                      Command="{Binding DeleteCommand}"/>
     </Grid>
-    
-    
 </ContentPage>

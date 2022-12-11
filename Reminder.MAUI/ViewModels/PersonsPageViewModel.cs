@@ -12,7 +12,7 @@ namespace Reminder.MAUI.ViewModels
     {
         #region Privet property
         private ObservableCollection<Person> persons;
-        private readonly IPersonData personData;
+        private readonly IPersonData data;
         #endregion
 
         #region Public property  
@@ -21,11 +21,14 @@ namespace Reminder.MAUI.ViewModels
         public string DetailInformation { get; set; }
         #endregion
 
-        public PersonsPageViewModel(/*IPersonData personData*/)
+        public PersonsPageViewModel(IPersonData data)
         {
-            //this.personData.GetPersons();
+            this.data = data;
 
-           Persons = new ObservableCollection<Person> 
+            data.GetPersons();
+
+
+            Persons = new ObservableCollection<Person> 
            { 
                new Person
                {
@@ -58,7 +61,6 @@ namespace Reminder.MAUI.ViewModels
                    MiddleName = "Артурович"
                }
            };
-            this.personData = personData;
 
             DetailInformation = "Осталось 150 дней до дня рождения";
         }
@@ -66,7 +68,7 @@ namespace Reminder.MAUI.ViewModels
         #region Command
         public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async(person) =>
         {
-            await Shell.Current.Navigation.PushAsync(new DetailsPage(new DetailsPageViewModel
+            await Shell.Current.Navigation.PushAsync(new DetailsPage(new DetailsPageViewModel(data)
             {
                 Person = person
             }));
@@ -74,7 +76,7 @@ namespace Reminder.MAUI.ViewModels
 
         public ICommand GoToAddPersonCommand => new DelegateCommand(async() =>
         {
-            await Shell.Current.DisplayAlert("Hello", $"{DetailInformation}", "Ok");
+            await Shell.Current.Navigation.PushAsync(new AddPersonPage(new AddPersonPageViewModel(data)));
         });
 
         public ICommand GoToReportsCommand => new DelegateCommand(async () =>
