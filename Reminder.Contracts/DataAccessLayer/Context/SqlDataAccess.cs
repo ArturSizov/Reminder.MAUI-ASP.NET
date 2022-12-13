@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Data;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
+using System.Data.SQLite;
 
 namespace Reminder.Contracts.DataAccessLayer.Context
 {
@@ -26,7 +27,7 @@ namespace Reminder.Contracts.DataAccessLayer.Context
         /// <returns></returns>
         public async Task<IEnumerable<T>> LoadData<T, U>(string storedProcedure, U parametrs, string connectionId = "Default")
         {
-            using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionId));
+            using IDbConnection connection = new SQLiteConnection(_configuration.GetConnectionString(connectionId));
 
             return await connection.QueryAsync<T>(storedProcedure, parametrs, commandType: CommandType.StoredProcedure);
         }
@@ -41,7 +42,7 @@ namespace Reminder.Contracts.DataAccessLayer.Context
         /// <returns></returns>
         public async Task SaveData<T>(string storedProcedure, T parametrs, string connectionId = "Default")
         {
-            using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionId));
+            using IDbConnection connection = new SQLiteConnection(_configuration.GetConnectionString(connectionId));
 
             await connection.ExecuteAsync(storedProcedure, parametrs, commandType: CommandType.StoredProcedure);
         }

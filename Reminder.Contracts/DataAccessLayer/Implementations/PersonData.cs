@@ -1,15 +1,23 @@
-﻿using Reminder.Contracts.DataAccessLayer.Interfaces;
+﻿using Dapper;
+using System.Data.SQLite;
+using Microsoft.Extensions.Configuration;
+using Reminder.Contracts.DataAccessLayer.Context;
+using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
+using System.Data;
+using System.Reflection.Metadata;
 
 namespace Reminder.Contracts.DataAccessLayer.Implementations
 {
     public class PersonData : IPersonData
     {
         private readonly ISqlDataAccess _db;
+        private readonly IDataProvider data;
 
-        public PersonData(ISqlDataAccess db)
+        public PersonData(ISqlDataAccess db, IDataProvider data)
         {
             _db = db;
+            this.data = data;
         }
 
         /// <summary>
@@ -61,5 +69,12 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <param name="id"></param>
         /// <returns></returns>
         public Task DeletePerson(int id) => _db.SaveData("dbo.spPerson_Delete", new { Id = id });
+
+        private void CreateDatabase()
+        {
+            using IDbConnection connection = data.DbConnection();
+            //connection.Open();
+            //connection.ExecuteAsync("Create Table Persons(ID int, Name varchar(50)) ");
+        }
     }
 }
