@@ -25,42 +25,7 @@ namespace Reminder.MAUI.ViewModels
         {
             this.data = data;
 
-            data.GetPersons();
-
-
-            Persons = new ObservableCollection<Person> 
-           { 
-               new Person
-               {
-                   Name = "Артур",
-                   Age= 30,
-                   Base64 = "https://klike.net/uploads/posts/2022-07/1657089857_1.jpg",
-                   Birthday= DateTime.Now,
-                   Days = 55,
-                   LastName = "Сизов",
-                   MiddleName = "Геннадьевич"
-               },
-               new Person
-               {
-                   Name = "Амир",
-                   Age= 6,
-                   Base64 = "https://kartinkof.club/uploads/posts/2022-03/1648632825_1-kartinkof-club-p-smeshnie-kartinki-multiki-1.jpg",
-                   Birthday= DateTime.Now,
-                   Days = 55,
-                   LastName = "Сизов",
-                   MiddleName = "Артурович"
-               },
-                new Person
-               {
-                   Name = "Адель",
-                   Age= 1,
-                   Base64 = "https://i.pinimg.com/550x/80/5c/7a/805c7ad0484dfc4e1dffba153e1e5e8e.jpg",
-                   Birthday= DateTime.Now,
-                   Days = 55,
-                   LastName = "Сизов",
-                   MiddleName = "Артурович"
-               }
-           };
+            Persons = new ObservableCollection<Person>(data.GetPersons().Result);
 
             DetailInformation = "Осталось 150 дней до дня рождения";
         }

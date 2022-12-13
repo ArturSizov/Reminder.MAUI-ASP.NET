@@ -136,6 +136,7 @@
                      HorizontalOptions="Start"
                      Margin="55,0,0,0"
                      Source="remove_person.png"
+                     CommandParameter="{Binding Person}"
                      Command="{Binding DeleteCommand}"/>
     </Grid>
 </ContentPage>

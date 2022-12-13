@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Implementations;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
@@ -21,11 +22,11 @@ namespace Reminder.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+            builder.Services.AddSingleton<IDataProvider, DataProvider>();
             builder.Services.AddSingleton<IPersonData, PersonData>();
 
-            builder.Services.AddTransient<PersonsPage>();
-            builder.Services.AddTransient<PersonsPageViewModel>();
+            builder.Services.AddSingleton<PersonsPage>();
+            builder.Services.AddSingleton<PersonsPageViewModel>();
             builder.Services.AddTransient<DetailsPage>();
             builder.Services.AddTransient<DetailsPageViewModel>();
             builder.Services.AddTransient<AddPersonPage>();

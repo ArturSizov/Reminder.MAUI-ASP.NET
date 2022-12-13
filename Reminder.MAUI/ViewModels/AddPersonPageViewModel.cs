@@ -49,9 +49,10 @@ namespace Reminder.MAUI.ViewModels
             IsEnabled = true;
         });
 
-        public ICommand SaveCommand => new DelegateCommand(() =>
+        public ICommand SaveCommand => new DelegateCommand(async() =>
         {
-            data.InsertPerson(Person);
+            await data.InsertPerson(Person);
+            await Shell.Current.Navigation.PopToRootAsync();
         });
 
         public ICommand AddImageCommand => new DelegateCommand(async() =>
