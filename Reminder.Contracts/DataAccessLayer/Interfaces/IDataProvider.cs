@@ -4,6 +4,6 @@ namespace Reminder.Contracts.DataAccessLayer.Context
 {
     public interface IDataProvider
     {
-        SQLiteConnection DbConnection();
+        SQLiteConnection DbConnection { get; set; }
     }
 }

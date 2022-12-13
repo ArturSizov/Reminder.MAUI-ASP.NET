@@ -11,40 +11,34 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
 {
     public class PersonData : IPersonData
     {
-        private readonly ISqlDataAccess _db;
         private readonly IDataProvider data;
 
-        public PersonData(ISqlDataAccess db, IDataProvider data)
+        public PersonData(IDataProvider data)
         {
-            _db = db;
             this.data = data;
         }
 
-        /// <summary>
-        /// Loading all persons from the database
-        /// </summary>
-        /// <returns></returns>
-        public Task<IEnumerable<Person>> GetPersons() => _db.LoadData<Person, dynamic>("dbo.spPerson_GetAll", new { });
-
-        /// <summary>
-        /// Returning a person from the database by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Person?> GetPerson(int id)
+        public async Task DeletePerson(int id)
         {
-            var results = await _db.LoadData<Person, dynamic>("dbo.spPersonGet", new { Id = id });
-
-            return results.FirstOrDefault();
+            await data.DbConnection.ExecuteAsync("delete from persons where id=@ID", new { ID = id });
         }
 
-        /// <summary>
-        /// Adding a person
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns></returns>
-        public Task InsertPerson(Person person) => _db.SaveData("dbo.spPerson_Insert",
-            new
+        public Task<Person?> GetPerson(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Person>> GetPersons()
+        {
+            var list = await data.DbConnection.QueryAsync<Person>("select * from Persons");
+            return list;
+        }
+
+        public async Task InsertPerson(Person person)
+        {
+            await data.DbConnection.ExecuteAsync("insert into persons(name,lastname,middleName,position,birthday,age,days,base64)" +
+                "values(@Name,@LastName,@MiddleName,@Position,@Birthday,@Age,@Days,@Base64)", 
+            new 
             {
                 person.Name,
                 person.LastName,
@@ -55,26 +49,11 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
                 person.Birthday,
                 person.Base64
             });
+        }
 
-        /// <summary>
-        /// Persona update
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns></returns>
-        public Task UpdatePerson(Person person) => _db.SaveData("dbo.spPerson_Update", person);
-
-        /// <summary>
-        /// Delete persona
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Task DeletePerson(int id) => _db.SaveData("dbo.spPerson_Delete", new { Id = id });
-
-        private void CreateDatabase()
+        public Task UpdatePerson(Person person)
         {
-            using IDbConnection connection = data.DbConnection();
-            //connection.Open();
-            //connection.ExecuteAsync("Create Table Persons(ID int, Name varchar(50)) ");
+            throw new NotImplementedException();
         }
     }
 }
