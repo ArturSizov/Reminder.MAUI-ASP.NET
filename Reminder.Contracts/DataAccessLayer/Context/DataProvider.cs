@@ -5,13 +5,9 @@ namespace Reminder.Contracts.DataAccessLayer.Context
 {
     public class DataProvider : IDataProvider
     {
-        private string file = Environment.CurrentDirectory + "\\Reminder.sqlite.db";
+        private string file = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Reminder.sqlite.db";
 
         public SQLiteConnection DbConnection { get; set; }
-        //public SQLiteConnection DbConnection()
-        //{
-        //    return new SQLiteConnection("Data Source=" + file);
-        //}
 
         public DataProvider()
         {
