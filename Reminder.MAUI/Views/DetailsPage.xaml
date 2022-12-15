@@ -4,6 +4,7 @@
              x:Class="Reminder.MAUI.Views.DetailsPage"
              xmlns:vm="clr-namespace:Reminder.MAUI.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
+             xmlns:converter="clr-namespace:Reminder.MAUI.Services.Converters"
              x:DataType="vm:DetailsPageViewModel">
 
     <Shell.TitleView>
@@ -23,6 +24,10 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False"/>
     </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="*,45">
         <ScrollView Grid.Row="0">
@@ -71,7 +76,7 @@
                                    HeightRequest="160"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
-                                   Source="{Binding Person.Base64}"
+                                   Source="{Binding Person.Base64, Converter={StaticResource Base64ImageConverter}}"
                                    WidthRequest="160"/>
                             <ImageButton Source="add_image.png"
                                      IsVisible="{Binding IsEnabled}"
@@ -136,7 +141,6 @@
                      HorizontalOptions="Start"
                      Margin="55,0,0,0"
                      Source="remove_person.png"
-                     CommandParameter="{Binding Person}"
                      Command="{Binding DeleteCommand}"/>
     </Grid>
 </ContentPage>

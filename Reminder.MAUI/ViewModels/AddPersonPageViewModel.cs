@@ -1,14 +1,11 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Maui.Graphics;
+using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
+using Reminder.MAUI.Services;
 using Reminder.MAUI.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Reminder.MAUI.ViewModels
@@ -41,7 +38,7 @@ namespace Reminder.MAUI.ViewModels
         #region Commands
         public ICommand BackCommand => new DelegateCommand(async () =>
         {
-            await Shell.Current.Navigation.PopToRootAsync();
+            await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
         });
 
         public ICommand IsEnabledCommand => new DelegateCommand(() =>
@@ -52,39 +49,12 @@ namespace Reminder.MAUI.ViewModels
         public ICommand SaveCommand => new DelegateCommand(async() =>
         {
             await data.InsertPerson(Person);
-            await Shell.Current.Navigation.PopToRootAsync();
+            await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
         });
 
-        public ICommand AddImageCommand => new DelegateCommand(async() =>
+        public ICommand AddImageCommand => new DelegateCommand(() =>
         {
-            var customFileType = new FilePickerFileType(
-               new Dictionary<DevicePlatform, IEnumerable<string>>
-               {
-                    { DevicePlatform.Android, new[] { "application/image" } },
-                    { DevicePlatform.WinUI, new[] { ".jpg", ".png" } }
-               });
-
-            PickOptions options = new()
-            {
-                PickerTitle = "Выберите файл фотографии",
-                FileTypes = customFileType,
-            };
-
-            var result = await FilePicker.Default.PickAsync(options);
-
-            if (result != null)
-            {
-                if (result.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) ||
-                    result.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
-                {
-                    using var stream = await result.OpenReadAsync();
-                    var image = ImageSource.FromStream(() => stream);
-                }
-            }
-            if (result != null)
-            {
-                var p = new MemoryStream(Convert.FromBase64String(result.FullPath));
-            }
+           Helper.AddImage(Person);
         });
         #endregion
     }

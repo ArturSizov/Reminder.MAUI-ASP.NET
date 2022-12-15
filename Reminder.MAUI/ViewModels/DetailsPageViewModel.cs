@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
+using Reminder.MAUI.Services;
 using Reminder.MAUI.Views;
 using System.Windows.Input;
 
@@ -30,7 +31,7 @@ namespace Reminder.MAUI.ViewModels
         #region Commands
         public ICommand BackCommand => new DelegateCommand(async () =>
         {
-            await Shell.Current.Navigation.PopToRootAsync();
+            await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
         });
 
         public ICommand IsEnabledCommand => new DelegateCommand(() =>
@@ -38,21 +39,22 @@ namespace Reminder.MAUI.ViewModels
             IsEnabled = true;
         });
 
-        public ICommand SaveCommand => new DelegateCommand(() =>
+        public ICommand SaveCommand => new DelegateCommand(async() =>
         {
-            IsEnabled = false;
-        });
-
-        public ICommand AddImageCommand => new DelegateCommand(async() =>
-        {
-            await Shell.Current.Navigation.PushAsync(new AddPersonPage(new AddPersonPageViewModel(data)));
+            await data.UpdatePerson(Person);
+            await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
 
         });
 
-        public ICommand DeleteCommand => new DelegateCommand<Person>(async(person) =>
+        public ICommand AddImageCommand => new DelegateCommand(() =>
         {
-            await data.DeletePerson(person.Id);
-            await Shell.Current.Navigation.PopToRootAsync();
+            Helper.AddImage(Person);
+        });
+
+        public ICommand DeleteCommand => new DelegateCommand(async() =>
+        {
+            await data.DeletePerson(Person.Id);
+            await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
         });
         #endregion
     }

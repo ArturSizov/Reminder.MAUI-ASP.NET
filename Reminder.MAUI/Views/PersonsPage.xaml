@@ -4,14 +4,20 @@
              x:Class="Reminder.MAUI.Views.PersonsPage"
              xmlns:vm="clr-namespace:Reminder.MAUI.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
+             xmlns:converter="clr-namespace:Reminder.MAUI.Services.Converters"
              x:DataType="vm:PersonsPageViewModel">
+    
+    <ContentPage.Resources>
+        <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+    </ContentPage.Resources>
 
     <Shell.TitleView>
         <Grid
             ColumnDefinitions="*,*">
             <Label Grid.Column="0"
-                       Text="{Binding Title}"
-                       Style="{StaticResource TitleLebel}"/>
+                   Text="{Binding Title}"
+                   Style="{StaticResource TitleLebel}"
+                   Margin="15,0,0,0"/>
 
             <ImageButton Grid.Column="1"
                          BackgroundColor="Transparent"
@@ -24,6 +30,10 @@
         </Grid>
         
     </Shell.TitleView>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
 
     <Grid ColumnDefinitions="*,*"
           ColumnSpacing="5"
@@ -50,7 +60,7 @@
                                 <Border Grid.Column="0">
                                     <Image
                                            Aspect="AspectFill"
-                                           Source="{Binding Base64}"
+                                           Source="{Binding Base64, Converter={StaticResource Base64ImageConverter}}"
                                            HeightRequest="100"
                                            WidthRequest="100"/>
                                 </Border>
