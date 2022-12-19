@@ -1,5 +1,4 @@
-﻿using Dapper;
-using Reminder.Contracts.Models;
+﻿using Reminder.Contracts.Models;
 using SQLite;
 
 namespace Reminder.Contracts.DataAccessLayer.Context

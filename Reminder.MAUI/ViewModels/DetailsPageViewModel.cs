@@ -46,9 +46,9 @@ namespace Reminder.MAUI.ViewModels
 
         });
 
-        public ICommand AddImageCommand => new DelegateCommand(() =>
+        public ICommand AddImageCommand => new DelegateCommand(async() =>
         {
-            Helper.AddImage(Person);
+            await Helper.AddImage(Person);
         });
 
         public ICommand DeleteCommand => new DelegateCommand(async() =>

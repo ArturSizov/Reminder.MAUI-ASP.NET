@@ -1,9 +1,13 @@
-﻿using SQLite;
+﻿using Prism.Mvvm;
+using SQLite;
 
 namespace Reminder.Contracts.Models
 {
-    public class Person
+    public class Person : BindableBase
     {
+        private string? id;
+        private string? base64;
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -13,6 +17,6 @@ namespace Reminder.Contracts.Models
         public DateTime Birthday { get; set; }
         public int Age { get; set; }
         public int Days { get; set; }
-        public string? Base64 { get; set; }
+        public string? Base64 { get => base64; set => SetProperty(ref base64, value); }
     }
 }

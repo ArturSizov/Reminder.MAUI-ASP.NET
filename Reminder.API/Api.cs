@@ -25,7 +25,6 @@ namespace Reminder.API
                 return Results.Problem(ex.Message);
             }
         }
-
         private static async Task<IResult> GetPerson(int id, IPersonData data)
         {
             try
@@ -40,21 +39,19 @@ namespace Reminder.API
                 return Results.Problem(ex.Message);
             }
         }
-
         private static async Task<IResult> DeletePerson(int id, IPersonData data)
         {
+            var p = new Person { Id = id };
             try
             {
-                await data.DeletePerson(id);
+                await data.DeletePerson(p);
                 return Results.Ok();
             }
             catch (Exception ex)
             {
-
                 return Results.Problem(ex.Message);
             }
         }
-
         private static async Task<IResult> InsertPerson(Person person, IPersonData data)
         {
             try
@@ -68,7 +65,6 @@ namespace Reminder.API
                 return Results.Problem(ex.Message);
             }
         }
-
         private static async Task<IResult> UpdatePerson(Person person, IPersonData data)
         {
             try

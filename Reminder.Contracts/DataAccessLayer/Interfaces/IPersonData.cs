@@ -1,5 +1,4 @@
 ﻿using Reminder.Contracts.Models;
-using System.Collections.ObjectModel;
 
 namespace Reminder.Contracts.DataAccessLayer.Interfaces
 {

@@ -52,9 +52,9 @@ namespace Reminder.MAUI.ViewModels
             await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
         });
 
-        public ICommand AddImageCommand => new DelegateCommand(() =>
+        public ICommand AddImageCommand => new DelegateCommand(async() =>
         {
-           Helper.AddImage(Person);
+           await Helper.AddImage(Person);
         });
         #endregion
     }
