@@ -25,11 +25,17 @@ namespace Reminder.MAUI.ViewModels
         {
             this.data = data;
 
-            Persons = new ObservableCollection<Person>(data.GetPersons().Result);
+            GetPersons();
 
             DetailInformation = "Осталось 150 дней до дня рождения";
         }
 
+        #region Methods
+        public async void GetPersons()
+        {
+            Persons = new ObservableCollection<Person>(await data.GetPersons());
+        }
+        #endregion
         #region Command
         public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async(person) =>
         {

@@ -53,7 +53,7 @@ namespace Reminder.MAUI.ViewModels
 
         public ICommand DeleteCommand => new DelegateCommand(async() =>
         {
-            await data.DeletePerson(Person.Id);
+            await data.DeletePerson(Person);
             await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
         });
         #endregion

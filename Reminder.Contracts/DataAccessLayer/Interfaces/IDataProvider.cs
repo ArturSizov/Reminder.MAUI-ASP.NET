@@ -1,9 +1,9 @@
-﻿using System.Data.SQLite;
+﻿using SQLite;
 
 namespace Reminder.Contracts.DataAccessLayer.Context
 {
     public interface IDataProvider
     {
-        SQLiteConnection DbConnection { get; set; }
+        SQLiteAsyncConnection DbConnection { get; set; }
     }
 }

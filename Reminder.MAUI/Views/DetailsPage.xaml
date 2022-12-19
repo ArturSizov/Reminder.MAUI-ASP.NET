@@ -27,6 +27,7 @@
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+        <converter:MultiConverterBase64 x:Key="MultiConverterBase64"/>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*,45">
@@ -78,6 +79,7 @@
                                    VerticalOptions="Center"
                                    Source="{Binding Person.Base64, Converter={StaticResource Base64ImageConverter}}"
                                    WidthRequest="160"/>
+
                             <ImageButton Source="add_image.png"
                                      IsVisible="{Binding IsEnabled}"
                                      Command="{Binding AddImageCommand}"

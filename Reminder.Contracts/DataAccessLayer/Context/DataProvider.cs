@@ -1,34 +1,37 @@
 ﻿using Dapper;
-using System.Data.SQLite;
+using Reminder.Contracts.Models;
+using SQLite;
 
 namespace Reminder.Contracts.DataAccessLayer.Context
 {
     public class DataProvider : IDataProvider
     {
-        private string file = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Reminder.sqlite.db";
+        private string? file;
 
-        public SQLiteConnection DbConnection { get; set; }
+        public SQLiteAsyncConnection DbConnection { get; set; }
 
         public DataProvider()
         {
-            DbConnection = new SQLiteConnection("Data Source=" + file);
+            SetUpDb();
+        }
 
-            if (!File.Exists(file))
+        #region Methods
+        private async void SetUpDb()
+        {
+            if (DbConnection == null)
             {
-                DbConnection.Open();
-                DbConnection.
-                    ExecuteAsync("Create Table Persons" +
-                    "(ID INTEGER PRIMARY KEY, " +
-                    "Name nvarchar(50), " +
-                    "LastName nvarchar(50), " +
-                    "MiddleName nvarchar(50)," +
-                    "Position nvarchar(50), " +
-                    "Birthday datetime, " +
-                    "Age int, " +
-                    "Days int, " +
-                    "Base64 text)");
+                file = GetDatabasePath("Reminder.sqlite.db");
+                DbConnection = new SQLiteAsyncConnection(file);
+                await DbConnection.CreateTableAsync<Person>();
             }
         }
+        private string GetDatabasePath(string filename)
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var path = Path.Combine(documentsPath, filename);
+            return path;
+        }
+        #endregion
     }
 }
 

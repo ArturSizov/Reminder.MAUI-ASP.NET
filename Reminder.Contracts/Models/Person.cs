@@ -1,7 +1,10 @@
-﻿namespace Reminder.Contracts.Models
+﻿using SQLite;
+
+namespace Reminder.Contracts.Models
 {
     public class Person
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? MiddleName { get; set; }
