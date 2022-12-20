@@ -5,20 +5,20 @@ using System.Collections.ObjectModel;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using System.Windows.Input;
 using Reminder.MAUI.Views;
+using Reminder.MAUI.Services;
 
 namespace Reminder.MAUI.ViewModels
 {
     public class PersonsPageViewModel : BindableBase 
     {
         #region Privet property
-        private ObservableCollection<Person> persons;
+        private ObservableCollection<Person> persons = new();
         private readonly IPersonData data;
         #endregion
 
         #region Public property  
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
-        public string DetailInformation { get; set; }
         #endregion
 
         public PersonsPageViewModel(IPersonData data)
@@ -26,14 +26,18 @@ namespace Reminder.MAUI.ViewModels
             this.data = data;
 
             GetPersons();
-
-            DetailInformation = "Осталось 150 дней до дня рождения";
         }
 
         #region Methods
         public async void GetPersons()
         {
-            Persons = new ObservableCollection<Person>(await data.GetPersons());
+            var persons = new ObservableCollection<Person>(await data.GetPersons());
+
+            foreach (var item in persons)
+            {
+                Helper.CalculateTiming(item);
+                Persons.Add(item);
+            }
         }
         #endregion
         #region Command

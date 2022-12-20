@@ -53,6 +53,7 @@
 	  <None Remove="Resources\Images\add_person.png" />
 	  <None Remove="Resources\Images\back.png" />
 	  <None Remove="Resources\Images\compose.png" />
+	  <None Remove="Resources\Images\noavatar.png" />
 	  <None Remove="Resources\Images\remove_person.png" />
 	  <None Remove="Resources\Images\save.png" />
 	</ItemGroup>

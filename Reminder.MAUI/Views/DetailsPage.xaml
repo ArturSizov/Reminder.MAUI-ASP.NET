@@ -8,9 +8,8 @@
              x:DataType="vm:DetailsPageViewModel">
 
     <Shell.TitleView>
-        <Grid
-            ColumnDefinitions="25,*">
-            <ImageButton Grid.Column="0"
+        <Grid ColumnDefinitions="40,*">
+            <ImageButton Grid.Column="0" 
                          Source="back.png"
                          BackgroundColor="Transparent"
                          HeightRequest="40"
@@ -21,7 +20,7 @@
                    x:DataType="vm:DetailsPageViewModel"
                    Style="{StaticResource TitleLebel}"
                    VerticalTextAlignment="Center"
-                   Margin="15,5,0,0"
+                   Margin="10,0,0,0"
                    LineBreakMode="TailTruncation">
                 <Label.Text>
                     <MultiBinding StringFormat="{}{0} {1} {2}">

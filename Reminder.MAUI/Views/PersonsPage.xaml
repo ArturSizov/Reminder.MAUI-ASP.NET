@@ -9,6 +9,8 @@
     
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+        <converter:SetTextMessageConverter x:Key="SetTextMessageConverter"/>
+        <converter:RowToBrushConverterAge x:Key="RowToBrushConverterAge"/>
     </ContentPage.Resources>
 
     <Shell.TitleView>
@@ -78,8 +80,15 @@
                                             </MultiBinding>
                                         </Label.Text>
                                     </Label>
-                                    <Label Style="{StaticResource MicroLabel}" 
-                                           Text="{Binding Source={RelativeSource AncestorType={Type vm:PersonsPageViewModel}}, Path=DetailInformation}"/>
+                                    <Label Style="{StaticResource MicroLabel}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Style="{StaticResource SpanlCustom}" Text="{Binding Converter={StaticResource SetTextMessageConverter}}"/>
+                                                <Span Style="{StaticResource SpanlCustom}" Text="{Binding Days}" 
+                                                             TextColor="{Binding Converter={StaticResource RowToBrushConverterAge}}" FontSize="16" FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>    
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>
