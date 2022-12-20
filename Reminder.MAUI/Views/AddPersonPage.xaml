@@ -114,7 +114,8 @@
                        Keyboard="Chat"
                        Style="{StaticResource EntyCustom}"/>
 
-                    <DatePicker HorizontalOptions="Center" 
+                    <DatePicker HorizontalOptions="Center"
+                                Date="{Binding Person.Birthday}"
                                 IsEnabled="{Binding IsEnabled}"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
