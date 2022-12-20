@@ -8,17 +8,31 @@
              x:DataType="vm:DetailsPageViewModel">
 
     <Shell.TitleView>
-        <HorizontalStackLayout>
-            <ImageButton Source="back.png"
+        <Grid
+            ColumnDefinitions="25,*">
+            <ImageButton Grid.Column="0"
+                         Source="back.png"
                          BackgroundColor="Transparent"
                          HeightRequest="40"
                          WidthRequest="40"
                          Margin="2"
                          Command="{Binding BackCommand}"/>
-            <Label Text="{Binding Title}"
-               Style="{StaticResource TitleLebel}"/>
-        </HorizontalStackLayout>
-        
+            <Label Grid.Column="1"
+                   x:DataType="vm:DetailsPageViewModel"
+                   Style="{StaticResource TitleLebel}"
+                   VerticalTextAlignment="Center"
+                   Margin="15,5,0,0"
+                   LineBreakMode="TailTruncation">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                        <Binding Path="Person.Name"/>
+                        <Binding Path="Person.LastName"/>
+                        <Binding Path="Person.MiddleName"/>
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+        </Grid>
+
     </Shell.TitleView>
 
     <Shell.BackButtonBehavior>
