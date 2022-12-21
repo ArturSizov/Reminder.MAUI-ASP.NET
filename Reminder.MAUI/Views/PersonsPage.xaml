@@ -80,14 +80,17 @@
                                             </MultiBinding>
                                         </Label.Text>
                                     </Label>
-                                    <Label Style="{StaticResource MediumLabel}">
+                                    <Label>
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding Converter={StaticResource SetTextMessageConverter}}"
-                                                      Style="{StaticResource SpanlCustom}" FontAttributes="None"/>
+                                                      Style="{StaticResource SpanlCustom}" 
+                                                      FontAttributes="None"
+                                                      FontSize="12"/>
                                                 <Span Text="{Binding Days}" 
                                                       TextColor="{Binding Converter={StaticResource RowToBrushConverterAge}}" 
-                                                      Style="{StaticResource SpanlCustom}"/>
+                                                      Style="{StaticResource SpanlCustom}"
+                                                      FontSize="12"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>    
