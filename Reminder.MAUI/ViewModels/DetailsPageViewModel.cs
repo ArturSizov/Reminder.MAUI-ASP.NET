@@ -39,19 +39,19 @@ namespace Reminder.MAUI.ViewModels
             IsEnabled = true;
         });
 
-        public ICommand SaveCommand => new DelegateCommand(async() =>
+        public ICommand SaveCommand => new DelegateCommand(async () =>
         {
             await data.UpdatePerson(Person);
             await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));
 
         });
 
-        public ICommand AddImageCommand => new DelegateCommand(async() =>
+        public ICommand AddImageCommand => new DelegateCommand(async () =>
         {
             await Helper.AddImage(Person);
         });
 
-        public ICommand DeleteCommand => new DelegateCommand(async() =>
+        public ICommand DeleteCommand => new DelegateCommand(async () =>
         {
             await data.DeletePerson(Person);
             await Shell.Current.Navigation.PushAsync(new PersonsPage(new PersonsPageViewModel(data)));

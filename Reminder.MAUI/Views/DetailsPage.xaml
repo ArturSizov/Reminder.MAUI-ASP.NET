@@ -40,7 +40,7 @@
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
-        <converter:MultiConverterBase64 x:Key="MultiConverterBase64"/>
+        <converter:RowToBrushConverterAgeDetailsPage x:Key="RowToBrushConverterAgeDetailsPage"/>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*,45">
@@ -48,7 +48,7 @@
             <VerticalStackLayout>
                 <Grid ColumnDefinitions="*,*,*"
                       RowDefinitions="Auto,Auto,Auto">
-
+                    
                     <Border BackgroundColor="{StaticResource Primary}"
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="3"
@@ -61,29 +61,38 @@
                                Text="{Binding Person.Age, StringFormat='Возраст: {0}'}"
                                FontSize="15"
                                Padding="20"
-                               Style="{StaticResource LargeLabel}"
                                FontAttributes="Bold"
                                TextColor="White"/>
 
-                            <Label HorizontalOptions="End" Grid.Column="2" 
-                               Text="{Binding Person.Days, StringFormat='Осталось дней: {0}'}"
-                               FontSize="15"
-                               Padding="20"
-                               Style="{StaticResource LargeLabel}"
-                               FontAttributes="Bold"
-                               TextColor="White"/>
+                            <Label Grid.Column="2"
+                                   BindingContext="{Binding Person.Days}"
+                                   HorizontalOptions="End"
+                                   FontSize="15"
+                                   Padding="20"
+                                   FontAttributes="Bold">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Осталось дней: " 
+                                              Style="{StaticResource SpanlCustom}"
+                                              TextColor="White"/>
+                                        <Span Text="{Binding .}"
+                                              Style="{StaticResource SpanlCustom}"
+                                              TextColor="{Binding Converter={StaticResource RowToBrushConverterAgeDetailsPage}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </Grid>
                     </Border>
                     <Frame Grid.Row="0"
-                               Grid.Column="0"
-                               Grid.ColumnSpan="3"
-                               Grid.RowSpan="3"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               CornerRadius="80"
-                               IsClippedToBounds="True"
-                               Padding="0"
-                               Margin="0,80,0,0">
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Grid.RowSpan="3"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           CornerRadius="80"
+                           IsClippedToBounds="True"
+                           Padding="0"
+                           Margin="0,80,0,0">
                         <AbsoluteLayout>
                             <Image Grid.Column="0"
                                    Aspect="AspectFit"
