@@ -86,11 +86,11 @@
                                                 <Span Text="{Binding Converter={StaticResource SetTextMessageConverter}}"
                                                       Style="{StaticResource SpanlCustom}" 
                                                       FontAttributes="None"
-                                                      FontSize="12"/>
+                                                      FontSize="13"/>
                                                 <Span Text="{Binding Days}" 
                                                       TextColor="{Binding Converter={StaticResource RowToBrushConverterAge}}" 
                                                       Style="{StaticResource SpanlCustom}"
-                                                      FontSize="12"/>
+                                                      FontSize="13"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>    
