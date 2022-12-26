@@ -46,5 +46,10 @@ namespace Reminder.MAUI.Services
             person.Age = current.Year - person.Birthday.Year;
             if (person.Birthday.Date > current.AddYears(-person.Age)) person.Age--;
         }
+
+        public static string GetDatabasePath(string filename)
+        {
+            return Path.Combine(FileSystem.AppDataDirectory, filename);
+        }
     }
 }

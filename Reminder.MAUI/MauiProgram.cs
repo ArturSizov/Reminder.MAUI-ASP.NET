@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
+using Reminder.Contracts;
 using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Implementations;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
+using Reminder.MAUI.Services;
 using Reminder.MAUI.ViewModels;
 using Reminder.MAUI.Views;
 
@@ -22,9 +24,8 @@ namespace Reminder.MAUI
                 });
 
             // register services
-            builder.Services.AddSingleton<IDataProvider, DataProvider>();
             builder.Services.AddSingleton<IPersonData, PersonData>();
-
+            builder.Services.AddSingleton<IDataProvider>(new DataProvider(Helper.GetDatabasePath("Reminder.sqlite.db")));
             // register pages
             builder.Services.AddSingleton<PersonsPage>();
             builder.Services.AddTransient<DetailsPage>();

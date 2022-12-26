@@ -6,11 +6,13 @@ namespace Reminder.Contracts.DataAccessLayer.Context
     public class DataProvider : IDataProvider
     {
         private string? file;
+        private readonly string fileDb;
 
         public SQLiteAsyncConnection DbConnection { get; set; }
 
-        public DataProvider()
+        public DataProvider(string fileDb)
         {
+            this.fileDb = fileDb;
             SetUpDb();
         }
 
@@ -19,8 +21,8 @@ namespace Reminder.Contracts.DataAccessLayer.Context
         {
             if (DbConnection == null)
             {
-                file = GetDatabasePath("Reminder.sqlite.db");
-                DbConnection = new SQLiteAsyncConnection(file);
+                //file = GetDatabasePath("Reminder.sqlite.db");
+                DbConnection = new SQLiteAsyncConnection(fileDb);
                 await DbConnection.CreateTableAsync<Person>();
             }
         }
