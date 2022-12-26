@@ -13,24 +13,21 @@ namespace Reminder.Contracts.DataAccessLayer.Context
         public DataProvider(string fileDb)
         {
             this.fileDb = fileDb;
+
             SetUpDb();
         }
 
         #region Methods
+        /// <summary>
+        /// Database initialization
+        /// </summary>
         private async void SetUpDb()
         {
             if (DbConnection == null)
             {
-                //file = GetDatabasePath("Reminder.sqlite.db");
                 DbConnection = new SQLiteAsyncConnection(fileDb);
                 await DbConnection.CreateTableAsync<Person>();
             }
-        }
-        private string GetDatabasePath(string filename)
-        {
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var path = Path.Combine(documentsPath, filename);
-            return path;
         }
         #endregion
     }
