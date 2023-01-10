@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reminder.API", "Reminder.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reminder.Contracts", "Reminder.Contracts\Reminder.Contracts.csproj", "{5E33989A-F284-4757-A2E9-9B867C2BD96D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminder", "Reminder\Reminder.csproj", "{ADF23DC2-412D-4FB5-822F-7D90D6E69103}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,12 @@ Global
 		{5E33989A-F284-4757-A2E9-9B867C2BD96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E33989A-F284-4757-A2E9-9B867C2BD96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E33989A-F284-4757-A2E9-9B867C2BD96D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{CB24AA39-D9DF-40B1-AED6-1D9EDE66C552} = {86338259-10F0-4891-AD71-264697967AEC}
 		{5E33989A-F284-4757-A2E9-9B867C2BD96D} = {86338259-10F0-4891-AD71-264697967AEC}
+		{ADF23DC2-412D-4FB5-822F-7D90D6E69103} = {27CA88B7-9DE9-4778-95CE-0E6DC11B126C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAD5F465-C2CE-43D2-A522-55BDCF615964}
