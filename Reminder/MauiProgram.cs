@@ -1,4 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using Reminder.Contracts.DataAccessLayer.Context;
+using Reminder.Contracts.DataAccessLayer.Implementations;
+using Reminder.Contracts.DataAccessLayer.Interfaces;
+using Reminder.Services;
+using Reminder.ViewModels;
+using Reminder.Views;
 
 namespace Reminder
 {
@@ -18,6 +24,16 @@ namespace Reminder
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+            // register Pages
+            builder.Services.AddSingleton<PersonsPage>();
+            builder.Services.AddTransient<DetailsPage>();
+            builder.Services.AddTransient<AddPersonPage>();
+
+            // register ViewModels
+            builder.Services.AddSingleton<PersonsPageViewModel>();
+            builder.Services.AddTransient<DetailsPageViewModel>();
+            builder.Services.AddTransient<AddPersonPageViewModel>();
+
 
             return builder.Build();
         }

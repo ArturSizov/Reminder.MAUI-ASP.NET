@@ -54,6 +54,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Reminder.Contracts\Reminder.Contracts.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\AddPersonPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
