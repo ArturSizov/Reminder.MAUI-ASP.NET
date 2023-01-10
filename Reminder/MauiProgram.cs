@@ -2,6 +2,8 @@
 using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Implementations;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
+using Reminder.Data;
+using Reminder.Interfaces;
 using Reminder.Services;
 using Reminder.ViewModels;
 using Reminder.Views;
@@ -24,6 +26,8 @@ namespace Reminder
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+            // register Services
+            builder.Services.AddSingleton<IRepository, Repository>();
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();
             builder.Services.AddTransient<DetailsPage>();

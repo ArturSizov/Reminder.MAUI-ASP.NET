@@ -16,9 +16,10 @@ namespace Reminder.Data
         #region Public property
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
         #endregion
-        public Repository(IPersonData data)
+        public Repository(IPersonData data )
         {
             this.data = data; 
+            
             GetPersons();
         }
 
