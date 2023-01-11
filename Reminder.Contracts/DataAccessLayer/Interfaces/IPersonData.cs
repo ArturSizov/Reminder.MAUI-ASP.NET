@@ -4,9 +4,10 @@ namespace Reminder.Contracts.DataAccessLayer.Interfaces
 {
     public interface IPersonData
     {
+        string? DatabasePath { get; set; }
         Task DeletePerson(Person person);
         Task<Person?> GetPerson(int id);
-        Task<IEnumerable<Person>> GetPersons();
+        Task<List<Person>> GetPersons();
         Task InsertPerson(Person person);
         Task UpdatePerson(Person person);
     }

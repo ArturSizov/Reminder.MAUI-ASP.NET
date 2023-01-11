@@ -8,6 +8,8 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
     {
         private readonly IDataProvider data;
 
+        public string? DatabasePath { get; set; }
+
         public PersonData(IDataProvider data)
         {
             this.data = data;
@@ -20,7 +22,8 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task DeletePerson(Person person)
         {
-            await data.DbConnection.DeleteAsync(person);
+            await data.Init(DatabasePath);
+            await data.Database.DeleteAsync(person);
         }
 
         /// <summary>
@@ -30,16 +33,18 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns> method
         public async Task<Person?> GetPerson(int id)
         {
-            return await data.DbConnection.Table<Person>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            await data.Init(DatabasePath);
+            return await data.Database.Table<Person>().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
         /// <summary>
         /// Get all persons
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Person>> GetPersons()
+        public async Task<List<Person>> GetPersons()
         {
-            return await data.DbConnection.Table<Person>().ToListAsync();
+            await data.Init(DatabasePath);
+            return await data.Database.Table<Person>().ToListAsync();
         }
 
         /// <summary>
@@ -49,7 +54,8 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task InsertPerson(Person person)
         {
-            await data.DbConnection.InsertAsync(person);
+            await data.Init(DatabasePath);
+            await data.Database.InsertAsync(person);
         }
 
         /// <summary>
@@ -59,7 +65,8 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task UpdatePerson(Person person)
         {
-            await data.DbConnection.UpdateAsync(person);
+            await data.Init(DatabasePath);
+            await data.Database.UpdateAsync(person);
         }
     }
 }

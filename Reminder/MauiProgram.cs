@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Implementations;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
@@ -26,8 +27,11 @@ namespace Reminder
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-            // register Services
+            //register Services
+            builder.Services.AddSingleton<IDataProvider, DataProvider>();
+            builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
+
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();
             builder.Services.AddTransient<DetailsPage>();
@@ -37,7 +41,6 @@ namespace Reminder
             builder.Services.AddSingleton<PersonsPageViewModel>();
             builder.Services.AddTransient<DetailsPageViewModel>();
             builder.Services.AddTransient<AddPersonPageViewModel>();
-
 
             return builder.Build();
         }

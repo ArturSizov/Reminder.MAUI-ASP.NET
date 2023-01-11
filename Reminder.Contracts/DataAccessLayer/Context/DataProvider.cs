@@ -5,30 +5,22 @@ namespace Reminder.Contracts.DataAccessLayer.Context
 {
     public class DataProvider : IDataProvider
     {
-        private readonly string fileDb;
+        private const SQLiteOpenFlags flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache;
 
-        public SQLiteAsyncConnection DbConnection { get; set; }
+        public SQLiteAsyncConnection Database { get; set; }
 
-        public DataProvider(string fileDb)
-        {
-            this.fileDb = fileDb;
-
-            SetUpDb();
-        }
-
-        #region Methods
         /// <summary>
         /// Database initialization
         /// </summary>
-        private async void SetUpDb()
+        /// <param name="databasePath"></param>
+        /// <returns></returns>
+        public async Task Init(string databasePath)
         {
-            if (DbConnection == null)
-            {
-                DbConnection = new SQLiteAsyncConnection(fileDb);
-                await DbConnection.CreateTableAsync<Person>();
-            }
+            if (Database is not null)
+                return;
+
+            Database = new SQLiteAsyncConnection(databasePath, flags);
+            await Database.CreateTableAsync<Person>();
         }
-        #endregion
     }
 }
-
