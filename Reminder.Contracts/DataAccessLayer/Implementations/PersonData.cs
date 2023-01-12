@@ -44,9 +44,7 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task<List<Person>> GetPersons()
         {
-            //await data.Init(DatabasePath);
-            var Database = new SQLiteAsyncConnection(DatabasePath);
-            await Database.CreateTableAsync<Person>();
+            await data.Init(DatabasePath);
             return await data.Database.Table<Person>().ToListAsync();
         }
 

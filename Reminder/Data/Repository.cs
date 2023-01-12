@@ -30,10 +30,7 @@ namespace Reminder.Data
         /// </summary>
         private async void GetPersons()
         {
-            //Persons = new ObservableCollection<Person>(await data.GetPersons());
-            var Database = new SQLiteAsyncConnection(GetDatabasePath("Reminder.sqlite.db"));
-            await Database.CreateTableAsync<Person>();
-            //return await data.Database.Table<Person>().ToListAsync();
+            Persons = new ObservableCollection<Person>(await data.GetPersons());
         }
 
         /// <summary>
