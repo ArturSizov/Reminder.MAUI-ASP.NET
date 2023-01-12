@@ -10,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Add services
-builder.Services.AddSingleton<IDataProvider>(new DataProvider(Helper.GetDatabasePath("Reminder.sqlite.db")));
+builder.Services.AddSingleton<IDataProvider, DataProvider>();
 builder.Services.AddSingleton<IPersonData, PersonData>();
 
 var app = builder.Build();

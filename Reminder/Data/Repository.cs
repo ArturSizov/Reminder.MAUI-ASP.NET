@@ -1,11 +1,9 @@
 ﻿using Prism.Mvvm;
-using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
-using Reminder.Services;
+using SQLite;
 using System.Collections.ObjectModel;
-using System.Reflection.Metadata;
 
 namespace Reminder.Data
 {
@@ -32,7 +30,10 @@ namespace Reminder.Data
         /// </summary>
         private async void GetPersons()
         {
-            Persons = new ObservableCollection<Person>(await data.GetPersons());
+            //Persons = new ObservableCollection<Person>(await data.GetPersons());
+            var Database = new SQLiteAsyncConnection(GetDatabasePath("Reminder.sqlite.db"));
+            await Database.CreateTableAsync<Person>();
+            //return await data.Database.Table<Person>().ToListAsync();
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace Reminder.Data
         /// <returns></returns>
         private string GetDatabasePath(string filename)
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), filename);
+            return Path.Combine(FileSystem.AppDataDirectory, filename);
         }
         #endregion
     }

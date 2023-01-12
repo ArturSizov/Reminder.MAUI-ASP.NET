@@ -1,6 +1,7 @@
 ﻿using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
+using SQLite;
 
 namespace Reminder.Contracts.DataAccessLayer.Implementations
 {
@@ -43,7 +44,9 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task<List<Person>> GetPersons()
         {
-            await data.Init(DatabasePath);
+            //await data.Init(DatabasePath);
+            var Database = new SQLiteAsyncConnection(DatabasePath);
+            await Database.CreateTableAsync<Person>();
             return await data.Database.Table<Person>().ToListAsync();
         }
 

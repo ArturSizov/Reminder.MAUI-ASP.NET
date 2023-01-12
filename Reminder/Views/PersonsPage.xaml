@@ -8,7 +8,7 @@
              x:DataType="vm:PersonsPageViewModel">
     <VerticalStackLayout>
         <Label 
-            Text="{Binding Persons.Count}"
+            Text="125"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

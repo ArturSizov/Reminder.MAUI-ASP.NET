@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reminder.API", "Reminder.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reminder.Contracts", "Reminder.Contracts\Reminder.Contracts.csproj", "{5E33989A-F284-4757-A2E9-9B867C2BD96D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminder", "Reminder\Reminder.csproj", "{ADF23DC2-412D-4FB5-822F-7D90D6E69103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reminder", "Reminder\Reminder.csproj", "{ADF23DC2-412D-4FB5-822F-7D90D6E69103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
