@@ -5,6 +5,8 @@ namespace Reminder.Interfaces
 {
     public interface IRepository
     {
-        public ObservableCollection<Person> Persons { get; set; }
+        Task<List<Person>> GetPersons();
+        ObservableCollection<Person> Persons { get; set; }
+        Task InsertPerson(Person person);
     }
 }

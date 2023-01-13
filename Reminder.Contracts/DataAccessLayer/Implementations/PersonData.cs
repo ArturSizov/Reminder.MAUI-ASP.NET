@@ -23,8 +23,11 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task DeletePerson(Person person)
         {
-            await data.Init(DatabasePath);
-            await data.Database.DeleteAsync(person);
+            if (DatabasePath is not null)
+            {
+                await data.Init(DatabasePath);
+                await data.Database.DeleteAsync(person);
+            }         
         }
 
         /// <summary>
@@ -34,8 +37,12 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns> method
         public async Task<Person?> GetPerson(int id)
         {
-            await data.Init(DatabasePath);
-            return await data.Database.Table<Person>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            if(DatabasePath is not null)
+            {
+                await data.Init(DatabasePath);
+                return await data.Database.Table<Person>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            }
+            return new Person();
         }
 
         /// <summary>
@@ -44,8 +51,12 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task<List<Person>> GetPersons()
         {
-            await data.Init(DatabasePath);
-            return await data.Database.Table<Person>().ToListAsync();
+            if (DatabasePath is not null)
+            {
+                await data.Init(DatabasePath);
+                return await data.Database.Table<Person>().ToListAsync();
+            }
+            return new List<Person>();
         }
 
         /// <summary>
@@ -55,8 +66,11 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task InsertPerson(Person person)
         {
-            await data.Init(DatabasePath);
-            await data.Database.InsertAsync(person);
+            if(DatabasePath is not null)
+            {
+                await data.Init(DatabasePath);
+                await data.Database.InsertAsync(person);
+            }
         }
 
         /// <summary>
@@ -66,8 +80,11 @@ namespace Reminder.Contracts.DataAccessLayer.Implementations
         /// <returns></returns>
         public async Task UpdatePerson(Person person)
         {
-            await data.Init(DatabasePath);
-            await data.Database.UpdateAsync(person);
+            if(DatabasePath is not null)
+            {
+                await data.Init(DatabasePath);
+                await data.Database.UpdateAsync(person);
+            }
         }
     }
 }

@@ -21,16 +21,26 @@ namespace Reminder.Data
         {
             this.data = data;
             data.DatabasePath = GetDatabasePath("Reminder.sqlite.db");
-            GetPersons();
         }
 
         #region Methods
         /// <summary>
-        /// Load persons method
+        /// Get persons method
         /// </summary>
-        private async void GetPersons()
+        public async Task<List<Person>> GetPersons()
         {
-            Persons = new ObservableCollection<Person>(await data.GetPersons());
+            return new ObservableCollection<Person>(await data.GetPersons()).ToList();
+        }
+
+        /// <summary>
+        /// Insert Person method
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
+        public async Task InsertPerson(Person person)
+        {
+            Persons.Add(person);
+            await data.InsertPerson(person);
         }
 
         /// <summary>
@@ -38,10 +48,11 @@ namespace Reminder.Data
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        private string GetDatabasePath(string filename)
+        private static string GetDatabasePath(string filename)
         {
             return Path.Combine(FileSystem.AppDataDirectory, filename);
         }
-        #endregion
+
+       #endregion
     }
 }

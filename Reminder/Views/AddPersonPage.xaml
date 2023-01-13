@@ -2,11 +2,113 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reminder.Views.AddPersonPage"
-             Title="AddPersonPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:Reminder.ViewModels"
+             xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
+             xmlns:converter="clr-namespace:Reminder.Services.Converters"
+             x:DataType="vm:AddPersonPageViewModel">
+    <Shell.TitleView>
+        <HorizontalStackLayout>
+            <ImageButton Source="back.png"
+                         BackgroundColor="Transparent"
+                         HeightRequest="40"
+                         WidthRequest="40"
+                         Margin="2"
+                         Command="{Binding BackCommand}"/>
+            <Label Text="{Binding Title}"
+               Style="{StaticResource TitleLebel}"/>
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,45">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout>
+                <Grid ColumnDefinitions="*,*,*"
+                      RowDefinitions="Auto,Auto,Auto">
+
+                    <Border BackgroundColor="{StaticResource Primary}"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="3"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Margin="-2">
+
+                    </Border>
+                    <Frame Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               Grid.RowSpan="3"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               CornerRadius="80"
+                               IsClippedToBounds="True"
+                               Padding="0"
+                               Margin="0,80,0,0">
+                        <AbsoluteLayout>
+                            <Image Grid.Column="0"
+                                   Aspect="AspectFit"
+                                   HeightRequest="160"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Source="{Binding Person.Base64, Converter={StaticResource Base64ImageConverter}}"
+                                   WidthRequest="160"/>
+                            <ImageButton Source="add_image.png"
+                                     IsVisible="{Binding IsEnabled}"
+                                     Command="{Binding AddImageCommand}"
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="40"
+                                     HeightRequest="40"
+                                     Margin="100,100,0,0"/>
+                        </AbsoluteLayout>
+                    </Frame>
+                </Grid>
+
+                <VerticalStackLayout
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Padding="2" Spacing="5">
+                    <Entry Text="{Binding Person.Name}"
+                       IsEnabled="{Binding IsEnabled}"
+                       Placeholder="Имя"
+                       Keyboard="Chat"
+                       Style="{StaticResource EntyCustom}"/>
+                    <Entry Text="{Binding Person.LastName}"
+                       IsEnabled="{Binding IsEnabled}"
+                       Placeholder="Фамилия"
+                       Keyboard="Chat"
+                       Style="{StaticResource EntyCustom}"/>
+                    <Entry Text="{Binding Person.MiddleName}"
+                       IsEnabled="{Binding IsEnabled}"
+                       Placeholder="Отчество"
+                       Keyboard="Chat"
+                       Style="{StaticResource EntyCustom}"/>
+                    <Entry Text="{Binding Person.Position}"
+                       IsEnabled="{Binding IsEnabled}"
+                       Placeholder="Должность"
+                       Keyboard="Chat"
+                       Style="{StaticResource EntyCustom}"/>
+
+                    <DatePicker HorizontalOptions="Center"
+                                Date="{Binding Person.Birthday}"
+                                IsEnabled="{Binding IsEnabled}"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ImageButton Grid.Row="1"
+                     IsVisible="True"
+                     HeightRequest="40"
+                     WidthRequest="45"
+                     HorizontalOptions="End"
+                     Margin="10"
+                     Source="save.png"
+                     Command="{Binding SaveCommand}"/>
+    </Grid>
 </ContentPage>
