@@ -44,7 +44,7 @@ namespace Reminder.ViewModels
 
         public ICommand SaveCommand => new DelegateCommand(async () =>
         {
-            //await data.UpdatePerson(person);
+            await data.UpdatePerson(person);
             await Shell.Current.GoToAsync("..");
         });
 
@@ -55,7 +55,7 @@ namespace Reminder.ViewModels
 
         public ICommand DeleteCommand => new DelegateCommand(async () =>
         {
-            //await data.DeletePerson(person);
+            await data.DeletePerson(person);
             await Shell.Current.GoToAsync("..");
         });
         #endregion

@@ -23,10 +23,9 @@
                    Margin="10,0,0,0"
                    LineBreakMode="TailTruncation">
                 <Label.Text>
-                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                    <MultiBinding StringFormat="{}{0} {1}">
                         <Binding Path="Person.Name"/>
                         <Binding Path="Person.LastName"/>
-                        <Binding Path="Person.MiddleName"/>
                     </MultiBinding>
                 </Label.Text>
             </Label>

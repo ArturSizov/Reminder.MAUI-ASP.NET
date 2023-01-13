@@ -24,13 +24,17 @@ namespace Reminder.ViewModels
         public PersonsPageViewModel(IRepository data)
         {
             this.data = data;
+            Persons = data.Persons;
             GetPersons();
         }
         #region Methods
 
+        /// <summary>
+        /// Get Persons method
+        /// </summary>
         private async void GetPersons()
         {
-            Persons = new ObservableCollection<Person>(await data.GetPersons());
+            Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
         }
 
         #endregion

@@ -7,6 +7,8 @@ namespace Reminder.Interfaces
     {
         Task<List<Person>> GetPersons();
         ObservableCollection<Person> Persons { get; set; }
-        Task InsertPerson(Person person);
+        Task InsertPerson(Person person); 
+        Task DeletePerson(Person person);
+        Task UpdatePerson(Person person);
     }
 }
