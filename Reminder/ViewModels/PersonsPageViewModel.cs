@@ -5,6 +5,7 @@ using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace Reminder.ViewModels
@@ -14,11 +15,13 @@ namespace Reminder.ViewModels
         #region Private property
         private readonly IRepository data;
         private ObservableCollection<Person> persons;
+        private bool isBusy;
 
         #endregion
         #region Public property
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
+        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
 
         #endregion
         public PersonsPageViewModel(IRepository data)
@@ -34,13 +37,29 @@ namespace Reminder.ViewModels
         /// </summary>
         private async void GetPersons()
         {
-            Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+            if(IsBusy) return;
+
+            try
+            {
+                IsBusy = true;
+                Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+                if (Persons.Count == 0)
+                    Persons.Clear();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         #endregion
         #region Command
 
-        public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async(person) =>
+        public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async (person) =>
         {
             await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
             {
