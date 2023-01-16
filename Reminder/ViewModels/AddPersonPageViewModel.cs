@@ -31,29 +31,41 @@ namespace Reminder.ViewModels
         }
 
         #region Commands
+        /// <summary>
+        /// Back button command
+        /// </summary>
         public ICommand BackCommand => new DelegateCommand(async () =>
         {
             await Shell.Current.GoToAsync("..");
         });
 
+        /// <summary>
+        /// Is enabled command
+        /// </summary>
         public ICommand IsEnabledCommand => new DelegateCommand(() =>
         {
             IsEnabled = true;
         });
 
+        /// <summary>
+        /// Save Command
+        /// </summary>
         public ICommand SaveCommand => new DelegateCommand<Person>(async(person) =>
         {
-            if (person.Name?.Length <= 1)
+            if (!string.IsNullOrEmpty(person.Name))
             {
-                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" должно содержать минимум два символа", "Ok");
+                await data.InsertPerson(person);
+                await Shell.Current.GoToAsync("..");
             }
             else
             {
-                await data.InsertPerson(Person);
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
             }
         });
 
+        /// <summary>
+        /// Add image command
+        /// </summary>
         public ICommand AddImageCommand => new DelegateCommand(async() =>
         {
             Person.Base64 = await Helper.AddImage();

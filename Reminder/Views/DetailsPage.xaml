@@ -41,6 +41,7 @@
         <converter:RowToBrushDaysBirthdayConverter x:Key="RowToBrushDaysBirthdayConverter"/>
         <converter:AgeConverter x:Key="AgeConverter"/>
         <converter:DaysBirthdayConverter x:Key="DaysBirthdayConverter"/>
+        <converter:TextValidationConverter x:Key="TextValidationConverter"/>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*,45">
@@ -146,7 +147,6 @@
                     <Entry Text="{Binding Person.Position}"
                            TextColor="Black"
                            IsEnabled="{Binding IsEnabled}"
-                           IsVisible="{Binding IsEnabled}"
                            Placeholder="Примечание"
                            Keyboard="Chat"
                            Style="{StaticResource EntyCustom}"/>
@@ -155,7 +155,8 @@
                                 TextColor="Black"
                                 Date="{Binding Person.Birthday}"
                                 IsEnabled="{Binding IsEnabled}"
-                                MinimumDate="01/01/1935"/>
+                                MinimumDate="01/01/1935"
+                                MaximumDate="{Binding MaxDate}"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>

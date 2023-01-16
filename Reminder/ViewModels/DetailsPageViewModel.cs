@@ -20,8 +20,8 @@ namespace Reminder.ViewModels
         #region Public property
         public Person Person { get => person; set => SetProperty(ref person, value); }
         public string Title => $"{person.Name} {person.LastName}";
-
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
+        public DateTime MaxDate { get; set; } = DateTime.Today;
         #endregion
 
         public DetailsPageViewModel(IRepository data)
@@ -52,15 +52,15 @@ namespace Reminder.ViewModels
         /// </summary>
         public ICommand SaveCommand => new DelegateCommand<Person>(async(person) =>
         {
-            if (person.Name?.Length <= 1)
-            {
-                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" должно содержать минимум два символа", "Ok");
-            }
-            else
+            if (!string.IsNullOrEmpty(person.Name))
             {
                 await data.UpdatePerson(person);
                 await Shell.Current.GoToAsync("..");
-            }            
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
+            }     
         });
 
         /// <summary>
