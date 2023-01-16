@@ -10,7 +10,7 @@ namespace Reminder.Services.Converters
 
             var current = DateTime.Today;
 
-            return current.Year - date.Year;
+            return (current.Year - date.Year)-1;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

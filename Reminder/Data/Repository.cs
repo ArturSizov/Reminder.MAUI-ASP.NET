@@ -3,6 +3,7 @@ using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Reminder.Data
 {
@@ -10,7 +11,7 @@ namespace Reminder.Data
     {
         #region Private property
         private readonly IPersonData data;
-        private ObservableCollection<Person> persons;
+        private ObservableCollection<Person> persons = new();
         #endregion
 
         #region Public property
@@ -19,7 +20,7 @@ namespace Reminder.Data
         public Repository(IPersonData data)
         {
             this.data = data;
-            data.DatabasePath = GetDatabasePath("Reminder.sqlite.db");
+            data.DatabasePath = GetDatabasePath("Reminder.sqlite.db"); 
         }
         #region Methods
         /// <summary>
@@ -58,7 +59,7 @@ namespace Reminder.Data
         /// <returns></returns>
         public async Task DeletePerson(Person person)
         {
-            Persons.Remove(person);
+            Persons.RemoveAt(person.Id);
             await data.DeletePerson(person);
         }
 

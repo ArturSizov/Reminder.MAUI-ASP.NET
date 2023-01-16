@@ -91,7 +91,7 @@
                        Style="{StaticResource EntyCustom}"/>
                     <Entry Text="{Binding Person.Position}"
                        IsEnabled="{Binding IsEnabled}"
-                       Placeholder="Должность"
+                       Placeholder="Примечание"
                        Keyboard="Chat"
                        Style="{StaticResource EntyCustom}"/>
 

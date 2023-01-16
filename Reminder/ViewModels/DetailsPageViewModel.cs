@@ -1,6 +1,5 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
-using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Services;
@@ -42,20 +41,20 @@ namespace Reminder.ViewModels
             IsEnabled = true;
         });
 
-        public ICommand SaveCommand => new DelegateCommand(async () =>
+        public ICommand SaveCommand => new DelegateCommand(async() =>
         {
-            await data.UpdatePerson(person);
+            await data.UpdatePerson(Person);
             await Shell.Current.GoToAsync("..");
         });
 
-        public ICommand AddImageCommand => new DelegateCommand(async () =>
+        public ICommand AddImageCommand => new DelegateCommand(async() =>
         {
-            person.Base64 = await Helper.AddImage();
+            Person.Base64 = await Helper.AddImage();
         });
 
-        public ICommand DeleteCommand => new DelegateCommand(async () =>
+        public ICommand DeleteCommand => new DelegateCommand(async() =>
         {
-            await data.DeletePerson(person);
+            await data.DeletePerson(Person);
             await Shell.Current.GoToAsync("..");
         });
         #endregion

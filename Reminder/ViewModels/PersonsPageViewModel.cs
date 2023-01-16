@@ -21,13 +21,12 @@ namespace Reminder.ViewModels
         #region Public property
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
-        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
+        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
 
         #endregion
         public PersonsPageViewModel(IRepository data)
         {
             this.data = data;
-            Persons = data.Persons;
             GetPersons();
         }
         #region Methods
@@ -43,8 +42,6 @@ namespace Reminder.ViewModels
             {
                 IsBusy = true;
                 Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
-                if (Persons.Count == 0)
-                    Persons.Clear();
             }
             catch (Exception ex)
             {
@@ -59,12 +56,17 @@ namespace Reminder.ViewModels
         #endregion
         #region Command
 
-        public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async (person) =>
+        public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async(person) =>
         {
             await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
             {
-                {nameof(DetailsPage), person }
-            });
+                {nameof(DetailsPage), person
+                    //new Person
+                    //{
+                    //     Name = person.Name, Id = person.Id, Base64 = person.Base64,
+                    //     Birthday= person.Birthday, LastName = person.LastName, MiddleName = person.MiddleName, Position = person.Position
+                    //}
+                }});
         });
 
         public ICommand GoToAddPersonCommand => new DelegateCommand(async () =>

@@ -30,7 +30,6 @@
                 </Label.Text>
             </Label>
         </Grid>
-
     </Shell.TitleView>
 
     <Shell.BackButtonBehavior>
@@ -127,21 +126,25 @@
                     Grid.Column="0"
                     Padding="2" Spacing="5">
                     <Entry Text="{Binding Person.Name}"
+                           TextColor="Black"
                            IsEnabled="{Binding IsEnabled}"
                            Placeholder="Имя"
                            Keyboard="Chat"
                            Style="{StaticResource EntyCustom}"/>
                     <Entry Text="{Binding Person.LastName}"
+                           TextColor="Black"
                            IsEnabled="{Binding IsEnabled}"
                            Placeholder="Фамилия"
                            Keyboard="Chat"
                            Style="{StaticResource EntyCustom}"/>
                     <Entry Text="{Binding Person.MiddleName}"
+                           TextColor="Black"
                            IsEnabled="{Binding IsEnabled}"
                            Placeholder="Отчество"
                            Keyboard="Chat"
                            Style="{StaticResource EntyCustom}"/>
                     <Entry Text="{Binding Person.Position}"
+                           TextColor="Black"
                            IsEnabled="{Binding IsEnabled}"
                            IsVisible="{Binding IsEnabled}"
                            Placeholder="Примечание"
@@ -149,6 +152,7 @@
                            Style="{StaticResource EntyCustom}"/>
 
                     <DatePicker HorizontalOptions="Center"
+                                TextColor="Black"
                                 Date="{Binding Person.Birthday}"
                                 IsEnabled="{Binding IsEnabled}"/>
                 </VerticalStackLayout>
