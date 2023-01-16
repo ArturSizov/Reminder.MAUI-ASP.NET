@@ -48,8 +48,17 @@ namespace Reminder.Data
         /// <returns></returns>
         public async Task UpdatePerson(Person person)
         {
-            //Persons.Add(person);
-            await data.UpdatePerson(person);
+            var item = Persons.FirstOrDefault(i => i.Id == person.Id);
+            if (item != null)
+            {
+                item.Name = person.Name;
+                item.LastName = person.LastName;
+                item.MiddleName = person.MiddleName;
+                item.Base64 = person.Base64;
+                item.Position = person.Position;
+                item.Birthday = person.Birthday;
+            }
+            await data.UpdatePerson(person);  
         }
 
         /// <summary>
@@ -59,7 +68,13 @@ namespace Reminder.Data
         /// <returns></returns>
         public async Task DeletePerson(Person person)
         {
-            Persons.RemoveAt(person.Id);
+            var persons = new ObservableCollection<Person>(Persons);
+            Persons.Clear();
+            foreach (var item in persons)
+            {
+                if (item.Id != person.Id)
+                    Persons.Add(item);
+            }
             await data.DeletePerson(person);
         }
 

@@ -60,12 +60,12 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
             {
-                {nameof(DetailsPage), person
-                    //new Person
-                    //{
-                    //     Name = person.Name, Id = person.Id, Base64 = person.Base64,
-                    //     Birthday= person.Birthday, LastName = person.LastName, MiddleName = person.MiddleName, Position = person.Position
-                    //}
+                {nameof(DetailsPage),
+                    new Person
+                    {
+                         Name = person.Name, Id = person.Id, Base64 = person.Base64,
+                         Birthday= person.Birthday, LastName = person.LastName, MiddleName = person.MiddleName, Position = person.Position
+                    }
                 }});
         });
 
