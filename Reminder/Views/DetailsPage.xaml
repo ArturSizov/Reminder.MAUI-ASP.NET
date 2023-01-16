@@ -154,7 +154,8 @@
                     <DatePicker HorizontalOptions="Center"
                                 TextColor="Black"
                                 Date="{Binding Person.Birthday}"
-                                IsEnabled="{Binding IsEnabled}"/>
+                                IsEnabled="{Binding IsEnabled}"
+                                MinimumDate="01/01/1935"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
@@ -172,6 +173,7 @@
                      HorizontalOptions="Start"
                      Margin="10"
                      Source="save.png"
+                     CommandParameter="{Binding Person}"
                      Command="{Binding SaveCommand}"/>
         <ImageButton Grid.Row="1"
                      IsVisible="{Binding IsEnabled}"
@@ -180,6 +182,7 @@
                      HorizontalOptions="Start"
                      Margin="55,0,0,0"
                      Source="remove_person.png"
-                     Command="{Binding DeleteCommand}"/>
+                     Command="{Binding DeleteCommand}"
+                     CommandParameter="{Binding Person}"/>
     </Grid>
 </ContentPage>

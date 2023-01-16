@@ -109,6 +109,7 @@
                      HorizontalOptions="End"
                      Margin="10"
                      Source="save.png"
-                     Command="{Binding SaveCommand}"/>
+                     Command="{Binding SaveCommand}"
+                     CommandParameter="{Binding Person}"/>
     </Grid>
 </ContentPage>

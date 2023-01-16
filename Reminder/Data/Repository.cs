@@ -3,7 +3,6 @@ using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace Reminder.Data
 {
@@ -41,6 +40,7 @@ namespace Reminder.Data
             Persons.Add(person);
             await data.InsertPerson(person);
         }
+
         /// <summary>
         /// Update Person method
         /// </summary>

@@ -56,6 +56,9 @@ namespace Reminder.ViewModels
         #endregion
         #region Command
 
+        /// <summary>
+        /// Go to details command
+        /// </summary>
         public ICommand GoToDetailsPersonCommand => new DelegateCommand<Person>(async(person) =>
         {
             await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
@@ -69,11 +72,17 @@ namespace Reminder.ViewModels
                 }});
         });
 
+        /// <summary>
+        /// Go to add person command
+        /// </summary>
         public ICommand GoToAddPersonCommand => new DelegateCommand(async () =>
         {
             await Shell.Current.GoToAsync(nameof(AddPersonPage));
         });
 
+        /// <summary>
+        /// Go to report command
+        /// </summary>
         public ICommand GoToReportsCommand => new DelegateCommand(async () =>
         {
             await Shell.Current.GoToAsync("...");

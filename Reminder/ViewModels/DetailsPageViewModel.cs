@@ -31,31 +31,57 @@ namespace Reminder.ViewModels
         }
 
         #region Commands
+        /// <summary>
+        /// Back button command
+        /// </summary>
         public ICommand BackCommand => new DelegateCommand(async() =>
         {
             await Shell.Current.GoToAsync("..");
         });
 
+        /// <summary>
+        /// Is enabled command
+        /// </summary>
         public ICommand IsEnabledCommand => new DelegateCommand(() =>
         {
             IsEnabled = true;
         });
 
-        public ICommand SaveCommand => new DelegateCommand(async() =>
+        /// <summary>
+        /// Save command
+        /// </summary>
+        public ICommand SaveCommand => new DelegateCommand<Person>(async(person) =>
         {
-            await data.UpdatePerson(Person);
-            await Shell.Current.GoToAsync("..");
+            if (person.Name?.Length <= 1)
+            {
+                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" должно содержать минимум два символа", "Ok");
+            }
+            else
+            {
+                await data.UpdatePerson(person);
+                await Shell.Current.GoToAsync("..");
+            }            
         });
 
+        /// <summary>
+        /// Add image command
+        /// </summary>
         public ICommand AddImageCommand => new DelegateCommand(async() =>
         {
             Person.Base64 = await Helper.AddImage();
         });
 
-        public ICommand DeleteCommand => new DelegateCommand(async() =>
+        /// <summary>
+        /// Delete command
+        /// </summary>
+        public ICommand DeleteCommand => new DelegateCommand<Person>(async(person) =>
         {
-            await data.DeletePerson(Person);
-            await Shell.Current.GoToAsync("..");
+            if (await Shell.Current.DisplayAlert("Внимание", $"Вы уверены, что хотите удалить всю информацию для: {person.Name}?", "Да", "Нет"))
+            {
+                await data.DeletePerson(person);
+                await Shell.Current.GoToAsync("..");
+            }
+            else return;
         });
         #endregion
     }

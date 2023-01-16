@@ -41,10 +41,17 @@ namespace Reminder.ViewModels
             IsEnabled = true;
         });
 
-        public ICommand SaveCommand => new DelegateCommand(async() =>
+        public ICommand SaveCommand => new DelegateCommand<Person>(async(person) =>
         {
-            await data.InsertPerson(Person);
-            await Shell.Current.GoToAsync("..");
+            if (person.Name?.Length <= 1)
+            {
+                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" должно содержать минимум два символа", "Ok");
+            }
+            else
+            {
+                await data.InsertPerson(Person);
+                await Shell.Current.GoToAsync("..");
+            }
         });
 
         public ICommand AddImageCommand => new DelegateCommand(async() =>
