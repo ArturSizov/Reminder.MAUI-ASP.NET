@@ -77,7 +77,7 @@ namespace Reminder.ViewModels
                 {
                     IconSmallName =
                     {
-                          ResourceName = "notification",
+                          ResourceName = "notification"
                     }
                 }
         };
