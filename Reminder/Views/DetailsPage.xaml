@@ -41,7 +41,6 @@
         <converter:RowToBrushDaysBirthdayConverter x:Key="RowToBrushDaysBirthdayConverter"/>
         <converter:AgeConverter x:Key="AgeConverter"/>
         <converter:DaysBirthdayConverter x:Key="DaysBirthdayConverter"/>
-        <converter:TextValidationConverter x:Key="TextValidationConverter"/>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*,45">

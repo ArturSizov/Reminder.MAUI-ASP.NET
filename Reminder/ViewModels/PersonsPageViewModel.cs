@@ -1,12 +1,13 @@
-﻿using Prism.Commands;
+﻿using Plugin.LocalNotification;
+using Prism.Commands;
 using Prism.Mvvm;
-using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using Plugin.LocalNotification.AndroidOption;
 
 namespace Reminder.ViewModels
 {
@@ -28,6 +29,11 @@ namespace Reminder.ViewModels
         {
             this.data = data;
             GetPersons();
+
+        #if ANDROID
+            Notification();
+
+        #endif
         }
         #region Methods
 
@@ -51,6 +57,32 @@ namespace Reminder.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void Notification()
+        {
+            var request = new NotificationRequest
+            {
+                NotificationId = 1337,
+                Title = Title,
+                Description = $"Поздравить: {data.Persons.Count}",
+                BadgeNumber = 42,
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = DateTime.Now.AddSeconds(5),
+                    RepeatType = NotificationRepeat.TimeInterval,
+                    NotifyRepeatInterval = TimeSpan.FromSeconds(25)
+                },
+                Android = new AndroidOptions
+                {
+                    IconSmallName =
+                    {
+                          ResourceName = "notification",
+                    }
+                }
+        };
+           
+            LocalNotificationCenter.Current.Show(request);
         }
 
         #endregion

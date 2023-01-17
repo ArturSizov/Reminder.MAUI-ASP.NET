@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 using Reminder.Contracts.DataAccessLayer.Context;
 using Reminder.Contracts.DataAccessLayer.Implementations;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Data;
 using Reminder.Interfaces;
-using Reminder.Services;
 using Reminder.ViewModels;
 using Reminder.Views;
 
@@ -18,6 +17,10 @@ namespace Reminder
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+#if ANDROID
+                .UseLocalNotification()
+#endif
+
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
