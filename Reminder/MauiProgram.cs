@@ -18,9 +18,28 @@ namespace Reminder
             builder
                 .UseMauiApp<App>()
 #if ANDROID
-                .UseLocalNotification()
+                .UseLocalNotification(config =>
+                {
+                    config.AddCategory(new NotificationCategory(NotificationCategoryType.Status)
+                    {
+                        ActionList = new HashSet<NotificationAction>(new List<NotificationAction>()
+                          {
+                             new NotificationAction(100)
+                             {
+                                Title = "Hello",
+                                Android =
+                                {
+                                  LaunchAppWhenTapped = true,
+                                  IconName =
+                                  {
+                                    ResourceName = "i2"
+                                  }
+                                }
+                              }
+                         })
+                    });
+                })
 #endif
-
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

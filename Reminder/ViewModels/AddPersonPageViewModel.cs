@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Plugin.LocalNotification.AndroidOption;
+using Plugin.LocalNotification;
+using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
@@ -29,6 +31,10 @@ namespace Reminder.ViewModels
 
             IsEnabled = true;
         }
+        #region Methods
+        
+
+        #endregion
 
         #region Commands
         /// <summary>

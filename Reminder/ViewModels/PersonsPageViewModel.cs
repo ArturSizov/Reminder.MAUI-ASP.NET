@@ -32,7 +32,6 @@ namespace Reminder.ViewModels
 
         #if ANDROID
             Notification();
-
         #endif
         }
         #region Methods
@@ -71,13 +70,13 @@ namespace Reminder.ViewModels
                 {
                     NotifyTime = DateTime.Now.AddSeconds(5),
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromSeconds(25)
+                    NotifyRepeatInterval = TimeSpan.FromDays(10)
                 },
                 Android = new AndroidOptions
                 {
                     IconSmallName =
                     {
-                          ResourceName = "notification"
+                       ResourceName = "notification"
                     }
                 }
         };
