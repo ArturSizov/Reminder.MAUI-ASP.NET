@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Plugin.LocalNotification;
+using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
@@ -30,6 +31,7 @@ namespace Reminder.ViewModels
             this.notification = notification;
             GetPersons();
 
+            LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
         }
         #region Methods
 
@@ -63,7 +65,28 @@ namespace Reminder.ViewModels
                 IsBusy = false;
             }
         }
-       
+
+        private async void Current_NotificationActionTapped(Plugin.LocalNotification.EventArgs.NotificationActionEventArgs e)
+        {
+            if (e.IsDismissed)
+            {
+                
+            }
+            else if (e.IsTapped)
+            {
+                var person = Persons.FirstOrDefault(i => i.Id == e.Request.NotificationId);
+
+                if(await Shell.Current.DisplayAlert($"Событие для: {person.Name} {person.LastName}", "Вы поздравили?", "Да", "Нет"))
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
+
         #endregion
         #region Command
 

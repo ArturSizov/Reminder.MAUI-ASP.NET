@@ -12,7 +12,7 @@ namespace Reminder.ViewModels
         #region Private ptoperty
         private bool isEnabled;
         private IRepository data;
-        private readonly IReminderNotificationServices notification;
+        private IReminderNotificationServices notification;
         private Person person = new();
         #endregion
 
