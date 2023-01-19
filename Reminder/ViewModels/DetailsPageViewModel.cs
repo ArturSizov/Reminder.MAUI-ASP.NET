@@ -15,6 +15,7 @@ namespace Reminder.ViewModels
         private bool isEnabled;
         private Person person;
         private readonly IRepository data;
+        private IReminderNotificationServices notification;
         #endregion
 
         #region Public property
@@ -24,10 +25,11 @@ namespace Reminder.ViewModels
         public DateTime MaxDate { get; set; } = DateTime.Today;
         #endregion
 
-        public DetailsPageViewModel(IRepository data)
+        public DetailsPageViewModel(IRepository data, IReminderNotificationServices notification)
         {
             IsEnabled = false;
             this.data = data;
+            this.notification = notification;
         }
 
         #region Commands
@@ -55,7 +57,14 @@ namespace Reminder.ViewModels
             if (!string.IsNullOrEmpty(person.Name))
             {
                 await data.UpdatePerson(person);
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync(".."); 
+
+                if (notification.Request != null)
+                {
+                    notification.Request.NotificationId = person.Id;
+                    notification.Request.Cancel();
+                }
+                notification.AddNotification(person);
             }
             else
             {
@@ -80,6 +89,13 @@ namespace Reminder.ViewModels
             {
                 await data.DeletePerson(person);
                 await Shell.Current.GoToAsync("..");
+
+                if (notification.Request != null)
+                {
+                    notification.Request.NotificationId = person.Id;
+                    notification.Request.Cancel();
+                }
+                
             }
             else return;
         });

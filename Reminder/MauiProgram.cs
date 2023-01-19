@@ -7,6 +7,7 @@ using Reminder.Data;
 using Reminder.Interfaces;
 using Reminder.ViewModels;
 using Reminder.Views;
+using Reminder.Services;
 
 namespace Reminder
 {
@@ -53,6 +54,7 @@ namespace Reminder
             builder.Services.AddSingleton<IDataProvider, DataProvider>();
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
+            builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
 
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();

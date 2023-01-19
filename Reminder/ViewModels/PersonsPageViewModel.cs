@@ -1,5 +1,4 @@
-﻿using Plugin.LocalNotification;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
@@ -7,7 +6,6 @@ using Reminder.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
-using Plugin.LocalNotification.AndroidOption;
 
 namespace Reminder.ViewModels
 {
@@ -15,6 +13,7 @@ namespace Reminder.ViewModels
     {
         #region Private property
         private readonly IRepository data;
+        private readonly IReminderNotificationServices notification;
         private ObservableCollection<Person> persons;
         private bool isBusy;
 
@@ -25,14 +24,12 @@ namespace Reminder.ViewModels
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
 
         #endregion
-        public PersonsPageViewModel(IRepository data)
+        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification)
         {
             this.data = data;
+            this.notification = notification;
             GetPersons();
 
-        #if ANDROID
-            Notification();
-        #endif
         }
         #region Methods
 
@@ -41,12 +38,21 @@ namespace Reminder.ViewModels
         /// </summary>
         private async void GetPersons()
         {
+            
             if(IsBusy) return;
 
             try
             {
                 IsBusy = true;
                 Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+
+                if (notification.Request == null)
+                {
+                    foreach (var item in Persons)
+                    {
+                        notification.AddNotification(item);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -57,33 +63,7 @@ namespace Reminder.ViewModels
                 IsBusy = false;
             }
         }
-
-        private void Notification()
-        {
-            var request = new NotificationRequest
-            {
-                NotificationId = 1337,
-                Title = Title,
-                Description = $"Поздравить: {data.Persons.Count}",
-                BadgeNumber = 42,
-                Schedule = new NotificationRequestSchedule
-                {
-                    NotifyTime = DateTime.Now.AddSeconds(5),
-                    RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromDays(10)
-                },
-                Android = new AndroidOptions
-                {
-                    IconSmallName =
-                    {
-                       ResourceName = "notification"
-                    }
-                }
-        };
-           
-            LocalNotificationCenter.Current.Show(request);
-        }
-
+       
         #endregion
         #region Command
 

@@ -1,8 +1,5 @@
-﻿using Plugin.LocalNotification.AndroidOption;
-using Plugin.LocalNotification;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
-using Reminder.Contracts.DataAccessLayer.Interfaces;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Services;
@@ -15,6 +12,7 @@ namespace Reminder.ViewModels
         #region Private ptoperty
         private bool isEnabled;
         private IRepository data;
+        private readonly IReminderNotificationServices notification;
         private Person person = new();
         #endregion
 
@@ -25,10 +23,10 @@ namespace Reminder.ViewModels
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
         #endregion
 
-        public AddPersonPageViewModel(IRepository data)
+        public AddPersonPageViewModel(IRepository data, IReminderNotificationServices notification)
         {
             this.data = data;
-
+            this.notification = notification;
             IsEnabled = true;
         }
         #region Methods
@@ -62,6 +60,7 @@ namespace Reminder.ViewModels
             {
                 await data.InsertPerson(person);
                 await Shell.Current.GoToAsync("..");
+                notification.AddNotification(person);
             }
             else
             {
