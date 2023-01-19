@@ -54,8 +54,9 @@ namespace Reminder
             builder.Services.AddSingleton<IDataProvider, DataProvider>();
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
+#if ANDROID
             builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
-
+#endif
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();
             builder.Services.AddTransient<DetailsPage>();
