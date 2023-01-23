@@ -16,6 +16,7 @@ namespace Reminder.Services
                 NotificationId = person.Id,
                 Title = "Напоминалка",
                 Description = $"Поздравить: {person.Name} {person.LastName}",
+                CategoryType = NotificationCategoryType.Status,
                 Schedule = new NotificationRequestSchedule
                 {
                     NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(person.Birthday)),

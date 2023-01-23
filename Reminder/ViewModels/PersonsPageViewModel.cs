@@ -14,7 +14,7 @@ namespace Reminder.ViewModels
     {
         #region Private property
         private readonly IRepository data;
-        private readonly IReminderNotificationServices notification;
+        private IReminderNotificationServices notification;
         private ObservableCollection<Person> persons;
         private bool isBusy;
 
@@ -31,7 +31,7 @@ namespace Reminder.ViewModels
             this.notification = notification;
             GetPersons();
 
-            LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
+            //LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
         }
         #region Methods
 
@@ -40,9 +40,7 @@ namespace Reminder.ViewModels
         /// </summary>
         private async void GetPersons()
         {
-            
             if(IsBusy) return;
-
             try
             {
                 IsBusy = true;

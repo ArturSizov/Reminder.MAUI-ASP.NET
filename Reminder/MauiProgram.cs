@@ -8,6 +8,7 @@ using Reminder.Interfaces;
 using Reminder.ViewModels;
 using Reminder.Views;
 using Reminder.Services;
+using Plugin.LocalNotification.AndroidOption;
 
 namespace Reminder
 {
@@ -18,29 +19,56 @@ namespace Reminder
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-#if ANDROID
+//#if ANDROID
                 .UseLocalNotification(config =>
                 {
                     config.AddCategory(new NotificationCategory(NotificationCategoryType.Status)
                     {
                         ActionList = new HashSet<NotificationAction>(new List<NotificationAction>()
-                          {
-                             new NotificationAction(100)
-                             {
-                                Title = "Hello",
-                                Android =
-                                {
-                                  LaunchAppWhenTapped = true,
-                                  IconName =
-                                  {
-                                    ResourceName = "i2"
-                                  }
-                                }
-                              }
-                         })
+                            {
+                               new NotificationAction(100)
+                                    {
+                                            Title = "Открыть",
+                                            Android =
+                                            {
+                                                LaunchAppWhenTapped = true,
+                                                IconName =
+                                                {
+                                                   ResourceName = "i2"
+                                                }
+                                            }
+                                    },
+                               new NotificationAction(101)
+                                    {
+                                            Title = "Закрыть",
+                                            Android =
+                                            {
+                                                LaunchAppWhenTapped = false,
+                                                IconName =
+                                                {
+                                                   ResourceName = "i3"
+                                                }
+                                            }
+                                    }
+                            })
+                    });
+                    config.AddAndroid(android =>
+                    {
+                        android.AddChannel(new NotificationChannelRequest
+                        {
+                            Id = $"my_channel_01",
+                            Name = "General",
+                            Description = "General",
+                        });
+                        android.AddChannel(new NotificationChannelRequest
+                        {
+                            Id = $"my_channel_02",
+                            Name = "Special",
+                            Description = "Special",
+                        });
                     });
                 })
-#endif
+//#endif
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -66,7 +94,6 @@ namespace Reminder
             builder.Services.AddSingleton<PersonsPageViewModel>();
             builder.Services.AddTransient<DetailsPageViewModel>();
             builder.Services.AddTransient<AddPersonPageViewModel>();
-
             return builder.Build();
         }
     }
