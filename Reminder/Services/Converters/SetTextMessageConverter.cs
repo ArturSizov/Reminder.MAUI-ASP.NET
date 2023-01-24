@@ -11,7 +11,9 @@ namespace Reminder.Services.Converters
 
             var current = DateTime.Today;
 
-            var agePerson = (current.Year - date.Year)-1;
+            var agePerson = (current.Year - date.Year) - 1;
+
+            if(agePerson < 0) agePerson = 0;
 
             string text = null;
 

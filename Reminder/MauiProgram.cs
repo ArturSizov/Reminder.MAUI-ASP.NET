@@ -27,45 +27,13 @@ namespace Reminder
                         ActionList = new HashSet<NotificationAction>(new List<NotificationAction>()
                             {
                                new NotificationAction(100)
-                                    {
-                                            Title = "Открыть",
-                                            Android =
-                                            {
-                                                LaunchAppWhenTapped = true,
-                                                IconName =
-                                                {
-                                                   ResourceName = "i2"
-                                                }
-                                            }
-                                    },
-                               new NotificationAction(101)
-                                    {
-                                            Title = "Закрыть",
-                                            Android =
-                                            {
-                                                LaunchAppWhenTapped = false,
-                                                IconName =
-                                                {
-                                                   ResourceName = "i3"
-                                                }
-                                            }
-                                    }
+                               {
+                                  Android =
+                                  {
+                                    LaunchAppWhenTapped = true
+                                  }
+                                }
                             })
-                    });
-                    config.AddAndroid(android =>
-                    {
-                        android.AddChannel(new NotificationChannelRequest
-                        {
-                            Id = $"my_channel_01",
-                            Name = "General",
-                            Description = "General",
-                        });
-                        android.AddChannel(new NotificationChannelRequest
-                        {
-                            Id = $"my_channel_02",
-                            Name = "Special",
-                            Description = "Special",
-                        });
                     });
                 })
 //#endif

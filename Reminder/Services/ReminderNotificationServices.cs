@@ -2,6 +2,7 @@
 using Plugin.LocalNotification.AndroidOption;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Reminder.Services
 {
@@ -15,8 +16,8 @@ namespace Reminder.Services
             {
                 NotificationId = person.Id,
                 Title = "Напоминалка",
-                Description = $"Поздравить: {person.Name} {person.LastName}",
-                CategoryType = NotificationCategoryType.Status,
+                Description = $"Поздравить: {person.Name} {person.LastName}", 
+                CategoryType = NotificationCategoryType.Reminder,
                 Schedule = new NotificationRequestSchedule
                 {
                     NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(person.Birthday)),
@@ -27,7 +28,7 @@ namespace Reminder.Services
                 {
                     IconSmallName =
                     {
-                       ResourceName = "notification"
+                        ResourceName = "notification"
                     }
                 }
             };
@@ -35,17 +36,19 @@ namespace Reminder.Services
             LocalNotificationCenter.Current.Show(Request);
         }
 
-        /// <summary>
-        /// Return days to birthday
-        /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
         private int GetDaysAge(DateTime date)
         {
             var current = DateTime.Today;
-            int year = current.Month > date.Month || current.Month == date.Month && current.Day > date.Day
-            ? current.Year + 1 : current.Year;
-            return (int)(new DateTime(year, date.Month, date.Day) - current).TotalDays;
+
+            int year = current.Month > date.Month || current.Month == date.Month && current.Day > date.Day ? current.Year + 1 : current.Year;
+
+            var days = (int)(new DateTime(year, date.Month, date.Day) - current).TotalDays;
+
+            if(days == 0)
+            {
+                return (int)(current.AddYears(1) - current).TotalDays;
+            }
+            else return days;
         }
     }
 }

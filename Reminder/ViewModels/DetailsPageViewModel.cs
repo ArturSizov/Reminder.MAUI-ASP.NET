@@ -57,7 +57,9 @@ namespace Reminder.ViewModels
             if (!string.IsNullOrEmpty(person.Name))
             {
                 await data.UpdatePerson(person);
-                await Shell.Current.GoToAsync(".."); 
+                await Shell.Current.GoToAsync("..");
+                if (person.Birthday.Day == DateTime.Now.Day)
+                    await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
 
                 if (notification.Request != null)
                 {
@@ -66,10 +68,8 @@ namespace Reminder.ViewModels
                 }
                 notification.AddNotification(person);
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
-            }     
+            else await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
+     
         });
 
         /// <summary>

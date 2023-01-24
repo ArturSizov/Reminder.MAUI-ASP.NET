@@ -61,11 +61,11 @@ namespace Reminder.ViewModels
                 await data.InsertPerson(person);
                 await Shell.Current.GoToAsync("..");
                 notification.AddNotification(person);
+                if(person.Birthday.Day == DateTime.Now.Day)
+                   await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
-            }
+            else await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
+
         });
 
         /// <summary>

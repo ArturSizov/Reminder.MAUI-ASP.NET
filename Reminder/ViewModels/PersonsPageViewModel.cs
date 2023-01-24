@@ -30,9 +30,8 @@ namespace Reminder.ViewModels
             this.data = data;
             this.notification = notification;
             GetPersons();
-
-            //LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
         }
+
         #region Methods
 
         /// <summary>
@@ -61,27 +60,6 @@ namespace Reminder.ViewModels
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        private async void Current_NotificationActionTapped(Plugin.LocalNotification.EventArgs.NotificationActionEventArgs e)
-        {
-            if (e.IsDismissed)
-            {
-                
-            }
-            else if (e.IsTapped)
-            {
-                var person = Persons.FirstOrDefault(i => i.Id == e.Request.NotificationId);
-
-                if(await Shell.Current.DisplayAlert($"Событие для: {person.Name} {person.LastName}", "Вы поздравили?", "Да", "Нет"))
-                {
-
-                }
-                else
-                {
-
-                }
             }
         }
 
