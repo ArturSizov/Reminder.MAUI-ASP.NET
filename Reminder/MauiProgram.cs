@@ -19,7 +19,7 @@ namespace Reminder
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-//#if ANDROID
+#if ANDROID
                 .UseLocalNotification(config =>
                 {
                     config.AddCategory(new NotificationCategory(NotificationCategoryType.Status)
@@ -36,7 +36,7 @@ namespace Reminder
                             })
                     });
                 })
-//#endif
+#endif
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -50,9 +50,8 @@ namespace Reminder
             builder.Services.AddSingleton<IDataProvider, DataProvider>();
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
-#if ANDROID
             builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
-#endif
+
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();
             builder.Services.AddTransient<DetailsPage>();
