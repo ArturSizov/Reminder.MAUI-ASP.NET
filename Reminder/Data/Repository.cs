@@ -83,7 +83,7 @@ namespace Reminder.Data
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        private static string GetDatabasePath(string filename)
+        private static string GetDatabasePath(string filename = "Reminder.sqlite.db")
         {
             return Path.Combine(FileSystem.AppDataDirectory, filename);
         }
