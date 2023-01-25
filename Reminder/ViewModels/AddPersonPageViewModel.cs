@@ -60,7 +60,9 @@ namespace Reminder.ViewModels
             {
                 await data.InsertPerson(person);
                 await Shell.Current.GoToAsync("..");
+#if ANDROID
                 notification.AddNotification(person);
+#endif
                 if(person.Birthday.Day == DateTime.Now.Day)
                    await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
             }

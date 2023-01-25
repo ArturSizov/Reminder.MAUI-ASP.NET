@@ -44,7 +44,7 @@ namespace Reminder.ViewModels
             {
                 IsBusy = true;
                 Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
-
+#if ANDROID
                 if (notification.Request == null)
                 {
                     foreach (var item in Persons)
@@ -52,6 +52,7 @@ namespace Reminder.ViewModels
                         notification.AddNotification(item);
                     }
                 }
+#endif
             }
             catch (Exception ex)
             {

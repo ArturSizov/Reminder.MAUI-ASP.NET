@@ -8,6 +8,7 @@ namespace Reminder.Services
 {
     public class ReminderNotificationServices : IReminderNotificationServices
     {
+#if ANDROID
         public NotificationRequest Request { get; set; }
 
         public void AddNotification(Person person)
@@ -20,9 +21,9 @@ namespace Reminder.Services
                 CategoryType = NotificationCategoryType.Reminder,
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(person.Birthday)),
+                    NotifyTime = DateTime.Now.AddDays(GetDaysAge(person.Birthday)),
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromSeconds(GetDaysAge(person.Birthday))
+                    NotifyRepeatInterval = TimeSpan.FromDays(GetDaysAge(person.Birthday))
                 },
                 Android = new AndroidOptions
                 {
@@ -35,7 +36,7 @@ namespace Reminder.Services
 
             LocalNotificationCenter.Current.Show(Request);
         }
-
+#endif
         private int GetDaysAge(DateTime date)
         {
             var current = DateTime.Today;

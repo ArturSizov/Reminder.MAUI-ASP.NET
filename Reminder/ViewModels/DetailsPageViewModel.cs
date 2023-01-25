@@ -60,14 +60,16 @@ namespace Reminder.ViewModels
                 await Shell.Current.GoToAsync("..");
                 if (person.Birthday.Day == DateTime.Now.Day)
                     await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
-
+#if ANDROID
                 if (notification.Request != null)
                 {
                     notification.Request.NotificationId = person.Id;
                     notification.Request.Cancel();
                 }
                 notification.AddNotification(person);
+#endif
             }
+
             else await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
      
         });
@@ -89,13 +91,13 @@ namespace Reminder.ViewModels
             {
                 await data.DeletePerson(person);
                 await Shell.Current.GoToAsync("..");
-
+#if ANDROID
                 if (notification.Request != null)
                 {
                     notification.Request.NotificationId = person.Id;
                     notification.Request.Cancel();
                 }
-                
+#endif               
             }
             else return;
         });
