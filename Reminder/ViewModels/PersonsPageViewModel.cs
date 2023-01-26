@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
+using Reminder.Services;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -27,6 +28,9 @@ namespace Reminder.ViewModels
         #endregion
         public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification)
         {
+#if ANDROID
+            ClearingСache();
+#endif
             this.data = data;
             this.notification = notification;
             GetPersons();
@@ -40,6 +44,7 @@ namespace Reminder.ViewModels
         private async void GetPersons()
         {
             if(IsBusy) return;
+
             try
             {
                 IsBusy = true;
@@ -64,6 +69,24 @@ namespace Reminder.ViewModels
             }
         }
 
+        //Cookie deletion method for Android
+        private void ClearingСache()
+        {
+            var imageManagerDiskCache = Path.Combine(FileSystem.CacheDirectory, "image_manager_disk_cache");
+
+            if (Directory.Exists(imageManagerDiskCache))
+            {
+                foreach (var imageCacheFile in Directory.EnumerateFiles(imageManagerDiskCache))
+                {
+                    File.Delete(imageCacheFile);
+                }
+            }
+        }
+        //Get database path
+        private static string GetDatabasePath(string filename)
+        {
+            return Path.Combine(FileSystem.AppDataDirectory, filename);
+        }
         #endregion
         #region Command
 
@@ -98,12 +121,6 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.GoToAsync("...");
         });
-
-        private static string GetDatabasePath(string filename)
-        {
-            return Path.Combine(FileSystem.AppDataDirectory, filename);
-        }
-
         #endregion
     }
 }

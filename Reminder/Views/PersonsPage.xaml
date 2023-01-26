@@ -6,7 +6,7 @@
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
              x:DataType="vm:PersonsPageViewModel">
-    
+
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
         <converter:SetTextMessageConverter x:Key="SetTextMessageConverter"/>
@@ -42,7 +42,7 @@
           ColumnSpacing="5"
           RowDefinitions="*,Auto"
           RowSpacing="0">
-        
+
         <ActivityIndicator
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
@@ -51,7 +51,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand">
         </ActivityIndicator>
-        
+
         <CollectionView Grid.Row="0"
                         Grid.ColumnSpan="2"
                         Grid.RowSpan="1"

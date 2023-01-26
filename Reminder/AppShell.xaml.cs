@@ -1,5 +1,4 @@
-﻿using Plugin.LocalNotification;
-using Reminder.Views;
+﻿using Reminder.Views;
 
 namespace Reminder
 {
