@@ -10,11 +10,9 @@ namespace Reminder.Services.Converters
 
             var current = DateTime.Today;
 
-            var age = (current.Year - date.Year) - 1;
-
-            if (age < 0)
-                return 0;
-            else return age;
+            var age = current.Year - date.Year;
+            if (date.Date > current.AddYears(-age)) age--;
+            return age;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
