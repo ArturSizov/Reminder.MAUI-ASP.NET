@@ -1,9 +1,14 @@
-﻿using Prism.Commands;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Services;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Views;
+using Reminder.Views.Popup;
+using Reminder.ViewModels.Popup;
 
 namespace Reminder.ViewModels
 {
@@ -63,11 +68,10 @@ namespace Reminder.ViewModels
 #if ANDROID
                 notification.AddNotification(person);
 #endif
-                if(person.Birthday.Day == DateTime.Now.Day)
-                   await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
+                if (person.Birthday.Day == DateTime.Now.Day)
+                    await Shell.Current.ShowPopupAsync(new PopupPage(new PopupViewModel("Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.")));
             }
-            else await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
-
+            else await Shell.Current.ShowPopupAsync(new PopupPage(new PopupViewModel("Поле \"Имя\" не может быть пустым")));
         });
 
         /// <summary>
@@ -77,6 +81,6 @@ namespace Reminder.ViewModels
         {
             Person.Base64 = await Helper.AddImage();
         });
-        #endregion
+#endregion
     }
 }

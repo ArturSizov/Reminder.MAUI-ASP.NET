@@ -2,17 +2,17 @@
 using Plugin.LocalNotification.AndroidOption;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Reminder.Services
 {
     public class ReminderNotificationServices : IReminderNotificationServices
     {
-//#if ANDROID
+#if ANDROID
         public NotificationRequest Request { get; set; }
-
+#endif
         public void AddNotification(Person person)
         {
+#if ANDROID
             Request = new NotificationRequest
             {
                 NotificationId = person.Id,
@@ -20,8 +20,9 @@ namespace Reminder.Services
                 Description = $"Поздравить: {person.Name} {person.LastName}",
                 CategoryType = NotificationCategoryType.Reminder,
                 Schedule = new NotificationRequestSchedule
+
                 {
-                    NotifyTime = DateTime.Now.AddDays(GetDaysAge(person.Birthday)),
+                    NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(person.Birthday)),
                     RepeatType = NotificationRepeat.TimeInterval,
                     NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
                 },
@@ -35,8 +36,9 @@ namespace Reminder.Services
             };
 
             LocalNotificationCenter.Current.Show(Request);
+#endif
         }
-//#endif
+
         private int GetDaysAge(DateTime date)
         {
             var current = DateTime.Today;

@@ -1,7 +1,4 @@
-using Reminder.Contracts.Models;
-using Reminder.Interfaces;
 using Reminder.ViewModels;
-using System.Collections.ObjectModel;
 
 namespace Reminder.Views;
 

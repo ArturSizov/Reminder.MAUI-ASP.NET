@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:Reminder.ViewModels.Popup"
+             x:Class="Reminder.Views.Popup.PopupPage"
+             x:DataType="vm:PopupViewModel">
+    
+    <Frame BackgroundColor="Red"
+           MaximumWidthRequest="150"
+           MinimumHeightRequest="150">
+        <VerticalStackLayout Margin="5" BackgroundColor="Transparent">
+            <Label Text="{Binding Text}" 
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+            <Button Text="Ok"/>
+        </VerticalStackLayout>
+    </Frame>
+    
+</toolkit:Popup>
