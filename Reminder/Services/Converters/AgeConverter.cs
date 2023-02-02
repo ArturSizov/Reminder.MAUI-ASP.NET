@@ -8,11 +8,16 @@ namespace Reminder.Services.Converters
         {
             var date = (DateTime)value;
 
-            var current = DateTime.Today;
+            var today = DateTime.Today;
 
-            var age = current.Year - date.Year;
-            if (date.Date > current.AddYears(-age)) age--;
-            return age;
+            var a = (today.Year * 100 + today.Month) * 100 + today.Day;
+            var b = (date.Year * 100 + date.Month) * 100 + date.Day;
+
+            return (a - b) / 10000;
+
+            //var age = current.Year - date.Year;
+            //if (date.Date > current.AddYears(-age)) age--;
+            //return age;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

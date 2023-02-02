@@ -13,24 +13,27 @@ namespace Reminder.Services
         public void AddNotification(Person person)
         {
 #if ANDROID
+            var date = new DateTime(person.Birthday.Year, person.Birthday.Month, person.Birthday.Day, 0, 01, 0);
+
             Request = new NotificationRequest
             {
                 NotificationId = person.Id,
                 Title = "Напоминалка",
                 Description = $"Поздравить: {person.Name} {person.LastName}",
                 CategoryType = NotificationCategoryType.Reminder,
-                Schedule = new NotificationRequestSchedule
 
+                Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(person.Birthday)),
+                    NotifyTime = DateTime.Now.AddDays(GetDaysAge(date)),
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
+                    NotifyRepeatInterval = TimeSpan.FromDays(1)
+                    //NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
                 },
                 Android = new AndroidOptions
                 {
                     IconSmallName =
                     {
-                        ResourceName = "notification"
+                        ResourceName = "notification_bell"
                     }
                 }
             };
@@ -39,17 +42,20 @@ namespace Reminder.Services
 #endif
         }
 
-        private int GetDaysAge(DateTime date)
+        private int GetDaysAge(DateTime birthday)
         {
-            var current = DateTime.Today;
+            var today = DateTime.Today;
 
-            int year = current.Month > date.Month || current.Month == date.Month && current.Day > date.Day ? current.Year + 1 : current.Year;
+            var date = birthday.AddYears(today.Year - birthday.Year);
 
-            var days = (int)(new DateTime(year, date.Month, date.Day) - current).TotalDays;
+            if (date < today)
+                date = date.AddYears(1);
 
-            if(days == 0)
+            var days = (date - today).Days;
+
+            if (days == 0)
             {
-                return (int)(current.AddYears(1) - current).TotalDays;
+                return (date.AddYears(1) - today).Days;
             }
             else return days;
         }

@@ -49,15 +49,17 @@ namespace Reminder.ViewModels
             {
                 IsBusy = true;
                 Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+
 #if ANDROID
-                if (notification.Request == null)
+                foreach (var item in Persons)
                 {
-                    foreach (var item in Persons)
-                    {
+                    //if (notification.Request.NotificationId == item.Id)
+                    //{
                         notification.AddNotification(item);
-                    }
+                    //}
                 }
 #endif
+
             }
             catch (Exception ex)
             {
@@ -89,7 +91,6 @@ namespace Reminder.ViewModels
         }
         #endregion
         #region Command
-
         /// <summary>
         /// Go to details command
         /// </summary>
@@ -121,6 +122,6 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.GoToAsync("...");
         });
-        #endregion
+#endregion
     }
 }

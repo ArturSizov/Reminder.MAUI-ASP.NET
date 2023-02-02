@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Reminder.Services.Converters
 {
@@ -6,12 +7,16 @@ namespace Reminder.Services.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var date = (DateTime)value;
+            var birthday = (DateTime)value;
 
-            var current = DateTime.Today;
-            int year = current.Month > date.Month || current.Month == date.Month && current.Day > date.Day
-            ? current.Year + 1 : current.Year;
-            return (int)(new DateTime(year, date.Month, date.Day) - current).TotalDays;
+            var today = DateTime.Today;
+
+            var date = birthday.AddYears(today.Year - birthday.Year);
+
+            if (date < today)
+                date = date.AddYears(1);
+
+            return (date - today).Days;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
