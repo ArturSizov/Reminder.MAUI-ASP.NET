@@ -7,8 +7,8 @@ using Reminder.Interfaces;
 using Reminder.Services;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
-using Reminder.Views.Popup;
-using Reminder.ViewModels.Popup;
+using Reminder.Views.ViewsPopup;
+using Reminder.ViewModels.PopupViewModels;
 
 namespace Reminder.ViewModels
 {
@@ -69,9 +69,10 @@ namespace Reminder.ViewModels
                 notification.AddNotification(person);
 #endif
                 if (person.Birthday.Day == DateTime.Now.Day)
-                    await Shell.Current.ShowPopupAsync(new PopupPage(new PopupViewModel("Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.")));
+                    await Shell.Current.ShowPopupAsync(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +
+                        "с сегодняшним днём.\nНапоминание сработает через год.")));
             }
-            else await Shell.Current.ShowPopupAsync(new PopupPage(new PopupViewModel("Поле \"Имя\" не может быть пустым")));
+            else await Shell.Current.ShowPopupAsync(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
         });
 
         /// <summary>

@@ -95,10 +95,10 @@
 	  <MauiXaml Update="Views\PersonsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Popup\PopupPage.xaml">
+	  <MauiXaml Update="Views\ReportsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ReportsPage.xaml">
+	  <MauiXaml Update="Views\ViewsPopup\PopupMessage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
