@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Plugin.LocalNotification;
+using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
@@ -15,7 +16,8 @@ namespace Reminder.ViewModels
         private bool isEnabled;
         private Person person;
         private readonly IRepository data;
-        private IReminderNotificationServices notification;
+        private INotificationService notificationServices;
+        private readonly IReminderNotificationServices notification;
         #endregion
 
         #region Public property
@@ -24,10 +26,11 @@ namespace Reminder.ViewModels
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
         #endregion
 
-        public DetailsPageViewModel(IRepository data, IReminderNotificationServices notification)
+        public DetailsPageViewModel(IRepository data, INotificationService notificationServices, IReminderNotificationServices notification)
         {
             IsEnabled = false;
             this.data = data;
+            this.notificationServices = notificationServices;
             this.notification = notification;
         }
 
@@ -60,11 +63,7 @@ namespace Reminder.ViewModels
                 if (person.Birthday.Day == DateTime.Now.Day)
                     await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
 #if ANDROID
-                if (notification.Request != null)
-                {
-                    notification.Request.NotificationId = person.Id;
-                    notification.Request.Cancel();
-                }
+                notificationServices.Cancel(person.Id);
                 notification.AddNotification(person);
 #endif
             }
@@ -91,11 +90,7 @@ namespace Reminder.ViewModels
                 await data.DeletePerson(person);
                 await Shell.Current.GoToAsync("..");
 #if ANDROID
-                if (notification.Request != null)
-                {
-                    notification.Request.NotificationId = person.Id;
-                    notification.Request.Cancel();
-                }
+                notificationServices.Cancel(person.Id);
 #endif               
             }
             else return;

@@ -14,10 +14,6 @@ namespace Reminder.Services.Converters
             var b = (date.Year * 100 + date.Month) * 100 + date.Day;
 
             return (a - b) / 10000;
-
-            //var age = current.Year - date.Year;
-            //if (date.Date > current.AddYears(-age)) age--;
-            //return age;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

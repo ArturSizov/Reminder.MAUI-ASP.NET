@@ -1,9 +1,7 @@
-﻿using Plugin.LocalNotification;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
-using Reminder.Services;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -49,17 +47,6 @@ namespace Reminder.ViewModels
             {
                 IsBusy = true;
                 Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
-
-#if ANDROID
-                foreach (var item in Persons)
-                {
-                    //if (notification.Request.NotificationId == item.Id)
-                    //{
-                        notification.AddNotification(item);
-                    //}
-                }
-#endif
-
             }
             catch (Exception ex)
             {

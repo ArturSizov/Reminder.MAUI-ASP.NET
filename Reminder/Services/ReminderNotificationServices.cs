@@ -8,14 +8,19 @@ namespace Reminder.Services
     public class ReminderNotificationServices : IReminderNotificationServices
     {
 #if ANDROID
-        public NotificationRequest Request { get; set; }
+
+        private INotificationService notificationService;
 #endif
+        public ReminderNotificationServices(INotificationService notificationService)
+        {
+            this.notificationService = notificationService;
+        }
         public void AddNotification(Person person)
         {
 #if ANDROID
-            var date = new DateTime(person.Birthday.Year, person.Birthday.Month, person.Birthday.Day, 0, 01, 0);
+            var date = new DateTime(person.Birthday.Year, person.Birthday.Month, person.Birthday.Day, 7, 00, 0);
 
-            Request = new NotificationRequest
+            var request = new NotificationRequest
             {
                 NotificationId = person.Id,
                 Title = "Напоминалка",
@@ -24,9 +29,9 @@ namespace Reminder.Services
 
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = DateTime.Now.AddDays(GetDaysAge(date)),
+                    NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(date)),
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromDays(1)
+                    NotifyRepeatInterval = TimeSpan.FromMinutes(1)
                     //NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
                 },
                 Android = new AndroidOptions
@@ -34,11 +39,11 @@ namespace Reminder.Services
                     IconSmallName =
                     {
                         ResourceName = "notification_bell"
-                    }
+                    } 
                 }
             };
 
-            LocalNotificationCenter.Current.Show(Request);
+            notificationService.Show(request);
 #endif
         }
 

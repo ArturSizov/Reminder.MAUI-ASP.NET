@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Reminder.Services.Converters
 {

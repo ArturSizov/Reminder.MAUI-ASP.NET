@@ -8,7 +8,6 @@ using Reminder.Interfaces;
 using Reminder.ViewModels;
 using Reminder.Views;
 using Reminder.Services;
-using Plugin.LocalNotification.AndroidOption;
 using CommunityToolkit.Maui;
 
 namespace Reminder
