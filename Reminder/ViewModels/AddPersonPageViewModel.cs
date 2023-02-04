@@ -1,12 +1,9 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Services;
 using System.Windows.Input;
-using CommunityToolkit.Maui.Views;
 using Reminder.Views.ViewsPopup;
 using Reminder.ViewModels.PopupViewModels;
 
@@ -68,11 +65,11 @@ namespace Reminder.ViewModels
 #if ANDROID
                 notification.AddNotification(person);
 #endif
-                if (person.Birthday.Day == DateTime.Now.Day)
-                    await Shell.Current.ShowPopupAsync(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +
+                if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day)
+                    await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +
                         "с сегодняшним днём.\nНапоминание сработает через год.")));
             }
-            else await Shell.Current.ShowPopupAsync(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
+            else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
         });
 
         /// <summary>

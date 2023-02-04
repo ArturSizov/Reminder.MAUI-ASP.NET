@@ -13,7 +13,9 @@ namespace Reminder.Services
 #endif
         public ReminderNotificationServices(INotificationService notificationService)
         {
+#if ANDROID
             this.notificationService = notificationService;
+#endif
         }
         public void AddNotification(Person person)
         {

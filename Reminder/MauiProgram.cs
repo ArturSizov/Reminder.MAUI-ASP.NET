@@ -8,7 +8,6 @@ using Reminder.Interfaces;
 using Reminder.ViewModels;
 using Reminder.Views;
 using Reminder.Services;
-using CommunityToolkit.Maui;
 
 namespace Reminder
 {
@@ -18,7 +17,6 @@ namespace Reminder
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiCommunityToolkit()
                 .UseMauiApp<App>()
 #if ANDROID
                 .UseLocalNotification(config =>
@@ -52,6 +50,7 @@ namespace Reminder
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
             builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
+            //builder.Services.AddSingleton<INotificationService>();
 
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();

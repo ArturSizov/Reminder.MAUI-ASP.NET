@@ -16,9 +16,10 @@ namespace Reminder.ViewModels
         private bool isEnabled;
         private Person person;
         private readonly IRepository data;
-        private INotificationService notificationServices;
         private readonly IReminderNotificationServices notification;
-        #endregion
+        private INotificationService notificationServices;
+
+#endregion
 
         #region Public property
         public Person Person { get => person; set => SetProperty(ref person, value); }
@@ -30,8 +31,8 @@ namespace Reminder.ViewModels
         {
             IsEnabled = false;
             this.data = data;
-            this.notificationServices = notificationServices;
             this.notification = notification;
+            this.notificationServices = notificationServices;
         }
 
         #region Commands
@@ -64,8 +65,8 @@ namespace Reminder.ViewModels
                     await Shell.Current.DisplayAlert("Информация", "Дата рождения совпадает с сегодняшним днём.\nНапоминание сработает через год.", "Ok");
 #if ANDROID
                 notificationServices.Cancel(person.Id);
-                notification.AddNotification(person);
 #endif
+                notification.AddNotification(person);
             }
 
             else await Shell.Current.DisplayAlert("Ошибка", "Поле \"Имя\" не может быть пустым", "Ok");
