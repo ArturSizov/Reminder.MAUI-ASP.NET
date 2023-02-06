@@ -11,7 +11,7 @@ namespace Reminder.ViewModels.PopupViewModels
         public PopupMessageViewModel(string text)
         {
             this.text = text;
-            Timer timer = new Timer(new TimerCallback(Close));
+            var timer = new Timer(new TimerCallback(Close));
             timer.Change(10000, 0);
         }
 

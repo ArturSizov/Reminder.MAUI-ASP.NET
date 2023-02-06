@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Plugin.LocalNotification;
+using Plugin.LocalNotification.EventArgs;
+using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
@@ -30,7 +32,7 @@ namespace Reminder.ViewModels
             ClearingСache();
 #endif
             this.data = data;
-            this.notification = notification;
+            this.notification = notification;            
             GetPersons();
         }
 
