@@ -1,51 +1,60 @@
 ﻿using Plugin.LocalNotification;
-using Plugin.LocalNotification.AndroidOption;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
+using Reminder.ViewModels.PopupViewModels;
+using Reminder.Views.ViewsPopup;
 
 namespace Reminder.Services
 {
     public class ReminderNotificationServices : IReminderNotificationServices
     {
-#if ANDROID
+//#if ANDROID
         private INotificationService notificationService;
-#endif
+//#endif
         public ReminderNotificationServices(INotificationService notificationService)
         {
-#if ANDROID
+//#if ANDROID
             this.notificationService = notificationService;
             
-#endif
+            //#endif
         }
-        public void AddNotification(Person person)
+        public async Task AddNotification(Person person, int time)
         {
-#if ANDROID
-            var date = new DateTime(person.Birthday.Year, person.Birthday.Month, person.Birthday.Day, 7, 00, 0);
+            //#if ANDROID
+            if (time > 23) time = 0;
+ 
+            var date = new DateTime(DateTime.Now.Year, person.Birthday.Month, person.Birthday.Day, time, 55, 0);         
 
-            var request = new NotificationRequest
+            if (date.Day == DateTime.Now.Day & date.Month == DateTime.Now.Month & time < (DateTime.Now.TimeOfDay).Hours)
+            {
+                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel($"Напоминание для: {person.Name} {person.LastName} сработает через год.")));
+            }
+
+            var notification = new NotificationRequest
             {
                 NotificationId = person.Id,
                 Title = "Напоминалка",
                 Description = $"Поздравить: {person.Name} {person.LastName}",
-                CategoryType = NotificationCategoryType.Reminder,
+                CategoryType = NotificationCategoryType.Reminder,  
 
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = DateTime.Now.AddSeconds(GetDaysAge(person.Birthday)),
+                    NotifyTime = date,
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromMinutes(5)
+                    NotifyRepeatInterval = TimeSpan.FromMinutes(2),
                     //NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
                 },
-                Android = new AndroidOptions
+                Android = 
                 {
                     IconSmallName =
                     {
                         ResourceName = "notification_bell"
-                    } 
+                    }
                 }
             };
-            notificationService.Show(request);
-#endif
+            notification.Android.ChannelId = "channel_01";
+            await notificationService.Show(notification);
+//#endif
         }
 
         private int GetDaysAge(DateTime birthday)
@@ -62,6 +71,7 @@ namespace Reminder.Services
             if (days == 0)
             {
                 return (date.AddYears(1) - today).Days;
+                //return a;
             }
             else return days;
         }

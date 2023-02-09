@@ -8,6 +8,7 @@ using Reminder.Interfaces;
 using Reminder.ViewModels;
 using Reminder.Views;
 using Reminder.Services;
+using Plugin.LocalNotification.AndroidOption;
 
 namespace Reminder
 {
@@ -18,24 +19,26 @@ namespace Reminder
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-#if ANDROID
+//#if ANDROID
                 .UseLocalNotification(config =>
                 {
-                    config.AddCategory(new NotificationCategory(NotificationCategoryType.Status)
+                    config.AddAndroid(android =>
                     {
-                        ActionList = new HashSet<NotificationAction>(new List<NotificationAction>()
-                            {
-                               new NotificationAction(100)
-                               {
-                                  Android =
-                                  {
-                                    LaunchAppWhenTapped = true
-                                  }
-                                }
-                            })
+                        android.AddChannel(new NotificationChannelRequest
+                        {
+                            Id = $"channel_01",
+                            Name = "General",
+                            Description = "General"
+                        });
+                        android.AddChannel(new NotificationChannelRequest
+                        {
+                            Id = $"channel_02",
+                            Name = "Special",
+                            Description = "Special"
+                        });
                     });
                 })
-#endif
+//#endif
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -50,7 +53,7 @@ namespace Reminder
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
             builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
-            //builder.Services.AddSingleton<INotificationService>();
+            //builder.Services.AddTransient<INotificationService>();
 
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();

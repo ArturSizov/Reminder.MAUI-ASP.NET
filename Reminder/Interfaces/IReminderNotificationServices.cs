@@ -4,6 +4,6 @@ namespace Reminder.Interfaces
 {
     public interface IReminderNotificationServices
     {
-        void AddNotification(Person person);
+        Task AddNotification(Person person, int time);
     }
 }

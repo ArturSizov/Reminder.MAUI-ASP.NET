@@ -28,15 +28,17 @@ namespace Reminder.ViewModels
         public AddPersonPageViewModel(IRepository data, IReminderNotificationServices notification)
         {
             this.data = data;
+#if ANDROID
             this.notification = notification;
+#endif
             IsEnabled = true;
         }
-        #region Methods
+#region Methods
         
 
-        #endregion
+#endregion
 
-        #region Commands
+#region Commands
         /// <summary>
         /// Back button command
         /// </summary>
@@ -63,7 +65,7 @@ namespace Reminder.ViewModels
                 await data.InsertPerson(person);
                 await Shell.Current.GoToAsync("..");
 #if ANDROID
-                notification.AddNotification(person);
+                await notification.AddNotification(person, 11);
 #endif
                 if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day)
                     await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +

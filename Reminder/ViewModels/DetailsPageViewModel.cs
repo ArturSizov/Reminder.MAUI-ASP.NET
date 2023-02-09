@@ -19,25 +19,28 @@ namespace Reminder.ViewModels
         private Person person;
         private readonly IRepository data;
         private readonly IReminderNotificationServices notification;
+#if ANDROID
         private INotificationService notificationServices;
-
+#endif
 #endregion
 
-        #region Public property
+#region Public property
         public Person Person { get => person; set => SetProperty(ref person, value); }
         public string Title => $"{person.Name} {person.LastName}";
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
-        #endregion
+#endregion
 
         public DetailsPageViewModel(IRepository data, INotificationService notificationServices, IReminderNotificationServices notification)
         {
             IsEnabled = false;
             this.data = data;
+#if ANDROID
             this.notification = notification;
             this.notificationServices = notificationServices;
+#endif
         }
 
-        #region Commands
+#region Commands
         /// <summary>
         /// Back button command
         /// </summary>
@@ -62,6 +65,7 @@ namespace Reminder.ViewModels
             if (!string.IsNullOrEmpty(person.Name))
             {
                 await data.UpdatePerson(person);
+
                 await Shell.Current.GoToAsync("..");
                 if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day)
                     await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +
@@ -69,7 +73,7 @@ namespace Reminder.ViewModels
 #if ANDROID
                 notificationServices.Cancel(person.Id);
 #endif
-                notification.AddNotification(person);
+                await notification.AddNotification(person, 20);
             }
             else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
 
@@ -94,10 +98,10 @@ namespace Reminder.ViewModels
                 await Shell.Current.GoToAsync("..");
 #if ANDROID
                 notificationServices.Cancel(person.Id);
-#endif               
+#endif
             }
             else return;
         });
-        #endregion
+#endregion
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Plugin.LocalNotification;
-using Plugin.LocalNotification.EventArgs;
 using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
@@ -16,23 +15,26 @@ namespace Reminder.ViewModels
         #region Private property
         private readonly IRepository data;
         private IReminderNotificationServices notification;
+        private readonly INotificationService notificationService;
         private ObservableCollection<Person> persons;
         private bool isBusy;
 
         #endregion
+
         #region Public property
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
 
         #endregion
-        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification)
+        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification, INotificationService notificationService)
         {
 #if ANDROID
             ClearingСache();
 #endif
             this.data = data;
-            this.notification = notification;            
+            this.notification = notification;
+            this.notificationService = notificationService;
             GetPersons();
         }
 
@@ -49,6 +51,11 @@ namespace Reminder.ViewModels
             {
                 IsBusy = true;
                 Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+
+                foreach (var item in Persons)
+                {
+                   await notification.AddNotification(item, 21);
+                }
             }
             catch (Exception ex)
             {
@@ -79,6 +86,7 @@ namespace Reminder.ViewModels
             return Path.Combine(FileSystem.AppDataDirectory, filename);
         }
         #endregion
+
         #region Command
         /// <summary>
         /// Go to details command
@@ -111,6 +119,6 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.GoToAsync("...");
         });
-#endregion
+        #endregion
     }
 }
