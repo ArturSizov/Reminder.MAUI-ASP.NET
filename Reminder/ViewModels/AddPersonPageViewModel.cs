@@ -14,6 +14,7 @@ namespace Reminder.ViewModels
         #region Private ptoperty
         private bool isEnabled;
         private IRepository data;
+        private readonly ISettingsService settings;
         private IReminderNotificationServices notification;
         private Person person = new();
         #endregion
@@ -25,9 +26,10 @@ namespace Reminder.ViewModels
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
         #endregion
 
-        public AddPersonPageViewModel(IRepository data, IReminderNotificationServices notification)
+        public AddPersonPageViewModel(IRepository data, IReminderNotificationServices notification, ISettingsService settings)
         {
             this.data = data;
+            this.settings = settings;
 #if ANDROID
             this.notification = notification;
 #endif
@@ -65,11 +67,9 @@ namespace Reminder.ViewModels
                 await data.InsertPerson(person);
                 await Shell.Current.GoToAsync("..");
 #if ANDROID
-                await notification.AddNotification(person, 11);
+                await notification.AddNotification(person, settings.Time);
 #endif
-                if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day)
-                    await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +
-                        "с сегодняшним днём.\nНапоминание сработает через год.")));
+                await Helper.Announcement(person, settings.Time);
             }
             else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
         });

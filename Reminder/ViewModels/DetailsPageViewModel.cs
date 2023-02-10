@@ -18,33 +18,36 @@ namespace Reminder.ViewModels
         private bool isEnabled;
         private Person person;
         private readonly IRepository data;
+        private readonly ISettingsService settings;
         private readonly IReminderNotificationServices notification;
 #if ANDROID
         private INotificationService notificationServices;
 #endif
-#endregion
+        #endregion
 
-#region Public property
+        #region Public property
         public Person Person { get => person; set => SetProperty(ref person, value); }
         public string Title => $"{person.Name} {person.LastName}";
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
-#endregion
+        #endregion
 
-        public DetailsPageViewModel(IRepository data, INotificationService notificationServices, IReminderNotificationServices notification)
+        public DetailsPageViewModel(IRepository data, INotificationService notificationServices,
+            IReminderNotificationServices notification, ISettingsService settings)
         {
             IsEnabled = false;
             this.data = data;
+            this.settings = settings;
 #if ANDROID
             this.notification = notification;
             this.notificationServices = notificationServices;
 #endif
         }
 
-#region Commands
+        #region Commands
         /// <summary>
         /// Back button command
         /// </summary>
-        public ICommand BackCommand => new DelegateCommand(async() =>
+        public ICommand BackCommand => new DelegateCommand(async () =>
         {
             await Shell.Current.GoToAsync("..");
         });
@@ -67,13 +70,12 @@ namespace Reminder.ViewModels
                 await data.UpdatePerson(person);
 
                 await Shell.Current.GoToAsync("..");
-                if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day)
-                    await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Дата рождения совпадает " +
-                        "с сегодняшним днём.\nНапоминание сработает через год.")));
+
+                await Helper.Announcement(person, settings.Time);
 #if ANDROID
                 notificationServices.Cancel(person.Id);
 #endif
-                await notification.AddNotification(person, 20);
+                await notification.AddNotification(person, settings.Time);
             }
             else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
 
@@ -82,7 +84,7 @@ namespace Reminder.ViewModels
         /// <summary>
         /// Add image command
         /// </summary>
-        public ICommand AddImageCommand => new DelegateCommand(async() =>
+        public ICommand AddImageCommand => new DelegateCommand(async () =>
         {
             Person.Base64 = await Helper.AddImage();
         });
@@ -90,7 +92,7 @@ namespace Reminder.ViewModels
         /// <summary>
         /// Delete command
         /// </summary>
-        public ICommand DeleteCommand => new DelegateCommand<Person>(async(person) =>
+        public ICommand DeleteCommand => new DelegateCommand<Person>(async (person) =>
         {
             if (await Shell.Current.DisplayAlert("Внимание", $"Вы уверены, что хотите удалить всю информацию для: {person.Name}?", "Да", "Нет"))
             {
@@ -102,6 +104,6 @@ namespace Reminder.ViewModels
             }
             else return;
         });
-#endregion
+        #endregion
     }
 }

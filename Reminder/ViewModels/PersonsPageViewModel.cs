@@ -15,7 +15,7 @@ namespace Reminder.ViewModels
         #region Private property
         private readonly IRepository data;
         private IReminderNotificationServices notification;
-        private readonly INotificationService notificationService;
+        private readonly ISettingsService settings;
         private ObservableCollection<Person> persons;
         private bool isBusy;
 
@@ -27,14 +27,14 @@ namespace Reminder.ViewModels
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
 
         #endregion
-        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification, INotificationService notificationService)
+        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification, ISettingsService settings)
         {
 #if ANDROID
             ClearingСache();
 #endif
             this.data = data;
             this.notification = notification;
-            this.notificationService = notificationService;
+            this.settings = settings;
             GetPersons();
         }
 
@@ -54,7 +54,7 @@ namespace Reminder.ViewModels
 
                 foreach (var item in Persons)
                 {
-                   await notification.AddNotification(item, 21);
+                   await notification.AddNotification(item, settings.Time);
                 }
             }
             catch (Exception ex)

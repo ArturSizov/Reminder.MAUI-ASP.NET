@@ -53,7 +53,7 @@ namespace Reminder
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
             builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
-            //builder.Services.AddTransient<INotificationService>();
+            builder.Services.AddSingleton<ISettingsService, SettingsPageViewModel>();
 
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();
@@ -64,6 +64,7 @@ namespace Reminder
             builder.Services.AddSingleton<PersonsPageViewModel>();
             builder.Services.AddTransient<DetailsPageViewModel>();
             builder.Services.AddTransient<AddPersonPageViewModel>();
+            builder.Services.AddTransient<SettingsPageViewModel>();
             return builder.Build();
         }
     }
