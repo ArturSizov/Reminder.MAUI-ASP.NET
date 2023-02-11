@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:Class="Reminder.Views.PersonsPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
              x:DataType="vm:PersonsPageViewModel">
+    
+    <Page.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent"/>
+    </Page.Behaviors>
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>

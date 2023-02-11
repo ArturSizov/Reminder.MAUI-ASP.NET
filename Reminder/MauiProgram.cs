@@ -9,6 +9,7 @@ using Reminder.ViewModels;
 using Reminder.Views;
 using Reminder.Services;
 using Plugin.LocalNotification.AndroidOption;
+using CommunityToolkit.Maui;
 
 namespace Reminder
 {
@@ -19,7 +20,8 @@ namespace Reminder
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-//#if ANDROID
+                .UseMauiCommunityToolkit()
+#if ANDROID
                 .UseLocalNotification(config =>
                 {
                     config.AddAndroid(android =>
@@ -38,7 +40,7 @@ namespace Reminder
                         });
                     });
                 })
-//#endif
+#endif
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

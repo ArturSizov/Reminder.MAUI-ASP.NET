@@ -1,5 +1,4 @@
-﻿using Plugin.LocalNotification;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
@@ -20,9 +19,6 @@ namespace Reminder.ViewModels
         private readonly IRepository data;
         private readonly ISettingsService settings;
         private readonly IReminderNotificationServices notification;
-#if ANDROID
-        private INotificationService notificationServices;
-#endif
         #endregion
 
         #region Public property
@@ -31,16 +27,13 @@ namespace Reminder.ViewModels
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
         #endregion
 
-        public DetailsPageViewModel(IRepository data, INotificationService notificationServices,
-            IReminderNotificationServices notification, ISettingsService settings)
+        public DetailsPageViewModel(IRepository data, IReminderNotificationServices notification, ISettingsService settings)
         {
             IsEnabled = false;
             this.data = data;
             this.settings = settings;
-#if ANDROID
+
             this.notification = notification;
-            this.notificationServices = notificationServices;
-#endif
         }
 
         #region Commands
@@ -72,13 +65,12 @@ namespace Reminder.ViewModels
                 await Shell.Current.GoToAsync("..");
 
                 await Helper.Announcement(person, settings.Time);
-#if ANDROID
-                notificationServices.Cancel(person.Id);
-#endif
+
+                notification.Cancel(person);
+
                 await notification.AddNotification(person, settings.Time);
             }
             else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
-
         });
 
         /// <summary>
@@ -98,9 +90,8 @@ namespace Reminder.ViewModels
             {
                 await data.DeletePerson(person);
                 await Shell.Current.GoToAsync("..");
-#if ANDROID
-                notificationServices.Cancel(person.Id);
-#endif
+
+                notification.Cancel(person);
             }
             else return;
         });

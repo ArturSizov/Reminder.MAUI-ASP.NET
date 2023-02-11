@@ -16,7 +16,7 @@ namespace Reminder.ViewModels
 
         public SettingsPageViewModel()
         {
-            Time = 16;
+            Time = 10;
         }
     }
 }

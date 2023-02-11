@@ -30,13 +30,11 @@ namespace Reminder.ViewModels
         {
             this.data = data;
             this.settings = settings;
-#if ANDROID
             this.notification = notification;
-#endif
+
             IsEnabled = true;
         }
 #region Methods
-        
 
 #endregion
 
@@ -66,9 +64,9 @@ namespace Reminder.ViewModels
             {
                 await data.InsertPerson(person);
                 await Shell.Current.GoToAsync("..");
-#if ANDROID
+
                 await notification.AddNotification(person, settings.Time);
-#endif
+
                 await Helper.Announcement(person, settings.Time);
             }
             else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));

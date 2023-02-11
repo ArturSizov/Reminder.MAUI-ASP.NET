@@ -1,26 +1,32 @@
 ﻿using Plugin.LocalNotification;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
-using Reminder.ViewModels.PopupViewModels;
-using Reminder.Views.ViewsPopup;
 
 namespace Reminder.Services
 {
     public class ReminderNotificationServices : IReminderNotificationServices
     {
-//#if ANDROID
+#if ANDROID
         private INotificationService notificationService;
-//#endif
+#endif
         public ReminderNotificationServices(INotificationService notificationService)
         {
-//#if ANDROID
+#if ANDROID
             this.notificationService = notificationService;
             
-//#endif
+#endif
         }
+        #region Methods
+
+        /// <summary>
+        /// Method for adding notifications
+        /// </summary>
+        /// <param name="person"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public async Task AddNotification(Person person, int time)
         {
-            //#if ANDROID
+#if ANDROID
             if (time > 23) time = 0;
  
             var date = new DateTime(DateTime.Now.Year, person.Birthday.Month, person.Birthday.Day, time, 0, 0);
@@ -36,7 +42,7 @@ namespace Reminder.Services
                 {
                     NotifyTime = date,
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromMinutes(2),
+                    NotifyRepeatInterval = TimeSpan.FromDays(1),
                     //NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
                 },
                 Android = 
@@ -47,9 +53,21 @@ namespace Reminder.Services
                     }
                 }
             };
-            notification.Android.ChannelId = "channel_01";
             await notificationService.Show(notification);
-//#endif
+#endif
         }
+#endregion
+
+        /// <summary>
+        /// ancel a notification match with the Id
+        /// </summary>
+        /// <param name="person"></param>
+        public void Cancel(Person person)
+        {
+#if ANDROID
+            notificationService.Cancel(person.Id);
+#endif
+        }
+
     }
 }
