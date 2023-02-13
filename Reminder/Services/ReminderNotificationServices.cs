@@ -49,10 +49,11 @@ namespace Reminder.Services
                 {
                     IconSmallName =
                     {
-                        ResourceName = "notification_bell"
+                        ResourceName = "notification_message"
                     }
                 }
             };
+            notification.Android.ChannelId = "channel_01";
             await notificationService.Show(notification);
 #endif
         }

@@ -49,7 +49,7 @@
 		<None Remove="Resources\Images\cancelled.png" />
 		<None Remove="Resources\Images\compose.png" />
 		<None Remove="Resources\Images\noavatar.png" />
-		<None Remove="Resources\Images\notification_bell.png" />
+		<None Remove="Resources\Images\notification_message.png" />
 		<None Remove="Resources\Images\remove_person.png" />
 		<None Remove="Resources\Images\save.png" />
 		<None Remove="Resources\Splash\notification.png" />
