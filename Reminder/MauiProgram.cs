@@ -10,6 +10,7 @@ using Reminder.Views;
 using Reminder.Services;
 using Plugin.LocalNotification.AndroidOption;
 using CommunityToolkit.Maui;
+using Reminder.CustomControls;
 
 namespace Reminder
 {
@@ -66,7 +67,7 @@ namespace Reminder
             builder.Services.AddSingleton<PersonsPageViewModel>();
             builder.Services.AddTransient<DetailsPageViewModel>();
             builder.Services.AddTransient<AddPersonPageViewModel>();
-            builder.Services.AddTransient<SettingsPageViewModel>();
+            builder.Services.AddTransient<OutlinedEntryControl>();
             return builder.Build();
         }
     }
