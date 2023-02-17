@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
+             xmlns:customControls="clr-namespace:Reminder.CustomControls"
              x:DataType="vm:AddPersonPageViewModel">
     <Shell.TitleView>
         <HorizontalStackLayout>
@@ -75,26 +76,18 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     Padding="2" Spacing="5">
-                    <Entry Text="{Binding Person.Name}"
-                       IsEnabled="{Binding IsEnabled}"
-                       Placeholder="Имя"
-                       Keyboard="Chat"
-                       Style="{StaticResource EntyCustom}"/>
-                    <Entry Text="{Binding Person.LastName}"
-                       IsEnabled="{Binding IsEnabled}"
-                       Placeholder="Фамилия"
-                       Keyboard="Chat"
-                       Style="{StaticResource EntyCustom}"/>
-                    <Entry Text="{Binding Person.MiddleName}"
-                       IsEnabled="{Binding IsEnabled}"
-                       Placeholder="Отчество"
-                       Keyboard="Chat"
-                       Style="{StaticResource EntyCustom}"/>
-                    <Entry Text="{Binding Person.Position}"
-                       IsEnabled="{Binding IsEnabled}"
-                       Placeholder="Примечание"
-                       Keyboard="Chat"
-                       Style="{StaticResource EntyCustom}"/>
+                    <customControls:OutlinedEntryControl  Placeholder="Имя" 
+                                                          Text="{Binding Person.Name}" 
+                                                          IsEnabled="{Binding IsEnabled}"/>
+                    <customControls:OutlinedEntryControl  Placeholder="Фамилия" 
+                                                          Text="{Binding Person.LastName}" 
+                                                          IsEnabled="{Binding IsEnabled}"/>
+                    <customControls:OutlinedEntryControl  Placeholder="Отчество" 
+                                                          Text="{Binding Person.MiddleName}" 
+                                                          IsEnabled="{Binding IsEnabled}"/>
+                    <customControls:OutlinedEntryControl  Placeholder="Примечание" 
+                                                          Text="{Binding Person.Position}" 
+                                                          IsEnabled="{Binding IsEnabled}"/>
 
                     <DatePicker HorizontalOptions="Center"
                                 MinimumDate="01/01/1935"

@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace Reminder.ViewModels
 {
     [QueryProperty("Person", nameof(DetailsPage))]
-    public partial class DetailsPageViewModel : BindableBase
+    public class DetailsPageViewModel : BindableBase
     {
         #region Private ptoperty
         private bool isEnabled;
