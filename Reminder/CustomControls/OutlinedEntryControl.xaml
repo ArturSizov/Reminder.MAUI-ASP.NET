@@ -24,8 +24,8 @@
 
     <Label Grid.Row="0"
            x:Name="lblPlaceholder"
-           Margin="10,10,10,0"
            TextColor="Gray"
+           Margin="10,10,10,0"
            Text="{Binding Source={x:Reference this}, Path=Placeholder}"
            BackgroundColor="Transparent"
            HorizontalTextAlignment="Center"/>

@@ -15,10 +15,8 @@ namespace Reminder
                 {
 #if __ANDROID__
                     handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
-#elif __IOS__
-                handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif WINDOWS
-            handler.PlatformView.FontWeight = Microsoft.UI.Text.FontWeights.Thin;
+                    handler.PlatformView.FontWeight = Microsoft.UI.Text.FontWeights.Light;
 #endif
                 }
             });

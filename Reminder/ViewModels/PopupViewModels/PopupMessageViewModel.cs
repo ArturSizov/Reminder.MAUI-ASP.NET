@@ -11,13 +11,18 @@ namespace Reminder.ViewModels.PopupViewModels
         public PopupMessageViewModel(string text)
         {
             this.text = text;
+#if ANDROID
             var timer = new Timer(new TimerCallback(Close));
             timer.Change(10000, 0);
+#endif
         }
 
         private void Close(object state)
         {
+#if ANDROID
+
             MauiPopup.PopupAction.ClosePopup();
+#endif
         }
     }
 }

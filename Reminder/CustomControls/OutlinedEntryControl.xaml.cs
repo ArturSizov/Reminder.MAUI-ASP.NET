@@ -86,9 +86,13 @@ public partial class OutlinedEntryControl : Grid
         else
         {
             lblPlaceholder.FontSize = 15;
+#if ANDROID
             lblPlaceholder.TranslateTo(0, 5, 80, easing: Easing.Linear);
+#elif WINDOWS
+            lblPlaceholder.TranslateTo(0, 0, 80, easing: Easing.Linear);
+#endif
             lblPlaceholder.HorizontalTextAlignment = TextAlignment.Center;
         }
     }
-    #endregion
+#endregion
 }

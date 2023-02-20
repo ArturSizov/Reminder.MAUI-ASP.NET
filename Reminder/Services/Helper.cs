@@ -66,19 +66,33 @@ namespace Reminder.Services
         public async static Task Announcement(Person person, int time)
         {
             if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day & time <= (DateTime.Now.TimeOfDay).Hours)
-                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(
-                    new PopupMessageViewModel($"Напоминание для {person.Name} {person.LastName} сработает через {Helper.GetDaysAge(person.Birthday)} дней(я), " +
+            {
+#if ANDROID
+                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel($"Напоминание для {person.Name} {person.LastName} сработает через {Helper.GetDaysAge(person.Birthday)} дней(я), " +
                     $"в {time} ч.")));
+#elif WINDOWS
+                await Shell.Current.DisplayAlert("Информация",$"Напоминание для {person.Name} {person.LastName} сработает через {Helper.GetDaysAge(person.Birthday)} дней(я), " +
+                    $"в {time} ч.", "Ok");
+#endif
+            }
+
             else if (person.Birthday.Month == DateTime.Now.Month & person.Birthday.Day == DateTime.Now.Day & time > (DateTime.Now.TimeOfDay).Hours)
             {
-                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(
-                    new PopupMessageViewModel($"Напоминание для {person.Name} {person.LastName} сработает сегодня, в {time} ч.")));
+#if ANDROID
+                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel($"Напоминание для {person.Name} {person.LastName} сработает сегодня, в {time} ч.")));
+#elif WINDOWS
+                await Shell.Current.DisplayAlert("Информация", $"Напоминание для {person.Name} {person.LastName} сработает сработает сегодня, в {time} ч.", "Ok");
+#endif
             }
             else
             {
-                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(
-                   new PopupMessageViewModel($"Напоминание для {person.Name} {person.LastName} сработает через {Helper.GetDaysAge(person.Birthday)} дней(я), " +
+#if ANDROID
+                await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel($"Напоминание для {person.Name} {person.LastName} сработает через {Helper.GetDaysAge(person.Birthday)} дней(я), " +
                    $"в {time} ч.")));
+#elif WINDOWS
+                await Shell.Current.DisplayAlert("Информация", $"Напоминание для {person.Name} {person.LastName} сработает через {Helper.GetDaysAge(person.Birthday)} дней(я), в {time} ч.", "Ok");
+
+#endif
             }
         }
     }

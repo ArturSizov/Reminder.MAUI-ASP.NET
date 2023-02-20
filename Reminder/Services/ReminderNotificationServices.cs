@@ -1,4 +1,6 @@
-﻿using Plugin.LocalNotification;
+﻿#if ANDROID
+using Plugin.LocalNotification;
+#endif
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 
@@ -6,18 +8,7 @@ namespace Reminder.Services
 {
     public class ReminderNotificationServices : IReminderNotificationServices
     {
-#if ANDROID
-        private INotificationService notificationService;
-#endif
-        public ReminderNotificationServices(INotificationService notificationService)
-        {
-#if ANDROID
-            this.notificationService = notificationService;
-            
-#endif
-        }
         #region Methods
-
         /// <summary>
         /// Method for adding notifications
         /// </summary>
@@ -42,8 +33,7 @@ namespace Reminder.Services
                 {
                     NotifyTime = date,
                     RepeatType = NotificationRepeat.TimeInterval,
-                    NotifyRepeatInterval = TimeSpan.FromDays(1),
-                    //NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
+                    NotifyRepeatInterval = person.Birthday.AddYears(1) - person.Birthday
                 },
                 Android = 
                 {
@@ -54,10 +44,10 @@ namespace Reminder.Services
                 }
             };
             notification.Android.ChannelId = "channel_01";
-            await notificationService.Show(notification);
+            await LocalNotificationCenter.Current.Show(notification);
 #endif
         }
-#endregion
+        #endregion
 
         /// <summary>
         /// ancel a notification match with the Id
@@ -66,7 +56,7 @@ namespace Reminder.Services
         public void Cancel(Person person)
         {
 #if ANDROID
-            notificationService.Cancel(person.Id);
+            LocalNotificationCenter.Current.Cancel(person.Id);
 #endif
         }
 
