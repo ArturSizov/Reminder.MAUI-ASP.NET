@@ -3,8 +3,11 @@
     x:Class="Reminder.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Reminder.Views"
-    Shell.FlyoutBehavior="Flyout">
+    xmlns:views="clr-namespace:Reminder.Views"
+    xmlns:vm="clr-namespace:Reminder.ViewModels"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutHeight="700"
+    x:DataType="vm:AppShellViewModel">
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -24,7 +27,61 @@
         </ResourceDictionary>
     </Shell.Resources>
 
+    <!--Header-->
+    <Shell.FlyoutHeader>
+        <Grid Padding="10"
+              ColumnSpacing="20"
+              BackgroundColor="{StaticResource Primary}"
+              HeightRequest="170">
+            <Image Grid.Column="0"
+                   Source="bell.png"
+                   Aspect="AspectFill"
+                   HeightRequest="150"
+                   WidthRequest="150"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"/>
+
+        </Grid>
+    </Shell.FlyoutHeader>
+    
+    <!--Content-->
+    <Shell.FlyoutContent>
+        <VerticalStackLayout Padding="10">
+            <HorizontalStackLayout Padding="10">
+                <Image Source="add_person.png" 
+                       HeightRequest="35" WidthRequest="35"/>
+                <Button Text="Добавить"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Command="{Binding BackCommand}"
+                        FontSize="16"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="10">
+                <Image Source="setting.png" 
+                       HeightRequest="35" 
+                       WidthRequest="35"/>
+                <Button Text="Настройки"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        Command="{Binding BackCommand}"
+                        FontSize="16"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Shell.FlyoutContent>
+
+    <!--Footer-->
+    <Shell.FlyoutFooter>
+        <HorizontalStackLayout>
+            <Button Text="О программе"
+                HorizontalOptions="End"
+                BackgroundColor="Transparent"
+                TextColor="#74786D"
+                Command="{Binding BackCommand}"/>
+        </HorizontalStackLayout>
+    </Shell.FlyoutFooter>
+
     <ShellContent
-        ContentTemplate="{DataTemplate local:PersonsPage}"/>
+        ContentTemplate="{DataTemplate views:PersonsPage}"/>
 
 </Shell>

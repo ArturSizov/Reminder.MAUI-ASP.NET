@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -46,12 +47,14 @@
 		<None Remove="Resources\Images\add_image.png" />
 		<None Remove="Resources\Images\add_person.png" />
 		<None Remove="Resources\Images\back.png" />
+		<None Remove="Resources\Images\bell.png" />
 		<None Remove="Resources\Images\cancelled.png" />
 		<None Remove="Resources\Images\compose.png" />
 		<None Remove="Resources\Images\noavatar.png" />
 		<None Remove="Resources\Images\notification_message.png" />
 		<None Remove="Resources\Images\remove_person.png" />
 		<None Remove="Resources\Images\save.png" />
+		<None Remove="Resources\Images\setting.png" />
 		<None Remove="Resources\Splash\notification.png" />
 		<None Remove="SQLitePCLRaw.bundle_e_sqlite3" />
 	</ItemGroup>

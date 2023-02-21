@@ -8,9 +8,9 @@
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
              x:DataType="vm:PersonsPageViewModel">
     
-    <Page.Behaviors>
+    <!--<Page.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent"/>
-    </Page.Behaviors>
+    </Page.Behaviors>-->
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
