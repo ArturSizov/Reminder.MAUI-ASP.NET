@@ -6,7 +6,9 @@
     xmlns:views="clr-namespace:Reminder.Views"
     xmlns:vm="clr-namespace:Reminder.ViewModels"
     Shell.FlyoutBehavior="Flyout"
+    Shell.TabBarIsVisible="False"
     FlyoutHeight="700"
+    FlyoutWidth="300"
     x:DataType="vm:AppShellViewModel">
 
     <Shell.Resources>
@@ -47,41 +49,52 @@
     <!--Content-->
     <Shell.FlyoutContent>
         <VerticalStackLayout Padding="10">
-            <HorizontalStackLayout Padding="10">
-                <Image Source="add_person.png" 
-                       HeightRequest="35" WidthRequest="35"/>
-                <Button Text="Добавить"
-                        BackgroundColor="Transparent"
-                        TextColor="Black"
-                        Command="{Binding BackCommand}"
-                        FontSize="16"/>
-            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="Auto, *, Auto"
+                  Padding="10"
+                  ColumnSpacing="10">
+                <Image Grid.Column="0" 
+                       Source="add_person.png"
+                       Aspect="AspectFill"
+                       HeightRequest="25"
+                       WidthRequest="25"/>
+                <Label Grid.Column="1" 
+                       Text="Добавить"
+                       FontSize="16"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToAddPersonCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
 
-            <HorizontalStackLayout Padding="10">
-                <Image Source="setting.png" 
-                       HeightRequest="35" 
-                       WidthRequest="35"/>
-                <Button Text="Настройки"
-                        BackgroundColor="Transparent"
-                        TextColor="Black"
-                        Command="{Binding BackCommand}"
-                        FontSize="16"/>
-            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="Auto, *, Auto"
+                  Padding="10"
+                  ColumnSpacing="10">
+                <Image Grid.Column="0" 
+                       Source="setting.png"
+                       Aspect="AspectFill"
+                       HeightRequest="25"
+                       WidthRequest="25"/>
+                <Label Grid.Column="1" 
+                       Text="Настройки"
+                       FontSize="16"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowMessageCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
         </VerticalStackLayout>
     </Shell.FlyoutContent>
-
+    
     <!--Footer-->
     <Shell.FlyoutFooter>
         <HorizontalStackLayout>
-            <Button Text="О программе"
+            <Button 
+                Text="О программе"
                 HorizontalOptions="End"
                 BackgroundColor="Transparent"
                 TextColor="#74786D"
-                Command="{Binding BackCommand}"/>
+                Command="{Binding ShowMessageCommand}"/>
         </HorizontalStackLayout>
     </Shell.FlyoutFooter>
 
     <ShellContent
         ContentTemplate="{DataTemplate views:PersonsPage}"/>
-
 </Shell>

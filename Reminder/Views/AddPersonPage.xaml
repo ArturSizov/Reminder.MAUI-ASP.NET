@@ -8,22 +8,11 @@
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
              xmlns:customControls="clr-namespace:Reminder.CustomControls"
              x:DataType="vm:AddPersonPageViewModel">
+    
     <Shell.TitleView>
-        <HorizontalStackLayout>
-            <ImageButton Source="back.png"
-                         BackgroundColor="Transparent"
-                         HeightRequest="40"
-                         WidthRequest="40"
-                         Margin="2"
-                         Command="{Binding BackCommand}"/>
-            <Label Text="{Binding Title}"
+        <Label Text="{Binding Title}"
                Style="{StaticResource TitleLebel}"/>
-        </HorizontalStackLayout>
     </Shell.TitleView>
-
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsVisible="False"/>
-    </Shell.BackButtonBehavior>
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>

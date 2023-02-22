@@ -10,33 +10,19 @@
              x:DataType="vm:DetailsPageViewModel">
 
     <Shell.TitleView>
-        <Grid ColumnDefinitions="40,*">
-            <ImageButton Grid.Column="0" 
-                         Source="back.png"
-                         BackgroundColor="Transparent"
-                         HeightRequest="40"
-                         WidthRequest="40"
-                         Margin="2"
-                         Command="{Binding BackCommand}"/>
-            <Label Grid.Column="1"
-                   x:DataType="vm:DetailsPageViewModel"
-                   Style="{StaticResource TitleLebel}"
-                   VerticalTextAlignment="Center"
-                   Margin="10,0,0,0"
-                   LineBreakMode="TailTruncation">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}{0} {1}">
-                        <Binding Path="Person.Name"/>
-                        <Binding Path="Person.LastName"/>
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
-        </Grid>
+        <Label  x:DataType="vm:DetailsPageViewModel"
+                Style="{StaticResource TitleLebel}"
+                VerticalTextAlignment="Center"
+                Margin="10,0,0,0"
+                LineBreakMode="TailTruncation">
+            <Label.Text>
+                <MultiBinding StringFormat="{}{0} {1}">
+                    <Binding Path="Person.Name"/>
+                    <Binding Path="Person.LastName"/>
+                </MultiBinding>
+            </Label.Text>
+        </Label>
     </Shell.TitleView>
-
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsVisible="False"/>
-    </Shell.BackButtonBehavior>
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>

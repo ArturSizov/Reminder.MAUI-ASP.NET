@@ -24,5 +24,29 @@ namespace Reminder
             //Microsoft.Maui.ApplicationModel.Platform.CurrentActivity.Window.AddFlags(Android.Views.WindowManagerFlags.LayoutAttachedInDecor);
 #endif
         }
+    
+        protected override bool OnBackButtonPressed()
+        {
+            var stack = Shell.Current.Navigation.NavigationStack;
+
+            if(Shell.Current.FlyoutIsPresented)
+            {
+                Shell.Current.FlyoutIsPresented = false;
+
+                return true;
+            }
+                
+            else
+            {
+                if (stack.Count > 1)
+                {
+                    Shell.Current.Navigation.PopAsync();
+
+                    return true;
+                }
+                else return false;
+            }
+        }
+
     }
 }

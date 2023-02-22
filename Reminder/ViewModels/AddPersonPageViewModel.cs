@@ -6,6 +6,7 @@ using Reminder.Services;
 using System.Windows.Input;
 using Reminder.Views.ViewsPopup;
 using Reminder.ViewModels.PopupViewModels;
+using Reminder.Views;
 
 namespace Reminder.ViewModels
 {
@@ -34,17 +35,17 @@ namespace Reminder.ViewModels
 
             IsEnabled = true;
         }
-#region Methods
+        #region Methods
 
-#endregion
+        #endregion
 
-#region Commands
+        #region Commands
         /// <summary>
         /// Back button command
         /// </summary>
         public ICommand BackCommand => new DelegateCommand(async () =>
         {
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.Navigation.PopAsync();
         });
 
         /// <summary>
@@ -63,7 +64,8 @@ namespace Reminder.ViewModels
             if (!string.IsNullOrEmpty(person.Name))
             {
                 await data.InsertPerson(person);
-                await Shell.Current.GoToAsync("..");
+
+                await Shell.Current.Navigation.PopAsync();
 
                 await notification.AddNotification(person, settings.Time);
 

@@ -62,7 +62,7 @@ namespace Reminder.ViewModels
             {
                 await data.UpdatePerson(person);
 
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.Navigation.PopAsync();
 
                 await Helper.Announcement(person, settings.Time);
 
@@ -95,7 +95,8 @@ namespace Reminder.ViewModels
             if (await Shell.Current.DisplayAlert("Внимание", $"Вы уверены, что хотите удалить всю информацию для: {person.Name}?", "Да", "Нет"))
             {
                 await data.DeletePerson(person);
-                await Shell.Current.GoToAsync("..");
+
+                await Shell.Current.Navigation.PopAsync();
 
                 notification.Cancel(person);
             }
