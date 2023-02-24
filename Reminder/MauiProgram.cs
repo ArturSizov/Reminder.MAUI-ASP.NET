@@ -55,12 +55,13 @@ namespace Reminder
             builder.Services.AddSingleton<IPersonData, PersonData>();
             builder.Services.AddSingleton<IRepository, Repository>();
             builder.Services.AddSingleton<IReminderNotificationServices, ReminderNotificationServices>();
-            builder.Services.AddSingleton<ISettingsService, SettingsPageViewModel>();
+            builder.Services.AddSingleton<ISettingsService, SettingsService>();
 
             // register Pages
             builder.Services.AddSingleton<PersonsPage>();
             builder.Services.AddTransient<DetailsPage>();
             builder.Services.AddTransient<AddPersonPage>();
+            builder.Services.AddTransient<SettingsPage>();
 
             // register ViewModels
             builder.Services.AddSingleton<PersonsPageViewModel>();

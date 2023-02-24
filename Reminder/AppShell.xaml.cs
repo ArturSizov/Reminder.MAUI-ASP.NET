@@ -11,6 +11,7 @@ namespace Reminder
 
             Routing.RegisterRoute(nameof(AddPersonPage), typeof(AddPersonPage));
             Routing.RegisterRoute(nameof(DetailsPage), typeof(DetailsPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
 
             BindingContext = new AppShellViewModel();
         }
@@ -29,16 +30,15 @@ namespace Reminder
         {
             var stack = Shell.Current.Navigation.NavigationStack;
 
-            if(Shell.Current.FlyoutIsPresented)
+            if(Shell.Current.FlyoutIsPresented) //Checks if it's open Flyout
             {
                 Shell.Current.FlyoutIsPresented = false;
 
                 return true;
-            }
-                
+            }               
             else
             {
-                if (stack.Count > 1)
+                if (stack.Count > 1) //Checking if there are pages in the stack
                 {
                     Shell.Current.Navigation.PopAsync();
 

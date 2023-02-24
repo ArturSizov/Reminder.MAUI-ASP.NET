@@ -1,13 +1,19 @@
-﻿using Reminder.Interfaces;
+﻿using Prism.Mvvm;
+using Reminder.Interfaces;
 
 namespace Reminder.Services
 {
-    public class SettingsService
+    public class SettingsService : BindableBase, ISettingsService
     {
-        public int Time { get; set; }
-        public SettingsService()
-        {
-            Time = 10;
-        }
+        #region Private property
+        private int time;
+        private bool showNotifications = true;
+        #endregion
+
+        #region Pubcic property
+        public int Time { get => time; set => SetProperty(ref time, value); }
+        public bool ShowNotifications { get => showNotifications; set => SetProperty(ref showNotifications, value); }
+        #endregion
+
     }
 }

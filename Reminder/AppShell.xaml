@@ -77,7 +77,7 @@
                        Text="Настройки"
                        FontSize="16"/>
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowMessageCommand}"/>
+                    <TapGestureRecognizer Command="{Binding GoToSettingCommand}"/>
                 </Grid.GestureRecognizers>
             </Grid>
         </VerticalStackLayout>

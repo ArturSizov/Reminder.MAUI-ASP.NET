@@ -2,6 +2,8 @@
 {
     public interface ISettingsService
     {
-        int Time { get; set; } 
+        int Time { get; set; }
+        public bool ShowNotifications { get; set; }
+ 
     }
 }

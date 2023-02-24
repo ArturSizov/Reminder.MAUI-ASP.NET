@@ -6,5 +6,6 @@ namespace Reminder.Interfaces
     {
         Task AddNotification(Person person, int time);
         void Cancel(Person person);
+        void CancelAll();
     }
 }

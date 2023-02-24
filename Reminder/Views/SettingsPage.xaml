@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Reminder.Views.SettingsPage"
+             xmlns:vm="clr-namespace:Reminder.ViewModels"
+             x:DataType="vm:SettingsPageViewModel"
+             Title="{Binding Title}" >
+
+    <Grid RowDefinitions="*,45">
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="{Binding Time, StringFormat='Время оповещения: {0} ч.'}"
+               Style="{StaticResource MediumLabel}"
+               VerticalOptions="Start" 
+               HorizontalOptions="Start" 
+               Padding="15"/>
+            <Slider MinimumTrackColor="Red"
+                    MaximumTrackColor="{StaticResource Primary}"
+                    Minimum="0"
+                    Maximum="23"
+                    Value="{Binding Time}"
+                    Margin="15,0,10,15">
+            </Slider>
+            <Label Text="Показывать уведомления"
+                   Style="{StaticResource MediumLabel}"
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Start" 
+                   Padding="15"/>
+            <Switch Margin="0,-45,15,0"
+                    HorizontalOptions="EndAndExpand"
+                    OnColor="Green"
+                    IsToggled="{Binding ShowNotifications}"/>
+        </VerticalStackLayout>
+        
+        <ImageButton Grid.Row="1"
+                     IsVisible="True"
+                     HeightRequest="40"
+                     WidthRequest="45"
+                     HorizontalOptions="End"
+                     Margin="10"
+                     Source="save.png"
+                     Command="{Binding SaveCommand}"/>
+    </Grid>
+    
+</ContentPage>

@@ -25,6 +25,16 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.DisplayAlert("О программе", "Программа для напоминаний о днях рождений", "Ok");
         });
+
+        /// <summary>
+        /// Show message command
+        /// </summary>
+        public ICommand GoToSettingCommand => new DelegateCommand(async () =>
+        {
+            Shell.Current.FlyoutIsPresented = false;
+
+            await Shell.Current.GoToAsync(nameof(SettingsPage));
+        });
         #endregion
     }
 }

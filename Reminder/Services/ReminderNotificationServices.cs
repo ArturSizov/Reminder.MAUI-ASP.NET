@@ -50,13 +50,23 @@ namespace Reminder.Services
         #endregion
 
         /// <summary>
-        /// ancel a notification match with the Id
+        /// Cancel a notification match with the Id
         /// </summary>
         /// <param name="person"></param>
         public void Cancel(Person person)
         {
 #if ANDROID
             LocalNotificationCenter.Current.Cancel(person.Id);
+#endif
+        }
+
+        /// <summary>
+        /// Cancel all notifications
+        /// </summary>
+        public void CancelAll()
+        {
+#if ANDROID
+            LocalNotificationCenter.Current.CancelAll();
 #endif
         }
 

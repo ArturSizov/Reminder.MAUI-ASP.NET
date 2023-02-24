@@ -7,10 +7,7 @@
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
              x:DataType="vm:PersonsPageViewModel">
-    
-    <!--<Page.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent"/>
-    </Page.Behaviors>-->
+
 
     <ContentPage.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
