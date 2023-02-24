@@ -7,8 +7,8 @@
     xmlns:vm="clr-namespace:Reminder.ViewModels"
     Shell.FlyoutBehavior="Flyout"
     Shell.TabBarIsVisible="False"
-    FlyoutHeight="700"
-    FlyoutWidth="300"
+    FlyoutHeight="750"
+    FlyoutWidth="310"
     x:DataType="vm:AppShellViewModel">
 
     <Shell.Resources>
@@ -38,8 +38,8 @@
             <Image Grid.Column="0"
                    Source="bell.png"
                    Aspect="AspectFill"
-                   HeightRequest="150"
-                   WidthRequest="150"
+                   HeightRequest="130"
+                   WidthRequest="130"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand"/>
 

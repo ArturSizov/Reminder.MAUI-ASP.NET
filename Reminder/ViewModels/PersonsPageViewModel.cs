@@ -18,14 +18,18 @@ namespace Reminder.ViewModels
         private readonly ISettingsService settings;
         private ObservableCollection<Person> persons;
         private bool isBusy;
-
+        private bool isVisibleEntry;
+        private bool isVisibleTitle;
+        private string searchText;
         #endregion
 
         #region Public property
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
-
+        public bool IsVisibleEntry { get => isVisibleEntry; set => SetProperty(ref isVisibleEntry, value); } //ActivityIndicator is Entry 
+        public bool IsVisibleTitle { get => isVisibleTitle; set => SetProperty(ref isVisibleTitle, value); }
+        public string SearchText { get => searchText; set => SetProperty(ref searchText, value); }
         #endregion
         public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification, ISettingsService settings)
         {
@@ -35,6 +39,8 @@ namespace Reminder.ViewModels
             this.data = data;
             this.notification = notification;
             this.settings = settings;
+            IsVisibleTitle = true;
+            IsVisibleEntry = false;
             GetPersons();
         }
 
@@ -107,7 +113,7 @@ namespace Reminder.ViewModels
         /// <summary>
         /// Go to add person command
         /// </summary>
-        public ICommand GoToAddPersonCommand => new DelegateCommand(async () =>
+        public ICommand GoToAddPersonCommand => new DelegateCommand(async() =>
         {
             await Shell.Current.GoToAsync(nameof(AddPersonPage));
         });
@@ -115,9 +121,23 @@ namespace Reminder.ViewModels
         /// <summary>
         /// Go to report command
         /// </summary>
-        public ICommand GoToReportsCommand => new DelegateCommand(async () =>
+        public ICommand GoToReportsCommand => new DelegateCommand(async() =>
         {
             await Shell.Current.GoToAsync("...");
+        });
+
+        public ICommand IsEnabledEntryCommand => new DelegateCommand(() =>
+        {
+            if(IsVisibleEntry) IsVisibleEntry = false;
+            else IsVisibleEntry = true;
+
+            if (IsVisibleTitle == false) IsVisibleTitle = true;
+            else IsVisibleTitle = false;
+        });
+
+        public ICommand SearchCommand => new DelegateCommand(() =>
+        {
+            var p = Persons.Where(p => p.Name.StartsWith(SearchText, StringComparison.OrdinalIgnoreCase));
         });
         #endregion
     }

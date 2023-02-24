@@ -21,16 +21,24 @@
             ColumnDefinitions="Auto,*">
             <Label Grid.Column="0"
                    Text="{Binding Title}"
-                   Style="{StaticResource TitleLebel}"/>
+                   Style="{StaticResource TitleLebel}"
+                   IsVisible="{Binding IsVisibleTitle}"/>
+            
+            <SearchBar Placeholder="Начните вводить имя или фамилию"
+                       IsVisible="{Binding IsVisibleEntry}"
+                       Text="{Binding SearchText, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"
+                       WidthRequest="500"
+                       HorizontalOptions="Start"/>
 
             <ImageButton Grid.Column="1"
                          BackgroundColor="Transparent"
-                         Source="add_person.png"
-                         WidthRequest="30"
-                         HeightRequest="30"
+                         Source="search.png"
+                         WidthRequest="35"
+                         HeightRequest="35"
                          Margin="0,0,15,0"
                          HorizontalOptions="End"
-                         Command="{Binding GoToAddPersonCommand}"/>
+                         Command="{Binding IsEnabledEntryCommand}"/>
         </Grid>
 
     </Shell.TitleView>
@@ -119,9 +127,29 @@
                                 </VerticalStackLayout>
                             </Grid>
                         </Frame>
+                        
                     </Grid>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <ImageButton Grid.Column="1"
+                     BackgroundColor="Transparent"
+                     Source="add_person.png"
+                     WidthRequest="40"
+                     HeightRequest="40"
+                     Margin="0,0,20,20"
+                     HorizontalOptions="End"
+                     VerticalOptions="EndAndExpand"
+                     Command="{Binding GoToAddPersonCommand}">
+            <ImageButton.Shadow>
+                <Shadow Brush="Black"
+                        Offset="10,10"
+                        Radius="30"
+                        Opacity="0.8">
+                </Shadow>
+            </ImageButton.Shadow>
+        </ImageButton>
     </Grid>
 </ContentPage>
