@@ -32,13 +32,15 @@ namespace Reminder.ViewModels
             this.settings = settings;
             this.services = services;
             this.repository = repository;
-            Time = settings.Time;
-            ShowNotifications = settings.ShowNotifications;
+            LoadData();
         }
 
         #region Commands
         public ICommand SaveCommand => new DelegateCommand(async() =>
         {
+            await settings.SaveSettings(nameof(ShowNotifications), ShowNotifications);
+            await settings.SaveSettings(nameof(Time), Time);
+
             settings.Time = Time;
             settings.ShowNotifications = ShowNotifications;
             await Shell.Current.Navigation.PopAsync();
@@ -48,6 +50,11 @@ namespace Reminder.ViewModels
         #endregion
 
         #region Methods
+        private async void LoadData()
+        {
+            ShowNotifications = await settings.GetSettings<bool>(nameof(ShowNotifications), true);
+            Time = await settings.GetSettings<int>(nameof(Time), 10);
+        }
         private void IsEnabledNotifications()
         {
             if (ShowNotifications)
