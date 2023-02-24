@@ -7,7 +7,7 @@ namespace Reminder.Services
     {
         #region Private property
         private int time;
-        private bool showNotifications = true;
+        private bool showNotifications;
         #endregion
 
         #region Pubcic property

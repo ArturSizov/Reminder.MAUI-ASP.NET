@@ -13,7 +13,7 @@ namespace Reminder.ViewModels.PopupViewModels
             this.text = text;
 #if ANDROID
             var timer = new Timer(new TimerCallback(Close));
-            timer.Change(10000, 0);
+            timer.Change(8000, 0);
 #endif
         }
 

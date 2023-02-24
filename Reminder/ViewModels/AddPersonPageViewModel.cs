@@ -69,7 +69,7 @@ namespace Reminder.ViewModels
 
                 await notification.AddNotification(person, settings.Time);
 
-                await Helper.Announcement(person, settings.Time);
+                if(settings.ShowNotifications)await Helper.Announcement(person, settings.Time);
             }
 #if ANDROID
 

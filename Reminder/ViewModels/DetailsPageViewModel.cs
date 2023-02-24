@@ -64,7 +64,7 @@ namespace Reminder.ViewModels
 
                 await Shell.Current.Navigation.PopAsync();
 
-                await Helper.Announcement(person, settings.Time);
+                if (settings.ShowNotifications) await Helper.Announcement(person, settings.Time);
 
                 notification.Cancel(person);
 
