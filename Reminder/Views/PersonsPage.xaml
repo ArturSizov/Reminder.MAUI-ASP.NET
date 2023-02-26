@@ -23,13 +23,17 @@
                    Text="{Binding Title}"
                    Style="{StaticResource TitleLebel}"
                    IsVisible="{Binding IsVisibleTitle}"/>
-            
+
             <SearchBar Placeholder="Начните вводить имя или фамилию"
                        IsVisible="{Binding IsVisibleEntry}"
-                       Text="{Binding SearchText, Mode=TwoWay}"
-                       SearchCommand="{Binding SearchCommand}"
                        WidthRequest="500"
-                       HorizontalOptions="Start"/>
+                       HorizontalOptions="Start"
+                       Text="{Binding SearchText}">
+                <SearchBar.Behaviors>
+                    <mct:EventToCommandBehavior EventName="TextChanged" 
+                                                Command="{Binding SearchCommand}"/>
+                </SearchBar.Behaviors>
+            </SearchBar>
 
             <ImageButton Grid.Column="1"
                          BackgroundColor="Transparent"

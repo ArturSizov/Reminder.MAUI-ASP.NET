@@ -6,6 +6,7 @@ using Reminder.Interfaces;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Reminder.ViewModels
@@ -137,8 +138,27 @@ namespace Reminder.ViewModels
 
         public ICommand SearchCommand => new DelegateCommand(() =>
         {
-            var p = Persons.Where(p => p.Name.StartsWith(SearchText, StringComparison.OrdinalIgnoreCase));
+            var ser = new ObservableCollection<Person>(Persons);
+
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                GetPersons();
+            }
+            else
+            {
+                var p = ser.Where(p => p.Name != null && p.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+                || p.LastName != null && p.LastName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+                || p.MiddleName != null && p.MiddleName.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
+                ser = new ObservableCollection<Person>(p);
+
+                if (ser.Count != 0)
+                {
+                    Persons = ser;
+                }
+            }
         });
         #endregion
+
     }
 }
