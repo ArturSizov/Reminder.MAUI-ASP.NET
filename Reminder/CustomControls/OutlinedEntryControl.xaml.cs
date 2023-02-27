@@ -1,5 +1,3 @@
-using static System.Net.Mime.MediaTypeNames;
-
 namespace Reminder.CustomControls;
 
 public partial class OutlinedEntryControl : Grid
