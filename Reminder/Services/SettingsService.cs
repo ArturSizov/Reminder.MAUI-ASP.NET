@@ -32,6 +32,16 @@ namespace Reminder.Services
         }
 
         /// <summary>
+        /// Load settings options
+        /// </summary>
+        /// <returns></returns>
+        public async Task LoadData()
+        {
+            ShowNotifications = await GetSettings<bool>(nameof(ShowNotifications), true);
+            Time = await GetSettings<int>(nameof(Time), 10);
+        }
+
+        /// <summary>
         /// Set settings App
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -45,6 +55,5 @@ namespace Reminder.Services
             return Task.CompletedTask;
         }
         #endregion
-
     }
 }

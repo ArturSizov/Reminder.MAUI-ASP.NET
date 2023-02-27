@@ -57,6 +57,7 @@ namespace Reminder.ViewModels
             this.settings = settings;
             IsVisibleTitle = true;
             IsVisibleEntry = false;
+            settings.LoadData(); // load settings
             GetPersons();
         }
 
