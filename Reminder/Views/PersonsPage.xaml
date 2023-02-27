@@ -28,11 +28,8 @@
                        IsVisible="{Binding IsVisibleEntry}"
                        WidthRequest="500"
                        HorizontalOptions="Start"
-                       Text="{Binding SearchText}">
-                <SearchBar.Behaviors>
-                    <mct:EventToCommandBehavior EventName="TextChanged" 
-                                                Command="{Binding SearchCommand}"/>
-                </SearchBar.Behaviors>
+                       x:Name="srcBar"
+                       Text="{Binding TextSearch}">
             </SearchBar>
 
             <ImageButton Grid.Column="1"

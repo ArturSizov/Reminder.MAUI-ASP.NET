@@ -1,12 +1,10 @@
-﻿using Plugin.LocalNotification;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Reminder.Contracts.Models;
 using Reminder.Interfaces;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
 
 namespace Reminder.ViewModels
@@ -17,26 +15,52 @@ namespace Reminder.ViewModels
         private readonly IRepository data;
         private IReminderNotificationServices notification;
         private readonly ISettingsService settings;
-        private ObservableCollection<Person> persons;
+        private ObservableCollection<Person> persons = new();
         private bool isBusy;
         private bool isVisibleEntry;
         private bool isVisibleTitle;
-        private string searchText;
+        private string textSearch;
+        private  ObservableCollection<Person> serPersons = new(); //Immutable collection to search
+
         #endregion
 
         #region Public property
         public string Title => "Напоминалка";
-        public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
-        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
-        public bool IsVisibleEntry { get => isVisibleEntry; set => SetProperty(ref isVisibleEntry, value); } //ActivityIndicator is Entry 
-        public bool IsVisibleTitle { get => isVisibleTitle; set => SetProperty(ref isVisibleTitle, value); }
-        public string SearchText { get => searchText; set => SetProperty(ref searchText, value); }
-        #endregion
-        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification, ISettingsService settings)
+        public ObservableCollection<Person> Persons
         {
+            get => persons;
+            set
+            {
 #if ANDROID
             ClearingСache();
 #endif
+                SetProperty(ref persons, value);
+            }
+        }
+        public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
+        public bool IsVisibleEntry { get => isVisibleEntry; set => SetProperty(ref isVisibleEntry, value); } //ActivityIndicator is Entry 
+        public bool IsVisibleTitle { get => isVisibleTitle; set => SetProperty(ref isVisibleTitle, value); }
+        public string TextSearch
+        {
+            get => textSearch;
+            set
+            {
+                SetProperty(ref textSearch, value);
+
+                if (textSearch?.Length > 0)
+                {
+                    Search();
+                }
+                else
+                {
+                    GetPersons();
+                }
+
+            }
+        }
+        #endregion
+        public PersonsPageViewModel(IRepository data, IReminderNotificationServices notification, ISettingsService settings)
+        {
             this.data = data;
             this.notification = notification;
             this.settings = settings;
@@ -46,23 +70,41 @@ namespace Reminder.ViewModels
         }
 
         #region Methods
+        private void Search()
+        {
+            var p = serPersons.Where(p => p.Name != null && p.Name.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)
+                    || p.LastName != null && p.LastName.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)
+                    || p.MiddleName != null && p.MiddleName.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (p.Count > 0)
+            {
+                Persons.Clear();
 
+                foreach (var item in p)
+                {
+                    Persons.Add(item);
+                }
+            }
+            else Persons.Clear();
+        }
         /// <summary>
         /// Get Persons method
         /// </summary>
         private async void GetPersons()
         {
-            if(IsBusy) return;
+            if (IsBusy) return;
 
             try
             {
                 IsBusy = true;
-                Persons = data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+                data.Persons = new ObservableCollection<Person>(await data.GetPersons());
 
-                foreach (var item in Persons)
+                Persons.Clear();
+                foreach (var item in data.Persons)
                 {
-                   await notification.AddNotification(item, settings.Time);
+                    Persons.Add(item);
+                    await notification.AddNotification(item, settings.Time);
                 }
+                serPersons = new ObservableCollection<Person>(Persons);
             }
             catch (Exception ex)
             {
@@ -132,33 +174,14 @@ namespace Reminder.ViewModels
             if(IsVisibleEntry) IsVisibleEntry = false;
             else IsVisibleEntry = true;
 
-            if (IsVisibleTitle == false) IsVisibleTitle = true;
+            if (IsVisibleTitle == false)
+            {
+                IsVisibleTitle = true;
+                TextSearch = null;
+            }
             else IsVisibleTitle = false;
         });
 
-        public ICommand SearchCommand => new DelegateCommand(() =>
-        {
-            var ser = new ObservableCollection<Person>(Persons);
-
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                GetPersons();
-            }
-            else
-            {
-                var p = ser.Where(p => p.Name != null && p.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
-                || p.LastName != null && p.LastName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
-                || p.MiddleName != null && p.MiddleName.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-
-                ser = new ObservableCollection<Person>(p);
-
-                if (ser.Count != 0)
-                {
-                    Persons = ser;
-                }
-            }
-        });
         #endregion
-
     }
 }
