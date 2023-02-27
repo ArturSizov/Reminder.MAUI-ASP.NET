@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:Class="Reminder.Views.PersonsPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
@@ -24,13 +23,15 @@
                    Style="{StaticResource TitleLebel}"
                    IsVisible="{Binding IsVisibleTitle}"/>
 
-            <SearchBar Placeholder="Начните вводить имя или фамилию"
-                       IsVisible="{Binding IsVisibleEntry}"
-                       WidthRequest="500"
-                       HorizontalOptions="Start"
-                       x:Name="srcBar"
-                       Text="{Binding TextSearch}">
-            </SearchBar>
+            <Entry Placeholder="Начните вводить имя или фамилию"
+                   IsVisible="{Binding IsVisibleEntry}"
+                   WidthRequest="300"
+                   HorizontalOptions="Start"
+                   VerticalOptions="CenterAndExpand"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Start"
+                   Text="{Binding TextSearch}"
+                   FontSize="15"/>
 
             <ImageButton Grid.Column="1"
                          BackgroundColor="Transparent"

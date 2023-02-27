@@ -26,17 +26,7 @@ namespace Reminder.ViewModels
 
         #region Public property
         public string Title => "Напоминалка";
-        public ObservableCollection<Person> Persons
-        {
-            get => persons;
-            set
-            {
-#if ANDROID
-            ClearingСache();
-#endif
-                SetProperty(ref persons, value);
-            }
-        }
+        public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
         public bool IsVisibleEntry { get => isVisibleEntry; set => SetProperty(ref isVisibleEntry, value); } //ActivityIndicator is Entry 
         public bool IsVisibleTitle { get => isVisibleTitle; set => SetProperty(ref isVisibleTitle, value); }
@@ -53,7 +43,8 @@ namespace Reminder.ViewModels
                 }
                 else
                 {
-                    GetPersons();
+                    if (serPersons.Count == Persons.Count) return;
+                    else GetPersons();
                 }
 
             }
@@ -72,6 +63,9 @@ namespace Reminder.ViewModels
         #region Methods
         private void Search()
         {
+#if ANDROID
+            ClearingСache();
+#endif
             var p = serPersons.Where(p => p.Name != null && p.Name.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)
                     || p.LastName != null && p.LastName.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)
                     || p.MiddleName != null && p.MiddleName.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -91,20 +85,22 @@ namespace Reminder.ViewModels
         /// </summary>
         private async void GetPersons()
         {
+#if ANDROID
+            ClearingСache();
+#endif
             if (IsBusy) return;
 
             try
             {
                 IsBusy = true;
                 data.Persons = new ObservableCollection<Person>(await data.GetPersons());
+                Persons = data.Persons;
+                serPersons = new ObservableCollection<Person>(Persons);
 
-                Persons.Clear();
                 foreach (var item in data.Persons)
                 {
-                    Persons.Add(item);
                     await notification.AddNotification(item, settings.Time);
                 }
-                serPersons = new ObservableCollection<Person>(Persons);
             }
             catch (Exception ex)
             {
@@ -169,6 +165,9 @@ namespace Reminder.ViewModels
             await Shell.Current.GoToAsync("...");
         });
 
+        /// <summary>
+        /// Enabled/Shutdown Entry command 
+        /// </summary>
         public ICommand IsEnabledEntryCommand => new DelegateCommand(() =>
         {
             if(IsVisibleEntry) IsVisibleEntry = false;
