@@ -7,6 +7,8 @@
         <ResourceDictionary>
 
             <ResourceDictionary Source="Resources/Styles/CustomStyle.xaml"/>
+            <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+            <!--<ResourceDictionary Source="Resources/Styles/Styles.xaml" />-->
 
             <Color x:Key="Primary">#FFC107</Color>
             <Color x:Key="PrimaryDark">#FFA000</Color>
