@@ -1,3 +1,6 @@
+using Prism.Commands;
+using System.Windows.Input;
+
 namespace Reminder.CustomControls;
 
 public partial class OutlinedEntryControl : Grid
@@ -75,6 +78,8 @@ public partial class OutlinedEntryControl : Grid
     }
     private void ChangesPlaceholder(string text)
     {
+        TxtEntry.IsEnabled = true;
+
         if (!string.IsNullOrWhiteSpace(text))
         {
             lblPlaceholder.FontSize = 11;
@@ -92,5 +97,11 @@ public partial class OutlinedEntryControl : Grid
             lblPlaceholder.HorizontalTextAlignment = TextAlignment.Center;
         }
     }
-#endregion
+    #endregion
+    #region Commands
+    public ICommand ReturnCommand => new DelegateCommand(() =>
+    {
+        TxtEntry.IsEnabled = false;
+    });
+    #endregion
 }

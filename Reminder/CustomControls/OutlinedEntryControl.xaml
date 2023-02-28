@@ -19,7 +19,8 @@
                Keyboard="Chat" 
                IsEnabled="{Binding Source={x:Reference this}, Path=IsEnabled}"
                TextColor="Black"
-               HorizontalTextAlignment="Center"/>
+               HorizontalTextAlignment="Center"
+               ReturnCommand="{Binding Source={x:Reference this}, Path=ReturnCommand}" />
     </Frame>
 
     <Label Grid.Row="0"
