@@ -118,7 +118,8 @@
 
                     <customControls:OutlinedEntryControl  Placeholder="Имя" 
                                                           Text="{Binding Person.Name}" 
-                                                          IsEnabled="{Binding IsEnabled}"/>
+                                                          IsEnabled="{Binding IsEnabled}"
+                                                          PlaceholderValidate="Не может быть пустым"/>
                     <customControls:OutlinedEntryControl  Placeholder="Фамилия" 
                                                           Text="{Binding Person.LastName}" 
                                                           IsEnabled="{Binding IsEnabled}"/>

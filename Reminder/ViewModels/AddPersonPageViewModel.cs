@@ -71,12 +71,6 @@ namespace Reminder.ViewModels
 
                 if(settings.ShowNotifications)await Helper.Announcement(person, settings.Time);
             }
-#if ANDROID
-
-            else await MauiPopup.PopupAction.DisplayPopup(new PopupMessage(new PopupMessageViewModel("Поле \"Имя\" не может быть пустым")));
-#elif WINDOWS
-            else await Shell.Current.DisplayAlert("Информация", "Поле \"Имя\" не может быть пустым", "Ok");
-#endif
         });
 
         /// <summary>

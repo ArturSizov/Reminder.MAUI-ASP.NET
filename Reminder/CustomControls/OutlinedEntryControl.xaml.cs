@@ -36,6 +36,11 @@ public partial class OutlinedEntryControl : Grid
         set { SetValue(PlaceholderProperty, value); }
     }
 
+    public string PlaceholderValidate
+    {
+        get => (string)GetValue(PlaceholderValidateProperty);
+        set { SetValue(PlaceholderValidateProperty, value); }
+    }
     #endregion
 
     #region BindableProperty
@@ -45,6 +50,7 @@ public partial class OutlinedEntryControl : Grid
 
     public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create( nameof(Placeholder), typeof(string), typeof(OutlinedEntryControl));
 
+    public static readonly BindableProperty PlaceholderValidateProperty = BindableProperty.Create(nameof(PlaceholderValidate), typeof(string), typeof(OutlinedEntryControl));
 
     public static readonly new BindableProperty IsEnabledProperty = BindableProperty.Create( nameof(IsEnabled), typeof(bool), typeof(OutlinedEntryControl), true, BindingMode.TwoWay);
 
@@ -56,6 +62,8 @@ public partial class OutlinedEntryControl : Grid
         lblPlaceholder.FontSize = 11;
         lblPlaceholder.TranslateTo(0, -20, 80, easing: Easing.Linear);
         lblPlaceholder.HorizontalTextAlignment = TextAlignment.Start;
+
+        lblPlaceholderValidate.IsVisible = false;
     }
 
     private void TxtEntry_Unfocused(object sender, FocusEventArgs e)
@@ -79,6 +87,12 @@ public partial class OutlinedEntryControl : Grid
     private void ChangesPlaceholder(string text)
     {
         TxtEntry.IsEnabled = true;
+
+        if (string.IsNullOrEmpty(Text))
+        {
+            lblPlaceholderValidate.IsVisible = true;
+        }
+        else lblPlaceholderValidate.IsVisible = false;
 
         if (!string.IsNullOrWhiteSpace(text))
         {

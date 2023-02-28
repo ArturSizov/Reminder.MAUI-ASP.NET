@@ -30,7 +30,17 @@
            Text="{Binding Source={x:Reference this}, Path=Placeholder}"
            BackgroundColor="Transparent"
            HorizontalTextAlignment="Center"/>
-    
+
+    <Label Grid.Row="0"
+           x:Name="lblPlaceholderValidate"
+           FontSize="10"
+           TextColor="Red"
+           Margin="10,4,10,0"
+           Text="{Binding Source={x:Reference this}, Path=PlaceholderValidate}"
+           BackgroundColor="Transparent"
+           HorizontalTextAlignment="Center"
+           IsVisible="False"/>
+
     <Grid.GestureRecognizers>
         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
     </Grid.GestureRecognizers>
