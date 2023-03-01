@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Reminder.CustomControls.SearchEntryControls"
+             RowDefinitions="Auto"
+             xmlns:handlers="clr-namespace:Reminder.Handlers"
+             x:Name="this">
+    <Frame Grid.Row="0" 
+           Style="{StaticResource CardView}"
+           BackgroundColor="Red"
+           HasShadow="False">
+        <handlers:BorderlessEntry 
+               x:Name="TxtEntry"
+               Focused="TxtEntry_Focused" 
+               Unfocused="TxtEntry_Unfocused"
+               Text="{Binding Source={x:Reference this}, Path=Text}"
+               Keyboard="Chat" 
+               IsEnabled="{Binding Source={x:Reference this}, Path=IsEnabled}"
+               TextColor="Black"
+               HorizontalTextAlignment="Center"
+               ReturnCommand="{Binding Source={x:Reference this}, Path=ReturnCommand}" 
+               WidthRequest="300"
+               BackgroundColor="{StaticResource Primary}"
+            />
+    </Frame>
+
+    <Label Grid.Row="0"
+           x:Name="lblPlaceholder"
+           TextColor="Gray"
+           Text="{Binding Source={x:Reference this}, Path=Placeholder}"
+           BackgroundColor="Transparent"
+           HorizontalTextAlignment="Center"
+           VerticalTextAlignment="Center"/>
+
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+    </Grid.GestureRecognizers>
+</Grid>
