@@ -5,9 +5,9 @@ namespace Reminder.CustomControls;
 
 public partial class SearchEntryControls : Grid
 {
-	public SearchEntryControls()
-	{
-		InitializeComponent();
+    public SearchEntryControls()
+    {
+        InitializeComponent();
         ChangesPlaceholder(null);
     }
 

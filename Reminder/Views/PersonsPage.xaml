@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Contracts.Models;assembly=Reminder.Contracts"
              xmlns:converter="clr-namespace:Reminder.Services.Converters"
+             xmlns:customControls="clr-namespace:Reminder.CustomControls"
              x:DataType="vm:PersonsPageViewModel">
 
 
@@ -23,15 +24,10 @@
                    Style="{StaticResource TitleLebel}"
                    IsVisible="{Binding IsVisibleTitle}"/>
 
-            <Entry Placeholder="Начните вводить имя или фамилию"
-                   IsVisible="{Binding IsVisibleEntry}"
-                   WidthRequest="300"
-                   HorizontalOptions="Start"
-                   VerticalOptions="CenterAndExpand"
-                   VerticalTextAlignment="Center"
-                   HorizontalTextAlignment="Start"
-                   Text="{Binding TextSearch}"
-                   FontSize="15"/>
+            <customControls:SearchEntryControls
+                Placeholder="Начните вводить имя или фамилию"
+                IsVisible="{Binding IsVisibleEntry}"
+                Text="{Binding TextSearch}"/>
 
             <ImageButton Grid.Column="1"
                          BackgroundColor="Transparent"
