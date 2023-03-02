@@ -28,7 +28,16 @@ namespace Reminder.ViewModels
         public string Title => "Напоминалка";
         public ObservableCollection<Person> Persons { get => persons; set => SetProperty(ref persons, value); }
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); } //ActivityIndicator is busy
-        public bool IsVisibleEntry { get => isVisibleEntry; set => SetProperty(ref isVisibleEntry, value); } //ActivityIndicator is Entry 
+        public bool IsVisibleEntry
+        {
+            get => isVisibleEntry;
+            set
+            {
+                if (value) IsVisibleTitle = false;
+                else IsVisibleTitle = true;
+                SetProperty(ref isVisibleEntry, value);
+            }
+        } //ActivityIndicator is Entry 
         public bool IsVisibleTitle { get => isVisibleTitle; set => SetProperty(ref isVisibleTitle, value); }
         public string TextSearch
         {
@@ -55,7 +64,7 @@ namespace Reminder.ViewModels
             this.data = data;
             this.notification = notification;
             this.settings = settings;
-            IsVisibleTitle = true;
+            //IsVisibleTitle = true;
             IsVisibleEntry = false;
             settings.LoadData(); // load settings
             GetPersons();
@@ -174,12 +183,12 @@ namespace Reminder.ViewModels
             if(IsVisibleEntry) IsVisibleEntry = false;
             else IsVisibleEntry = true;
 
-            if (IsVisibleTitle == false)
-            {
-                IsVisibleTitle = true;
-                TextSearch = null;
-            }
-            else IsVisibleTitle = false;
+            //if (IsVisibleTitle == false)
+            //{
+            //    IsVisibleTitle = true;
+            //    TextSearch = null;
+            //}
+            //else IsVisibleTitle = false;
         });
 
         #endregion

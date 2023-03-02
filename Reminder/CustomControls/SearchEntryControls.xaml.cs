@@ -8,38 +8,19 @@ public partial class SearchEntryControls : Grid
     public SearchEntryControls()
     {
         InitializeComponent();
-        ChangesPlaceholder(null);
+        //ChangesPlaceholder(null);
     }
 
 
     #region Public property
-    public string Text
-    {
-        get => (string)GetValue(TextProperty);
-        set
-        {
-            SetValue(TextProperty, value);
-            ChangesPlaceholder(Text);
-        }
-    }
-
-    public new bool IsVisible
-    {
-        get => (bool)GetValue(IsVisibleProperty);
-        set { SetValue(IsVisibleProperty, value); }
-    }
-
-    public string Placeholder
-    {
-        get => (string)GetValue(PlaceholderProperty);
-        set { SetValue(PlaceholderProperty, value); }
-    }
+    public string Text { get => (string)GetValue(TextProperty); set => SetValue(TextProperty, value); }
+    public new bool IsVisible { get => (bool)GetValue(IsVisibleProperty); set { SetValue(IsVisibleProperty, value); } }
+    public string Placeholder { get => (string)GetValue(PlaceholderProperty); set { SetValue(PlaceholderProperty, value); } }
     #endregion
 
     #region BindableProperty
     public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(SearchEntryControls), defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: TextPropertyPropertyChanget);
-
 
     public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(SearchEntryControls));
 
@@ -50,7 +31,8 @@ public partial class SearchEntryControls : Grid
     #region Events
     private void TxtEntry_Focused(object sender, FocusEventArgs e)
     {
-        lblPlaceholder.IsVisible = false;
+        if(string.IsNullOrEmpty(Text)) lblPlaceholder.IsVisible = true;
+        else lblPlaceholder.IsVisible = false;
     }
 
     private void TxtEntry_Unfocused(object sender, FocusEventArgs e)
@@ -70,7 +52,13 @@ public partial class SearchEntryControls : Grid
     private static void TextPropertyPropertyChanget(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (SearchEntryControls)bindable;
-        control.TxtEntry.Text = newValue as string;
+        var text = control.TxtEntry.Text = newValue as string;
+
+        if (string.IsNullOrEmpty(text))
+        {
+            control.lblPlaceholder.IsVisible = true;
+        }
+        else control.lblPlaceholder.IsVisible = false;
     }
     private static void IsVisiblePropertyChanget(BindableObject bindable, object oldValue, object newValue)
     {
@@ -80,9 +68,11 @@ public partial class SearchEntryControls : Grid
         {
             control.searchBorder.IsVisible = true;
             control.lblPlaceholder.IsVisible = true;
+            control.TxtEntry.Focus();
         }
         else
         {
+            control.TxtEntry.Text = null;
             control.searchBorder.IsVisible = false;
             control.lblPlaceholder.IsVisible = false;
         }
@@ -96,10 +86,15 @@ public partial class SearchEntryControls : Grid
         else lblPlaceholder.IsVisible = false;
     }
     #endregion
+
     #region Commands
     public ICommand ReturnCommand => new DelegateCommand(() =>
     {
-        TxtEntry.IsEnabled = false;
+        TxtEntry.Text = null;
+        TxtEntry.Unfocus();
+        //searchBorder.IsVisible = false;
+        //lblPlaceholder.IsVisible = false;
+        IsVisible = false;
     });
     #endregion
 }

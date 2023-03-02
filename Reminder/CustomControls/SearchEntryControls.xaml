@@ -5,6 +5,7 @@
              RowDefinitions="Auto"
              xmlns:handlers="clr-namespace:Reminder.Handlers"
              x:Name="this">
+    
     <Border Stroke="Gray"
             StrokeThickness="2"
             StrokeShape="RoundRectangle 20,20,20,20"
