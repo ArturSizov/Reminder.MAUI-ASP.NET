@@ -6,16 +6,17 @@
              xmlns:handlers="clr-namespace:Reminder.Handlers"
              x:Name="this">
     <Border Stroke="Gray"
-        StrokeThickness="2"
-        StrokeShape="RoundRectangle 20,20,20,20"
-        HorizontalOptions="Center">
-    <handlers:SearchEntry 
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 20,20,20,20"
+            HorizontalOptions="Center"
+            x:Name="searchBorder">
+        <handlers:SearchEntry 
                x:Name="TxtEntry"
                Focused="TxtEntry_Focused" 
                Unfocused="TxtEntry_Unfocused"
                Text="{Binding Source={x:Reference this}, Path=Text}"
                Keyboard="Chat" 
-               IsEnabled="{Binding Source={x:Reference this}, Path=IsEnabled}"
+               IsVisible="{Binding Source={x:Reference this}, Path=IsEnabled}"
                TextColor="Black"
                HorizontalTextAlignment="Center"
                ReturnCommand="{Binding Source={x:Reference this}, Path=ReturnCommand}" 

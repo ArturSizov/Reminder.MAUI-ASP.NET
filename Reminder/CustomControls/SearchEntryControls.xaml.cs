@@ -23,10 +23,10 @@ public partial class SearchEntryControls : Grid
         }
     }
 
-    public new bool IsEnabled
+    public new bool IsVisible
     {
-        get => (bool)GetValue(IsEnabledProperty);
-        set { SetValue(IsEnabledProperty, value); }
+        get => (bool)GetValue(IsVisibleProperty);
+        set { SetValue(IsVisibleProperty, value); }
     }
 
     public string Placeholder
@@ -43,8 +43,8 @@ public partial class SearchEntryControls : Grid
 
     public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(nameof(Placeholder), typeof(string), typeof(SearchEntryControls));
 
-    public static readonly new BindableProperty IsEnabledProperty = BindableProperty.Create(nameof(IsEnabled), typeof(bool), typeof(SearchEntryControls), true, BindingMode.TwoWay);
-
+    public static readonly new BindableProperty IsVisibleProperty = BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(SearchEntryControls), true, BindingMode.TwoWay,
+       propertyChanged: IsVisiblePropertyChanget);
     #endregion
 
     #region Events
@@ -71,6 +71,21 @@ public partial class SearchEntryControls : Grid
     {
         var control = (SearchEntryControls)bindable;
         control.TxtEntry.Text = newValue as string;
+    }
+    private static void IsVisiblePropertyChanget(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (SearchEntryControls)bindable;
+
+        if ((bool)newValue)
+        {
+            control.searchBorder.IsVisible = true;
+            control.lblPlaceholder.IsVisible = true;
+        }
+        else
+        {
+            control.searchBorder.IsVisible = false;
+            control.lblPlaceholder.IsVisible = false;
+        }
     }
     private void ChangesPlaceholder(string text)
     {
