@@ -37,7 +37,6 @@ public partial class SearchEntryControls : Grid
 
     private void TxtEntry_Unfocused(object sender, FocusEventArgs e)
     {
-        ChangesPlaceholder(Text);
         lblPlaceholder.IsVisible = true;
     }
 
@@ -77,14 +76,7 @@ public partial class SearchEntryControls : Grid
             control.lblPlaceholder.IsVisible = false;
         }
     }
-    private void ChangesPlaceholder(string text)
-    {
-        TxtEntry.IsEnabled = true;
 
-        if (string.IsNullOrEmpty(Text))
-            lblPlaceholder.IsVisible = true;
-        else lblPlaceholder.IsVisible = false;
-    }
     #endregion
 
     #region Commands
