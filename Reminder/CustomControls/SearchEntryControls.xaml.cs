@@ -8,7 +8,6 @@ public partial class SearchEntryControls : Grid
     public SearchEntryControls()
     {
         InitializeComponent();
-        //ChangesPlaceholder(null);
     }
 
 
@@ -31,18 +30,25 @@ public partial class SearchEntryControls : Grid
     #region Events
     private void TxtEntry_Focused(object sender, FocusEventArgs e)
     {
-        if(string.IsNullOrEmpty(Text)) lblPlaceholder.IsVisible = true;
+        if (string.IsNullOrEmpty(Text)) lblPlaceholder.IsVisible = true;
         else lblPlaceholder.IsVisible = false;
+        //TxtEntry.IsVisible = true;
+        //TxtEntry.IsEnabled = false;
+
     }
 
     private void TxtEntry_Unfocused(object sender, FocusEventArgs e)
     {
         lblPlaceholder.IsVisible = true;
+        IsVisible = false;
+        TxtEntry.IsEnabled = true;
     }
 
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         TxtEntry.Focus();
+        TxtEntry.IsEnabled = false;
+        IsVisible = false;
     }
 
     #endregion
@@ -68,12 +74,15 @@ public partial class SearchEntryControls : Grid
             control.searchBorder.IsVisible = true;
             control.lblPlaceholder.IsVisible = true;
             control.TxtEntry.Focus();
+            control.TxtEntry.IsEnabled = true;
+            control.TxtEntry.IsVisible = true;
         }
         else
         {
             control.TxtEntry.Text = null;
             control.searchBorder.IsVisible = false;
             control.lblPlaceholder.IsVisible = false;
+            control.TxtEntry.IsEnabled = false;
         }
     }
 
@@ -82,11 +91,6 @@ public partial class SearchEntryControls : Grid
     #region Commands
     public ICommand ReturnCommand => new DelegateCommand(() =>
     {
-        TxtEntry.Text = null;
-        TxtEntry.Unfocus();
-        //searchBorder.IsVisible = false;
-        //lblPlaceholder.IsVisible = false;
-        IsVisible = false;
     });
     #endregion
 }
