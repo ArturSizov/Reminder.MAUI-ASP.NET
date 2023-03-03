@@ -1,4 +1,5 @@
-﻿using Reminder.Contracts.Models;
+﻿using Microsoft.Maui.Platform;
+using Reminder.Contracts.Models;
 using Reminder.ViewModels.PopupViewModels;
 using Reminder.Views.ViewsPopup;
 
@@ -95,5 +96,5 @@ namespace Reminder.Services
 #endif
             }
         }
-    }
+    }    
 }

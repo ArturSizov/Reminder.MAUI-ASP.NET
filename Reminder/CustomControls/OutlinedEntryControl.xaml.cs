@@ -112,6 +112,7 @@ public partial class OutlinedEntryControl : Grid
         }
     }
     #endregion
+
     #region Commands
     public ICommand ReturnCommand => new DelegateCommand(() =>
     {

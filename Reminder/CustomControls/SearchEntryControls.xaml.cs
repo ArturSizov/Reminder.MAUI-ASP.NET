@@ -1,4 +1,6 @@
+using Microsoft.Maui.Platform;
 using Prism.Commands;
+using Reminder.Services;
 using System.Windows.Input;
 
 namespace Reminder.CustomControls;
@@ -32,9 +34,9 @@ public partial class SearchEntryControls : Grid
     {
         if (string.IsNullOrEmpty(Text)) lblPlaceholder.IsVisible = true;
         else lblPlaceholder.IsVisible = false;
-        //TxtEntry.IsVisible = true;
-        //TxtEntry.IsEnabled = false;
-
+#if ANDROID
+        Platform.CurrentActivity.ShowKeyboard(Platform.CurrentActivity.CurrentFocus); //Open keyboard
+#endif
     }
 
     private void TxtEntry_Unfocused(object sender, FocusEventArgs e)
@@ -85,12 +87,15 @@ public partial class SearchEntryControls : Grid
             control.TxtEntry.IsEnabled = false;
         }
     }
-
     #endregion
 
     #region Commands
     public ICommand ReturnCommand => new DelegateCommand(() =>
     {
+        TxtEntry.Text = null;
+        searchBorder.IsVisible = false;
+        lblPlaceholder.IsVisible = false;
+        TxtEntry.IsEnabled = false;
     });
     #endregion
 }

@@ -25,7 +25,7 @@
                    IsVisible="{Binding IsVisibleTitle}"/>
 
             <customControls:SearchEntryControls
-                Placeholder="Начните вводить имя или фамилию"
+                Placeholder="Поиск..."
                 IsVisible="{Binding IsVisibleEntry}"
                 Text="{Binding TextSearch}"/>
 
