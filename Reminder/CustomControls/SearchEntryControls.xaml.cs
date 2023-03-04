@@ -1,6 +1,5 @@
 using Microsoft.Maui.Platform;
 using Prism.Commands;
-using Reminder.Services;
 using System.Windows.Input;
 
 namespace Reminder.CustomControls;
@@ -17,6 +16,8 @@ public partial class SearchEntryControls : Grid
     public string Text { get => (string)GetValue(TextProperty); set => SetValue(TextProperty, value); }
     public new bool IsVisible { get => (bool)GetValue(IsVisibleProperty); set { SetValue(IsVisibleProperty, value); } }
     public string Placeholder { get => (string)GetValue(PlaceholderProperty); set { SetValue(PlaceholderProperty, value); } }
+    public int CountPersons { get => (int)GetValue(CountPersonsProperty); set { SetValue(CountPersonsProperty, value); } }
+
     #endregion
 
     #region BindableProperty
@@ -27,6 +28,9 @@ public partial class SearchEntryControls : Grid
 
     public static readonly new BindableProperty IsVisibleProperty = BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(SearchEntryControls), true, BindingMode.TwoWay,
        propertyChanged: IsVisiblePropertyChanget);
+
+    public static readonly BindableProperty CountPersonsProperty = BindableProperty.Create(nameof(CountPersons), typeof(int), typeof(SearchEntryControls));
+
     #endregion
 
     #region Events
@@ -92,10 +96,19 @@ public partial class SearchEntryControls : Grid
     #region Commands
     public ICommand ReturnCommand => new DelegateCommand(() =>
     {
-        TxtEntry.Text = null;
-        searchBorder.IsVisible = false;
-        lblPlaceholder.IsVisible = false;
-        TxtEntry.IsEnabled = false;
+        if (CountPersons == 0)
+        {
+            TxtEntry.Text = null;
+            searchBorder.IsVisible = false;
+            lblPlaceholder.IsVisible = false;
+            TxtEntry.IsEnabled = false;
+        }
+        else
+        {
+#if ANDROID
+        Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus); //Close keyboard
+#endif
+        }
     });
     #endregion
 }

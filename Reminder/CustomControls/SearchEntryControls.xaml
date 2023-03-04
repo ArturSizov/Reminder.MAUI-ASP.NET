@@ -19,7 +19,7 @@
             IsVisible="{Binding Source={x:Reference this}, Path=IsEnabled}"
             TextColor="Gray"
             HorizontalTextAlignment="Start"
-            ReturnCommand="{Binding Source={x:Reference this}, Path=ReturnCommand}" 
+            ReturnCommand="{Binding Source={x:Reference this}, Path=ReturnCommand}"
             WidthRequest="280"
             BackgroundColor="{StaticResource Primary}"/>
     </Border>

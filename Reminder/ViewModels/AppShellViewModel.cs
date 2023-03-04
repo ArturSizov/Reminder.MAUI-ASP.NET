@@ -13,9 +13,9 @@ namespace Reminder.ViewModels
         /// </summary>
         public ICommand GoToAddPersonCommand => new DelegateCommand(async() =>
         {
-            Shell.Current.FlyoutIsPresented = false;
-
             await Shell.Current.GoToAsync(nameof(AddPersonPage));
+
+            Shell.Current.FlyoutIsPresented = false;
         });
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace Reminder.ViewModels
         /// </summary>
         public ICommand GoToSettingCommand => new DelegateCommand(async () =>
         {
-            Shell.Current.FlyoutIsPresented = false;
-
             await Shell.Current.GoToAsync(nameof(SettingsPage));
+
+            Shell.Current.FlyoutIsPresented = false;
         });
         #endregion
     }

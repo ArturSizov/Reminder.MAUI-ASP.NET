@@ -64,7 +64,6 @@ namespace Reminder.ViewModels
             this.data = data;
             this.notification = notification;
             this.settings = settings;
-            //IsVisibleTitle = true;
             IsVisibleEntry = false;
             settings.LoadData(); // load settings
             GetPersons();
@@ -76,9 +75,12 @@ namespace Reminder.ViewModels
 #if ANDROID
             ClearingСache();
 #endif
-            var p = serPersons.Where(p => p.Name != null && p.Name.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)
-                    || p.LastName != null && p.LastName.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)
-                    || p.MiddleName != null && p.MiddleName.Contains(TextSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+            var p = serPersons.Where(p => p.Name != null && p.Name.Contains(TextSearch.Trim(), StringComparison.OrdinalIgnoreCase)
+                    || p.LastName != null && p.LastName.Contains(TextSearch.Trim(), StringComparison.OrdinalIgnoreCase)
+                    || p.MiddleName != null && p.MiddleName.Contains(TextSearch.Trim(), StringComparison.OrdinalIgnoreCase)).ToList();
+
+            var x = serPersons.Where(p => p.Name.Any(Char.IsWhiteSpace));
+
             if (p.Count > 0)
             {
                 Persons.Clear();
@@ -182,13 +184,6 @@ namespace Reminder.ViewModels
         {
             if(IsVisibleEntry) IsVisibleEntry = false;
             else IsVisibleEntry = true;
-
-            //if (IsVisibleTitle == false)
-            //{
-            //    IsVisibleTitle = true;
-            //    TextSearch = null;
-            //}
-            //else IsVisibleTitle = false;
         });
 
         #endregion
