@@ -20,7 +20,7 @@ namespace Reminder.ViewModels
         private bool isVisibleEntry;
         private bool isVisibleTitle;
         private string textSearch;
-        private  ObservableCollection<Person> serPersons = new(); //Immutable collection to search
+        private ObservableCollection<Person> serPersons = new(); //Immutable collection to search
 
         #endregion
 
@@ -184,7 +184,8 @@ namespace Reminder.ViewModels
             else
             {
                 IsVisibleEntry = true;
-                GetPersons();
+               
+                if(serPersons.Count != data.Persons.Count) GetPersons();
             }
         });
 
