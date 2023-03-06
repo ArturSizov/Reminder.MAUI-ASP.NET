@@ -79,8 +79,6 @@ namespace Reminder.ViewModels
                     || p.LastName != null && p.LastName.Contains(TextSearch.Trim(), StringComparison.OrdinalIgnoreCase)
                     || p.MiddleName != null && p.MiddleName.Contains(TextSearch.Trim(), StringComparison.OrdinalIgnoreCase)).ToList();
 
-            var x = serPersons.Where(p => p.Name.Any(Char.IsWhiteSpace));
-
             if (p.Count > 0)
             {
                 Persons.Clear();
@@ -182,8 +180,12 @@ namespace Reminder.ViewModels
         /// </summary>
         public ICommand IsEnabledEntryCommand => new DelegateCommand(() =>
         {
-            if(IsVisibleEntry) IsVisibleEntry = false;
-            else IsVisibleEntry = true;
+            if (IsVisibleEntry) IsVisibleEntry = false;
+            else
+            {
+                IsVisibleEntry = true;
+                GetPersons();
+            }
         });
 
         #endregion

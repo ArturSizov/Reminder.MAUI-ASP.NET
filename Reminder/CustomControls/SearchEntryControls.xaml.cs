@@ -1,6 +1,7 @@
 using Microsoft.Maui.Platform;
 using Prism.Commands;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Reminder.CustomControls;
 
@@ -10,7 +11,6 @@ public partial class SearchEntryControls : Grid
     {
         InitializeComponent();
     }
-
 
     #region Public property
     public string Text { get => (string)GetValue(TextProperty); set => SetValue(TextProperty, value); }
@@ -102,12 +102,21 @@ public partial class SearchEntryControls : Grid
             searchBorder.IsVisible = false;
             lblPlaceholder.IsVisible = false;
             TxtEntry.IsEnabled = false;
+            IsVisible = false;
+
         }
         else
         {
 #if ANDROID
         Platform.CurrentActivity.HideKeyboard(Platform.CurrentActivity.CurrentFocus); //Close keyboard
+
 #endif
+            if (string.IsNullOrEmpty(TxtEntry.Text))
+            {
+                lblPlaceholder.IsVisible = true;
+                IsVisible = false;
+                TxtEntry.IsEnabled = true;
+            }
         }
     });
     #endregion
